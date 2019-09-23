@@ -75,12 +75,12 @@
 		    	        
 		    	        if (tooltip.dataPoints.length) {
 		    	        	var i = tooltip.dataPoints[0].index;
-		    	            document.getElementById('gamename').innerText=data.datasets[0].name[i].gamename;
-		    	            document.getElementById('spectype').innerText="권장사양";
-		    	            document.getElementById('windowtype').innerText="64bit";
-		    	            document.getElementById('cpuname').innerText=data.datasets[0].name[i].cpu;
-		    	            document.getElementById('memory').innerText=data.datasets[0].name[i].ram;
-		    	            document.getElementById('gpuname').innerText=data.datasets[0].name[i].vga;
+		    	        	document.getElementById('gameimg').src = data.datasets[0].pointStyle[i].src;
+		    	            	document.getElementById('spectype').innerText="권장사양";
+		    	           	 document.getElementById('windowtype').innerText="64bit";
+		    	            	document.getElementById('cpuname').innerText=data.datasets[0].name[i].cpu;
+		    	            	document.getElementById('memory').innerText=data.datasets[0].name[i].ram;
+		    	            	document.getElementById('gpuname').innerText=data.datasets[0].name[i].vga;
 		    	        }
 
 		    	        var positionY = this._chart.canvas.offsetTop;
@@ -322,7 +322,7 @@
 	     	<table style="width:100%;">
 			<tr>
 				<th colspan="2">
-					<h1 id="gamename"></h1>
+					<img id="gameimg" />
 				</th>
 			</tr>
 			<tr>
