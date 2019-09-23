@@ -37,8 +37,8 @@ public class SeleniumTest {
         options.addArguments("headless");
         
         //Driver SetUp
-        driver = new ChromeDriver();
-        base_url = "http://prod.danawa.com/list/?cate=1131326";
+        driver = new ChromeDriver(options);
+        base_url = "https://gpu.userbenchmark.com/";
     }
  
     public void crawl() {
@@ -54,8 +54,8 @@ public class SeleniumTest {
             
             /*WebElement test = driver.findElement(By.xpath("//*[@id='tableDataForm:j_idt286']"));
             test.click();*/
-            Thread.sleep(5000);
-            List<WebElement> element = driver.findElements(By.className("prod_name"));
+            Thread.sleep(3000);
+            List<WebElement> element = driver.findElements(By.className("semi-strongs lighterblacktexts"));
             for(WebElement ele : element) {
             	System.out.println(ele.getText());
             }
@@ -70,5 +70,5 @@ public class SeleniumTest {
         }
  
     }
- 
+
 }
