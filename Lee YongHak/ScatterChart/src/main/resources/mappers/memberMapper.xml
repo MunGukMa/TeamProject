@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="one.two.three.dao.MemberMapper">
+	
+	<insert id="signUP" parameterType="Member">
+	
+		insert into
+			chart_member
+		values
+		(
+			#{fitc_id},
+			#{fitc_pw},
+			#{fitc_name},
+			#{fitc_email}
+		)
+				
+	</insert>
+	
+	<select id="checkID" parameterType="Member" resultType="int">
+	
+		select
+			count(*)
+		from
+			chart_member
+		where
+			fitc_id = #{fitc_id}	
+	</select>
+	
+	<select id="logIN" parameterType="Member" resultType="Member">
+	
+		select *
+		from
+			chart_member
+		where
+			fitc_id = #{fitc_id}
+			AND fitc_pw = #{fitc_pw}
+				
+	</select>
+	
+</mapper>
+
