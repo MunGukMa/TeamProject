@@ -9,7 +9,7 @@
 <body>
 <h1>로그인 페이지</h1>
 <div class="login">
-	<form action="">
+	<form action="logIN" method="post">
 		<table>
 			<tr>
 				<td>아이디 : </td>
@@ -23,10 +23,10 @@
 				<td><input type="submit" value="로그인"/></td>
 				<td><input type="button" value="취소" /></td>
 			</tr>
-			
-		</table>
+		</table>		
 	</form>
-
+	<a href="signupForm">아직 회원이 아니신가요?</a><br>
+	<a href="#">아이디/비밀번호찾기</a>
 </div>
 </body>
 </html>

@@ -9,12 +9,12 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.min.js"></script>
 	<script>
-		var temp;
 		var gameary = new Array();
 		var gameicon = new Array();
-		
+		var addwin ;
+		var testva;
 		window.onload = function(){
-			var ctx = document.getElementById("example").getContext('2d');
+			var ctx = document.getElementById("mainchart").getContext('2d');
 			var myChart
 			
 			$.ajax
@@ -63,30 +63,24 @@
 					mode: 'index',
 					position: 'nearest',
 					custom:  function (tooltip){
-		    			var tooltipEl = document.getElementById('chartjs-tooltip');   // Tooltip Element 
+						/* testva = tooltip;
+						if(tooltip!=null)
+						{
+							addwin = window.open("/one/test","_blank","width=400px,height=300px");
+						} */
+						
+						document.getElementById('nondiv').style.display="";
 
-		    			if (tooltip.opacity === 0) {		 // Hide if no tooltip
-		    		        tooltipEl.style.opacity = 0; 
-		    		        return; 
-		    		    }
-
-		    			tooltipEl.classList.remove('above', 'below', 'no-transform');		// Set caret Position
-		    	        if (tooltip.yAlign) {
-		    	        	tooltipEl.classList.add(tooltip.yAlign);
-		    	        } else {
-		    	        	tooltipEl.classList.add('no-transform');
-		    	        }
 
 		    	        
 		    	        if (tooltip.dataPoints.length) {
 		    	        	var i = tooltip.dataPoints[0].index;
-		    	            
-		    	        	$("#spn-title").text(data.datasets[0].name[i].gamename);
-		    	            $("#spn-gLv").text(data.datasets[0].data[i].y);
-		    	            $("#spn-pLv").text(data.datasets[0].data[i].x);
-		    	            $("#spn-cpu").text(data.datasets[0].name[i].cpu);
-		    	            $("#spn-ram").text(data.datasets[0].name[i].ram);
-		    	            $("#spn-vga").text(data.datasets[0].name[i].vga);
+		    	        	document.getElementById('gameimg').src = data.datasets[0].pointStyle[i].src;
+		    	            	document.getElementById('spectype').innerText="권장사양";
+		    	           	 document.getElementById('windowtype').innerText="64bit";
+		    	            	document.getElementById('cpuname').innerText=data.datasets[0].name[i].cpu;
+		    	            	document.getElementById('memory').innerText=data.datasets[0].name[i].ram;
+		    	            	document.getElementById('gpuname').innerText=data.datasets[0].name[i].vga;
 		    	        }
 
 		    	        var positionY = this._chart.canvas.offsetTop;
@@ -94,13 +88,6 @@
 
 		    	     	// Display, position, and set styles for font
 		    	     	
-		    	        tooltipEl.style.opacity = 1;
-		    	        tooltipEl.style.left = positionX + tooltip.caretX + 'px';
-		    	        tooltipEl.style.top = positionY + tooltip.caretY + 'px';
-		    	        tooltipEl.style.fontFamily = tooltip._fontFamily;
-		    	        tooltipEl.style.fontSize = tooltip.fontSize;
-		    	        tooltipEl.style.fontStyle = tooltip._fontStyle;
-		    	        tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';    
 		    	        
 		    		}
 				},
@@ -130,14 +117,23 @@
 			});
 						                     			
 		}
+		
+		function closediv()
+		{
+			document.getElementById('nondiv').style.display="none";
+		}
 						
 	</script>
 	<style>
+		a
+		{
+			text-decoration:none;
+		}
 		/*div{
 	        border: 1px solid #ccc;
 	    }*/
 	
-	    h1{
+	    h1, h5{
 	        text-align: center;
 	        font-family: 'NanumGothic';
 	    }
@@ -145,8 +141,8 @@
 	    .box1{
 	        margin-top: 30px;
 	        margin-left: 20%;
-	        width: 40%;
-	        height: 400px;
+	        width: 60%;
+	        height: 60%;
 	        margin-bottom: 5%; 
 	        align-content: center
 	    }
@@ -243,6 +239,8 @@
 	    	-moz-user-select: none;
 	    	-webkit-user-select: none;
 	    	-ms-user-select: none; 
+	    	width: 100%;
+	    	height:50%;
 	    }
 	    
 	    #chartjs-tooltip { 
@@ -256,7 +254,7 @@
 		    pointer-events: none; 	
 		    -webkit-transform: translate(-50%, 0); 	
 		    transform: translate(-50%, 0); 	
-		    min-width: 200px; 
+		    min-width: 10%; 
 	    }
 	    
 	    .chartjs-tooltip-key { 
@@ -264,6 +262,17 @@
 		    width: 10px; 		
 		    height: 10px; 		
 		    margin-right: 10px; 	
+	    }
+	    #nondiv
+	    {
+	    	position:absolute;
+	    	left:55%;
+	    	width:25%;
+	    	top:20%;
+	    	text-align:center;
+	    	background:rgba;
+	    	border:10px solid lightblue;
+	    	border-radius:25px;
 	    }
 	</style>
 </head>
@@ -273,7 +282,9 @@
             <h1>
                 <a href="#" >Fit-c</a>
             </h1>
-            
+			<h5>
+				Fit your game
+			</h5>            
         </div>
     </header>
     <aside>
@@ -289,9 +300,9 @@
 	        	<li class="topMenuLi" value="banner">
 	        		<a class="menuLink">welcome</a>
 	        		<ul class="submenu">
-	        			<li><a href="#" class="submenuLink longLink">견적 맞추기</a></li>
-	        			<li><a href="#" class="submenuLink longLink">게임 상세 랭킹</a></li>
-	        			<li><a href="#" class="submenuLink longLink">사용자 게시판</a></li>
+	        			<li><a href="#" class="submenuLink longLink">메뉴1</a></li>
+	        			<li><a href="#" class="submenuLink longLink">메뉴2</a></li>
+	        			<li><a href="#" class="submenuLink longLink">메뉴3</a></li>
 	        			<c:if test="${sessionScope.userid == null }">
 	        				<li><a href="loginForm" class="submenuLink longLink">LOGIN</a></li>
 	        			</c:if>
@@ -305,12 +316,76 @@
         </div>
     </aside>
 	<section>
-        <div class="box1" id="chart_div" style="width: 900px; height: 500px;">
-	            본문<br>
-	            그래프가 들어갈 자리 
-	     <canvas id="example" width="600" height="400"></canvas>
+        <div class="box1" id="chart_div" >
+	     <canvas id="mainchart" ></canvas>
+	     <div id="nondiv" style="display:none;">
+	     	<table style="width:100%;">
+			<tr>
+				<th colspan="2">
+					<img id="gameimg" />
+				</th>
+			</tr>
+			<tr>
+				<th id="spectype" colspan="2">
+				
+				</th>
+			</tr>
+			<tr>
+				<th>
+					운영체제
+				</th>
+				<td id="windowtype">
+				
+				</td>
+			</tr>
+			<tr>
+				<th>
+					CPU
+				</th>
+				<td id="cpuname">
+				
+				</td>
+			</tr>
+			<tr>
+				<th>
+					MEMORY
+				</th>
+				<td id="memory">
+				
+				</td>
+			</tr>
+			<tr>
+				<th>
+					GPU
+				</th>
+				<td id="gpuname">
+				
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Additional Option
+				</th>
+				<td id="addop">
+				
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input id="rebtn" type="button" value="추천견적" onclick="alert('추천견적');">
+					<input id="fitbtn" type="button" value="맞춤견적" onclick="alert('맞춤견적');">
+					<input id="rvbtn" type="button" value="최저가견적" onclick="alert('최저가견적');">
+					<input id="rvbtn" type="button" value="창 닫기" onclick="closediv();">
+				</td>
+			</tr>
+		</table>
 	     
+    		</div>
         </div>	
+     <div id="detail">
+    		
+    </div>
+    
     </section>
 	<footer>
         <div class="footer">
@@ -319,17 +394,7 @@
         </div>
     </footer>
     
-    <div id="chartjs-tooltip" class="center bottom">
-    	<p><span><span id="spn-title"></span>의 견적</span></p>
-    	<div>
-    		<span>gamelevel : <span id ="spn-gLv"></span></span><br />
-    		<span>pclevel : <span id="spn-pLv"></span></span><br />
-    		<span>CPU : <span id="spn-cpu"></span></span><br />
-    		<span>RAM : <span id="spn-ram"></span></span><br />
-    		<span>VGA : <span id="spn-vga"></span></span><br />
-    		<span><a href ="#">링크 test</a></span>
-    	</div>
-    </div>
+ 
 	
 </body>
 </html>
