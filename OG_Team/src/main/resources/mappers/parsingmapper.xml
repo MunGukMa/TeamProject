@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team.project.one.dao.ParsingMapper">
+	<!-- <insert id="insertMainBoard" parameterType="MainBoardVO" >
+		insert into
+			mainboard
+		values(
+			mb_seq.nextval,#{name},#{sockets},#{formFactor},#{chipset},#{RAM},
+			#{releaseDate},#{audioChip},#{usb2},#{usb3},#{sata},null
+		)
+	</insert> -->
+	<insert id="insertMainBoard" parameterType="java.util.List">
+		insert into mainboard(num, name, sockets, formFactor, chipSet, RAM, releaseDate, audioChip, usb2, usb3, sata)
+		select seq.nextval, A.* from(
+ 		<foreach item="item" collection="list" separator="UNION ALL " >
+   			select #{item.name} as name,
+        	#{item.sockets} as sockets,
+       		#{item.formFactor} as formFactor,
+       		#{item.chipset} as chipset,
+       		#{item.RAM} as RAM,
+       		#{item.releaseDate} as releaseDate,
+       		#{item.audioChip} as audioChip,
+       		#{item.usb2} as usb2,
+       		#{item.usb3} as usb3,
+       		#{item.sata} as sata,
+  			from dual
+ 		</foreach>) A
+</insert>
+	<select id="getnumber" resultType="int">
+		select 
+			count(name)
+		from 
+			mainboard
+	</select>
+	
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team.project.one.dao.ChartMapper">
+	
+	<select id="gamelist" resultType="GameVO">
+	
+	select 
+		*
+	from
+		gamelist
+	
+	</select>
+	<select id="selectOneGame" parameterType="GameVO" resultType="GameVO">
+	
+	select 
+		*
+	from
+		gamelist
+	where 
+		gamename = #{gamename}
+	</select>
+</mapper>
+
