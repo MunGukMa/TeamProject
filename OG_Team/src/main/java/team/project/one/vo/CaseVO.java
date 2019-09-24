@@ -9,11 +9,11 @@ public class CaseVO
 	String casesize;
 	String addop;
 	
-	public NaverCaseVO() {
+	public CaseVO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public NaverCaseVO(String casename, String rowprice, String power, String mainboardsize, String casesize,
+	public CaseVO(String casename, String rowprice, String power, String mainboardsize, String casesize,
 			String addop) {
 		super();
 		this.casename = casename;
@@ -76,7 +76,7 @@ public class CaseVO
 
 	@Override
 	public String toString() {
-		return "NaverCaseVO [casename=" + casename + ", rowprice=" + rowprice + ", power=" + power + ", mainboardsize="
+		return "CaseVO [casename=" + casename + ", rowprice=" + rowprice + ", power=" + power + ", mainboardsize="
 				+ mainboardsize + ", casesize=" + casesize + ", addop=" + addop + "]";
 	}
 	
