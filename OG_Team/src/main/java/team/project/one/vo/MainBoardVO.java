@@ -1,4 +1,4 @@
-package team.project.one.vo;
+package parshing;
 
 public class MainBoardVO {
 	String name;
@@ -120,5 +120,3 @@ public class MainBoardVO {
 	
 	
 }
-
-
