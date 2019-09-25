@@ -1,6 +1,7 @@
 package com.test.team;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -38,7 +39,7 @@ public class RamDanawaCrawling {
 		options.addArguments("headless");
 
 		//Driver SetUp
-		driver = new ChromeDriver();
+		driver = new ChromeDriver(options);
 		base_url = "http://prod.danawa.com/list/?cate=1131326&15main_11_03";
 	}
 
@@ -46,36 +47,50 @@ public class RamDanawaCrawling {
 
 		try {
 			int page=1;
+			String name = null;
+			String spec = null;
+			String src_link = null;
 			JavascriptExecutor js = (JavascriptExecutor)driver;
-			//get page (= 브라우저에서 url을 주소창에 넣은 후 request 한 것과 같다)
 			driver.get(base_url);
-			/*WebElement element = driver.findElement(By.name("productName"));
-            System.out.println(element.getText());*/
-			while(true) {
-				if(page>=2)
-					js.executeScript("return movePage("+page+")");
 
-				/*WebElement test = driver.findElement(By.xpath("//*[@id='tableDataForm:j_idt286']"));
-            test.click();*/
-				Thread.sleep(5000);
-				List<WebElement> element = driver.findElements(By.className("prod_name"));
-				if(element == null) break;
-				System.out.println("=========================================================================");
-				System.out.println("--"+page+" 페이지--");
-				for(WebElement ele : element) 
-					System.out.println(ele.getText());
+			while(true) {
+				js.executeScript("return movePage("+page+")");
+
+				Thread.sleep(3000);
+				List<WebElement> element = driver.findElements(By.className("prod_main_info"));
 				
 				System.out.println("=========================================================================");
+				System.out.println("--"+page+" 페이지--");
+
+
+				for(WebElement ele : element){
+					try {
+						if(ele.findElement(By.name("productName")).getText().length()>5){
+							name = ele.findElement(By.name("productName")).getText();
+						spec = ele.findElement(By.className("spec_list")).getText();
+						src_link = ele.findElement(By.className("image_lazy")).getAttribute("data-original");
+						System.out.println(name);
+						System.out.println(spec);
+						System.out.println(src_link);
+						System.out.println();
+						}
+					} catch (Exception e) {
+					}
+				}
+				System.out.println("=========================================================================");
 				page++;
+				if(page==31)
+					break;
 			}
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			//e.printStackTrace();
 
 		} finally {
 
 			driver.close();
 		}
+		driver.close();
 
 	}
 
