@@ -37,5 +37,12 @@ tdp varchar2(100) not null,
 released varchar2(100) not null,
 point number not null)
 
-
+create table case(
+num number primary key,
+casename varchar2(50),
+rowprice varchar2(20),
+power varchar2(50),
+mainboardsize varchar2(50),
+casesize varchar2(100),
+addop varchar2(150))
 
