@@ -2,6 +2,7 @@ package team.project.one.vo;
 
 public class GameVO 
 {
+	private int num;
 	private String gamename;
 	private int gamelevel;
 	private int pclevel;
@@ -17,9 +18,10 @@ public class GameVO
 		// TODO Auto-generated constructor stub
 	}
 
-	public GameVO(String gamename, int gamelevel, int pclevel, String imagelink, String gamecpu, String gameram,
-			String gamevga, String gamegpu, String gameaddop, String memo) {
+	public GameVO(int num, String gamename, int gamelevel, int pclevel, String imagelink, String gamecpu,
+			String gameram, String gamevga, String gamegpu, String gameaddop, String memo) {
 		super();
+		this.num = num;
 		this.gamename = gamename;
 		this.gamelevel = gamelevel;
 		this.pclevel = pclevel;
@@ -30,6 +32,14 @@ public class GameVO
 		this.gamegpu = gamegpu;
 		this.gameaddop = gameaddop;
 		this.memo = memo;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
 	}
 
 	public String getGamename() {
@@ -114,11 +124,11 @@ public class GameVO
 
 	@Override
 	public String toString() {
-		return "GameVO [gamename=" + gamename + ", gamelevel=" + gamelevel + ", pclevel=" + pclevel + ", imagelink="
-				+ imagelink + ", gamecpu=" + gamecpu + ", gameram=" + gameram + ", gamevga=" + gamevga + ", gamegpu="
-				+ gamegpu + ", gameaddop=" + gameaddop + ", memo=" + memo + "]";
+		return "GameVO [num=" + num + ", gamename=" + gamename + ", gamelevel=" + gamelevel + ", pclevel=" + pclevel
+				+ ", imagelink=" + imagelink + ", gamecpu=" + gamecpu + ", gameram=" + gameram + ", gamevga=" + gamevga
+				+ ", gamegpu=" + gamegpu + ", gameaddop=" + gameaddop + ", memo=" + memo + "]";
 	}
-	
+
 	
 	
 }
