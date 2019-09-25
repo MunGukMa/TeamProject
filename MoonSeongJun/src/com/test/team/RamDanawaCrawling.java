@@ -1,8 +1,7 @@
 package com.test.team;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -47,12 +46,15 @@ public class RamDanawaCrawling {
 
 		try {
 			int page=1;
+			int num = 0;
 			String name = null;
 			String spec = null;
 			String src_link = null;
 			JavascriptExecutor js = (JavascriptExecutor)driver;
 			driver.get(base_url);
 
+			ArrayList<RamVO> list = new ArrayList<>();
+			
 			while(true) {
 				js.executeScript("return movePage("+page+")");
 
@@ -61,26 +63,26 @@ public class RamDanawaCrawling {
 				
 				System.out.println("=========================================================================");
 				System.out.println("--"+page+" 페이지--");
-
+				
 
 				for(WebElement ele : element){
 					try {
 						if(ele.findElement(By.name("productName")).getText().length()>5){
-							name = ele.findElement(By.name("productName")).getText();
+						name = ele.findElement(By.name("productName")).getText();
 						spec = ele.findElement(By.className("spec_list")).getText();
 						src_link = ele.findElement(By.className("image_lazy")).getAttribute("data-original");
-						System.out.println(name);
-						System.out.println(spec);
-						System.out.println(src_link);
-						System.out.println();
+						list.add(new RamVO(++num, name, spec, src_link));
 						}
 					} catch (Exception e) {
 					}
 				}
 				System.out.println("=========================================================================");
 				page++;
-				if(page==31)
+				if(page==29)
 					break;
+				for(RamVO vo : list){
+					System.out.println(vo); //리스트 출력
+				}
 			}
 		} catch (Exception e) {
 
