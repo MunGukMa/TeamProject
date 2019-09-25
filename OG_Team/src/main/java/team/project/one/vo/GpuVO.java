@@ -1,7 +1,8 @@
 package team.project.one.vo;
 
-public class GraphicCardVO {
-	private int gpu_sec;
+public class GpuVO {
+	
+	private int num;
 	private String company;
 	private String product_name;
 	private String chip;
@@ -15,15 +16,14 @@ public class GraphicCardVO {
 	private String tdp;
 	private int rank;
 	
-	public GraphicCardVO() {
+	public GpuVO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public GraphicCardVO(int gpu_sec, String company, String product_name, String chip, String released_date,
-			String bus, String m_size, String m_ddr, String m_bit, String g_clock, String m_clock, String tdp,
-			int rank) {
+	public GpuVO(int num, String company, String product_name, String chip, String released_date, String bus,
+			String m_size, String m_ddr, String m_bit, String g_clock, String m_clock, String tdp, int rank) {
 		super();
-		this.gpu_sec = gpu_sec;
+		this.num = num;
 		this.company = company;
 		this.product_name = product_name;
 		this.chip = chip;
@@ -38,12 +38,12 @@ public class GraphicCardVO {
 		this.rank = rank;
 	}
 
-	public int getGpu_sec() {
-		return gpu_sec;
+	public int getNum() {
+		return num;
 	}
 
-	public void setGpu_sec(int gpu_sec) {
-		this.gpu_sec = gpu_sec;
+	public void setNum(int num) {
+		this.num = num;
 	}
 
 	public String getCompany() {
@@ -144,12 +144,11 @@ public class GraphicCardVO {
 
 	@Override
 	public String toString() {
-		return "GraphicCardVO [gpu_sec=" + gpu_sec + ", company=" + company + ", product_name=" + product_name
-				+ ", chip=" + chip + ", released_date=" + released_date + ", bus=" + bus + ", m_size=" + m_size
-				+ ", m_ddr=" + m_ddr + ", m_bit=" + m_bit + ", g_clock=" + g_clock + ", m_clock=" + m_clock + ", tdp="
-				+ tdp + ", rank=" + rank + "]";
+		return "GpuVO [num=" + num + ", company=" + company + ", product_name=" + product_name + ", chip=" + chip
+				+ ", released_date=" + released_date + ", bus=" + bus + ", m_size=" + m_size + ", m_ddr=" + m_ddr
+				+ ", m_bit=" + m_bit + ", g_clock=" + g_clock + ", m_clock=" + m_clock + ", tdp=" + tdp + ", rank="
+				+ rank + "]";
 	}
-
 	
 	
 	
