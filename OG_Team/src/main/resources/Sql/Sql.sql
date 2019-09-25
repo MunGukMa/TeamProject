@@ -23,19 +23,19 @@ usb3 varchar2(100),
 sata varchar2(100),
 memo varchar2(50)
 )
-create sequence mb_seq
+
+create table cpu (
+num number primary key,
+cpuname varchar2(100) not null,
+cpucode varchar2(100) not null,
+cores varchar2(100) not null,
+clock varchar2(100) not null,
+socket varchar2(100) not null,
+process varchar2(100) not null,
+l3cache varchar2(100) not null,
+tdp varchar2(100) not null,
+released varchar2(100) not null,
+point number not null)
 
 
 
-insert into gamelist values('lol',9,2,'resources/icon/LOL.jpg','Intel Core I5-8600','16gb','gtx 1060',null,null);
-
-insert into gamelist values('overwatch',5,5,'resources/icon/overwatch.jpg','Intel Core I5-8600','16gb','gtx 1060',null,null);
-
-insert into gamelist values('battleground',6,4,'resources/icon/playerunknowns_battlegrounds.jpg','Intel Core I5-8600','16gb','gtx 1060',null,null);
-
-insert into gamelist values('dota2',2,3,'resources/icon/dota_2.jpg','Intel Core I5-8600','16gb','gtx 1060',null,null);
-
-insert into gamelist values('wow',7,1,'resources/icon/world_of_warcraft.jpg','Intel Core I5-8600','16gb','gtx 1060',null,null);
-
-insert into gamelist values('rainbow6',4,5,'resources/icon/tom_clancys_rainbow_six_siege.jpg','Intel Core I5-8600','16gb','gtx 1060',null,null);
-commit;
