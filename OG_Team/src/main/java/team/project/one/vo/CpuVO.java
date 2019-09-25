@@ -1,12 +1,9 @@
 package team.project.one.vo;
 
-import java.io.Serializable;
-
-package parshing;
 
 public class CpuVO 
 {
-	int cpunum;
+	int num;
 	String cpuname;
 	String cpucode;
 	String cores;
@@ -18,14 +15,14 @@ public class CpuVO
 	String released;
 	int point;
 	
-	public TechCpuVO() {
+	public CpuVO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TechCpuVO(int cpunum, String cpuname, String cpucode, String cores, String clock, String socket,
-			String process, String l3cache, String tdp, String released, int point) {
+	public CpuVO(int num, String cpuname, String cpucode, String cores, String clock, String socket, String process,
+			String l3cache, String tdp, String released, int point) {
 		super();
-		this.cpunum = cpunum;
+		this.num = num;
 		this.cpuname = cpuname;
 		this.cpucode = cpucode;
 		this.cores = cores;
@@ -38,12 +35,12 @@ public class CpuVO
 		this.point = point;
 	}
 
-	public int getCpunum() {
-		return cpunum;
+	public int getNum() {
+		return num;
 	}
 
-	public void setCpunum(int cpunum) {
-		this.cpunum = cpunum;
+	public void setNum(int num) {
+		this.num = num;
 	}
 
 	public String getCpuname() {
@@ -128,12 +125,11 @@ public class CpuVO
 
 	@Override
 	public String toString() {
-		return "TechCpuVO [cpunum=" + cpunum + ", cpuname=" + cpuname + ", cpucode=" + cpucode + ", cores=" + cores
-				+ ", clock=" + clock + ", socket=" + socket + ", process=" + process + ", l3cache=" + l3cache + ", tdp="
-				+ tdp + ", released=" + released + ", point=" + point + "]";
+		return "CpuVO [num=" + num + ", cpuname=" + cpuname + ", cpucode=" + cpucode + ", cores=" + cores + ", clock="
+				+ clock + ", socket=" + socket + ", process=" + process + ", l3cache=" + l3cache + ", tdp=" + tdp
+				+ ", released=" + released + ", point=" + point + "]";
 	}
 	
 	
 	
 }
-
