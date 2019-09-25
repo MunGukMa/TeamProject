@@ -2,6 +2,7 @@ package team.project.one.vo;
 
 public class CaseVO 
 {
+	int num;
 	String casename;
 	String rowprice;
 	String power;
@@ -13,9 +14,10 @@ public class CaseVO
 		// TODO Auto-generated constructor stub
 	}
 
-	public CaseVO(String casename, String rowprice, String power, String mainboardsize, String casesize,
+	public CaseVO(int num, String casename, String rowprice, String power, String mainboardsize, String casesize,
 			String addop) {
 		super();
+		this.num = num;
 		this.casename = casename;
 		this.rowprice = rowprice;
 		this.power = power;
@@ -23,9 +25,15 @@ public class CaseVO
 		this.casesize = casesize;
 		this.addop = addop;
 	}
-	
-	
-	
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
 	public String getCasename() {
 		return casename;
 	}
@@ -76,8 +84,11 @@ public class CaseVO
 
 	@Override
 	public String toString() {
-		return "CaseVO [casename=" + casename + ", rowprice=" + rowprice + ", power=" + power + ", mainboardsize="
-				+ mainboardsize + ", casesize=" + casesize + ", addop=" + addop + "]";
+		return "CaseVO [num=" + num + ", casename=" + casename + ", rowprice=" + rowprice + ", power=" + power
+				+ ", mainboardsize=" + mainboardsize + ", casesize=" + casesize + ", addop=" + addop + "]";
 	}
+	
+	
+	
 	
 }
