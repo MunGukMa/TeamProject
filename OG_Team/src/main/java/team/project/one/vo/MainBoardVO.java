@@ -1,6 +1,7 @@
-package parshing;
+package team.project.one.vo;
 
 public class MainBoardVO {
+	int num;
 	String name;
 	String sockets;
 	String formFactor;
@@ -13,22 +14,31 @@ public class MainBoardVO {
 	String sata;
 	
 	public MainBoardVO() {
-		
+		// TODO Auto-generated constructor stub
 	}
 
-	public MainBoardVO(String name, String sockets, String formFactor, String chipSet, String rAM, String releaseDate,
-			String audioChip, String usb2, String usb3, String sata) {
+	public MainBoardVO(int num, String name, String sockets, String formFactor, String chipSet, String rAM,
+			String releaseDate, String audioChip, String usb2, String usb3, String sata) {
 		super();
+		this.num = num;
 		this.name = name;
 		this.sockets = sockets;
 		this.formFactor = formFactor;
 		this.chipSet = chipSet;
-		this.RAM = rAM;
+		RAM = rAM;
 		this.releaseDate = releaseDate;
 		this.audioChip = audioChip;
 		this.usb2 = usb2;
 		this.usb3 = usb3;
 		this.sata = sata;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
 	}
 
 	public String getName() {
@@ -68,7 +78,7 @@ public class MainBoardVO {
 	}
 
 	public void setRAM(String rAM) {
-		this.RAM = rAM;
+		RAM = rAM;
 	}
 
 	public String getReleaseDate() {
@@ -113,10 +123,8 @@ public class MainBoardVO {
 
 	@Override
 	public String toString() {
-		return String.format(
-				"MainBoardVO [name=%s, sockets=%s, formFactor=%s, chipSet=%s, RAM=%s, releaseDate=%s, audioChip=%s, usb2=%s, usb3=%s, sata=%s]",
-				name, sockets, formFactor, chipSet, RAM, releaseDate, audioChip, usb2, usb3, sata);
+		return "MainBoardVO [num=" + num + ", name=" + name + ", sockets=" + sockets + ", formFactor=" + formFactor
+				+ ", chipSet=" + chipSet + ", RAM=" + RAM + ", releaseDate=" + releaseDate + ", audioChip=" + audioChip
+				+ ", usb2=" + usb2 + ", usb3=" + usb3 + ", sata=" + sata + "]";
 	}
-	
-	
 }
