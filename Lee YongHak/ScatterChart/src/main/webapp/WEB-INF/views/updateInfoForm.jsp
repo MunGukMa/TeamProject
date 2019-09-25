@@ -9,7 +9,7 @@
 <script>
 	function updateInfo(){
 		var fitc_pw = document.getElementById("fitc_pw");
-		var check_pw = document.getElementById("check_pw");.
+		var check_pw = document.getElementById("check_pw");
 		var fitc_nickname = document.getElementById("fitc_nickname");
 
 		if(fitc_pw.value.length<4 || fitc_pw.value.length>10){
