@@ -1,6 +1,7 @@
-package parshing;
+package team.project.one.vo;
 
 public class PowerVO {
+	int num;
 	String name;
 	String price;
 	String power;
@@ -12,15 +13,15 @@ public class PowerVO {
 	String connecter;
 	String etc;
 	String releaseDate;
-	
-	
-	public PowerVO() {
 
+	public PowerVO() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public PowerVO(String name, String price, String power, String output, String fanSize, String fanNum, String atx,
-			String sata, String connecter, String etc, String releaseDate) {
+	public PowerVO(int num, String name, String price, String power, String output, String fanSize, String fanNum,
+			String atx, String sata, String connecter, String etc, String releaseDate) {
 		super();
+		this.num = num;
 		this.name = name;
 		this.price = price;
 		this.power = power;
@@ -32,6 +33,14 @@ public class PowerVO {
 		this.connecter = connecter;
 		this.etc = etc;
 		this.releaseDate = releaseDate;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
 	}
 
 	public String getName() {
@@ -124,8 +133,12 @@ public class PowerVO {
 
 	@Override
 	public String toString() {
-		return String.format(
-				"name=%s , price=%s , power=%s , output=%s , fanSize=%s , fanNum=%s , atx=%s , sata=%s , connecter=%s , etc=%s , releaseDate=%s",
-				name, price, power, output, fanSize, fanNum, atx, sata, connecter, etc, releaseDate);
+		return "PowerVO [num=" + num + ", name=" + name + ", price=" + price + ", power=" + power + ", output=" + output
+				+ ", fanSize=" + fanSize + ", fanNum=" + fanNum + ", atx=" + atx + ", sata=" + sata + ", connecter="
+				+ connecter + ", etc=" + etc + ", releaseDate=" + releaseDate + "]";
 	}
+	
+	
+	
+	
 }
