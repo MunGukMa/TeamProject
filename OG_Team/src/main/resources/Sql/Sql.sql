@@ -46,3 +46,25 @@ mainboardsize varchar2(50),
 casesize varchar2(100),
 addop varchar2(150))
 
+create table gpu (
+gpu_sec number primary key,
+manufacturer varchar2(10) not null,
+product_name varchar2(50) not null,
+chip varchar2(20) not null,
+realeased_date varchar2(20) not null,
+bus varchar2(20) not null,
+m_size varchar2(20) not null,
+m_ddr varchar2(20) not null,
+m_bit varchar2(20) not null,
+g_clock varchar2(20) not null,
+m_clock varchar2(20) not null,
+tdp varchar2(20) not null,
+rank number not null
+); 
+
+create table ram (
+num number primary key,
+name varchar2(100) not null,
+spec varchar2(300) not null,
+src_link varchar2(300) not null
+);
