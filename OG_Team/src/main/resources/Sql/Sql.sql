@@ -1,4 +1,4 @@
-create table gamelist(
+create table fit_gamelist(
 gamename varchar2(20) primary key,
 gamelevel number,
 pclevel number,
@@ -9,7 +9,7 @@ gamegpu varchar2(50),
 gameaddop varchar2(100),
 memo varchar2(100))
 
-create table mainboard(
+create table fit_mainboard(
 num number primary key, 
 name varchar2(100), 
 sockets varchar2(100), 
@@ -24,7 +24,7 @@ sata varchar2(100),
 memo varchar2(50)
 )
 
-create table cpu (
+create table fit_cpu (
 num number primary key,
 cpuname varchar2(100) not null,
 cpucode varchar2(100) not null,
@@ -37,7 +37,7 @@ tdp varchar2(100) not null,
 released varchar2(100) not null,
 point number not null)
 
-create table case(
+create table fit_case(
 num number primary key,
 casename varchar2(50),
 rowprice varchar2(20),
@@ -46,7 +46,7 @@ mainboardsize varchar2(50),
 casesize varchar2(100),
 addop varchar2(150))
 
-create table gpu (
+create table fit_gpu (
 gpu_sec number primary key,
 manufacturer varchar2(10) not null,
 product_name varchar2(50) not null,
@@ -62,14 +62,14 @@ tdp varchar2(20) not null,
 rank number not null
 ); 
 
-create table ram (
+create table fit_ram (
 num number primary key,
 name varchar2(100) not null,
 spec varchar2(300) not null,
 src_link varchar2(300) not null
 );
 
-create table mainboard
+create table fit_mainboard
 (
     num number primary key,
     name varchar2(100) not null,
@@ -84,7 +84,7 @@ create table mainboard
     sata varchar2(20) not null
 );
 
-create table power
+create table fit_power
 (
     num number primary key,
     name varchar2(200) not null,
@@ -100,7 +100,7 @@ create table power
     releaseDate varchar2(20) not null
 );
 
-create table steam
+create table fit_steam
 (
     num number primary key,
     appid varchar2(100) not null,
