@@ -285,7 +285,7 @@
 	<header>
         <div>
             <h1>
-                <a href="#" >Fit-c</a>
+                <a href="/three" >Fit-c</a>
             </h1>
 			<h5>
 				Fit your game
@@ -304,7 +304,7 @@
 	    <c:if test="${sessionScope.fitc_id != null }">
 		    <ul>
 	        	<li class="topMenuLi" value="banner">
-	        		<a class="menuLink">${sessionScope.fitc_id}님 Welcome</a>
+	        		<a class="menuLink">${sessionScope.fitc_nickname}님 Welcome</a>
 	        		<ul class="submenu">
 	        			<li><a href="#" class="submenuLink longLink">메뉴1</a></li>
 	        			<li><a href="#" class="submenuLink longLink">메뉴2</a></li>

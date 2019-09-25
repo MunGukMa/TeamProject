@@ -73,10 +73,13 @@ public class MemberController {
 		session.setAttribute("fitc_id", vo.getFitc_id());
 		session.setAttribute("fitc_pw", vo.getFitc_pw());
 		session.setAttribute("fitc_name", vo.getFitc_name());
+		session.setAttribute("fitc_nickname", vo.getFitc_nickname());
 		session.setAttribute("fitc_email", vo.getFitc_email());
 		
 		System.out.println(dao.logIN(vo));
 		System.out.println(session.getAttribute("fitc_id"));
+		
+		
 		return "home";
 	}
 	
@@ -84,19 +87,16 @@ public class MemberController {
 	public String logOUT(MemberVO vo, HttpSession session) {
 		session.invalidate();
 		return "home";
-	}
+	}	
 
 	@RequestMapping(value = "searchInfo", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody 
 	public String searchInfo(MemberVO vo) {
 		MemberVO member = dao.searchInfo(vo);
 		String id = member.getFitc_id();
-
 		if(id != null) {
-			System.out.println("아이디 있지롱");
 			return id;
 		} else {
-			System.out.println("응 없어.");
 			return null;
 		}
 
@@ -106,21 +106,18 @@ public class MemberController {
 	@ResponseBody 
 	public String searchPW(MemberVO vo) {
 		vo = dao.searchPW(vo);
-		System.out.println(vo.getFitc_pw());
 		String pw = vo.getFitc_pw();
-		System.out.println("통과함");
 		if(pw != null) {
-			System.out.println("비밀번호 있지롱");
 			return pw;
 		} else {
-			System.out.println("스벌 없음.");
 			return null;
 		}
 	}
 	
 	@RequestMapping(value = "updateInfo", method = RequestMethod.POST)
-	public String updateInfo(MemberVO vo) {
+	public String updateInfo(MemberVO vo, HttpSession session) {
 		dao.updateInfo(vo);
+		System.out.println(vo);
 		return "home";
 	}
 

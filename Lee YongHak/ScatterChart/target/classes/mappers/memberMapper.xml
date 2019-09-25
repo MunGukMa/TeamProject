@@ -14,6 +14,7 @@
 			#{fitc_id},
 			#{fitc_pw},
 			#{fitc_name},
+			#{fitc_nickname},
 			#{fitc_email}
 		)
 				
@@ -68,10 +69,9 @@
 		update
 	 		chart_member
 	 	set 		
-	 		<if test="fitc_pw != ''">
-	 		fitc_pw = #{fitc_pw},
-	 		</if>
-	 		fitc_name = #{fitc_name},
+	 		
+	 		fitc_pw = #{fitc_pw},	 		
+	 		fitc_nickname = #{fitc_nickname},
 	 		fitc_email = #{fitc_email}
 	 	where
 	 		fitc_id = #{fitc_id}

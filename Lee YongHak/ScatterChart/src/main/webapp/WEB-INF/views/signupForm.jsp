@@ -7,18 +7,37 @@
 <title>Insert title here</title>
 <script>
 	function signUP(){
-		var fitc_id = document.getElementById("fitc_id").value;
-		var fitc_pw = document.getElementById("fitc_pw").value;
-		var check_pw = document.getElementById("check_pw").value;
-		var fitc_name = document.getElementById("fitc_name").value;
-		var fitc_email = document.getElementById("fitc_email").value;
+		var fitc_id = document.getElementById("fitc_id");
+		var fitc_pw = document.getElementById("fitc_pw");
+		var check_pw = document.getElementById("check_pw");
+		var fitc_name = document.getElementById("fitc_name");
+		var fitc_email = document.getElementById("fitc_email");
 
-		if(fitc_pw != check_pw){
-			alert('비밀번호가 일치하지 않습니다.');
+		
+		if(fitc_id.value.length<4 || fitc_id.value.length>10){
+			alert('아이디는 4~10글자로 입력해주세요');
+			fitc_id.focus();
+			return;
+		}
+
+		if(fitc_pw.value.length<4 || fitc_pw.value.length>10){
+			alert('비밀번호는 4~10글자로 입력해주세요');
 			fitc_pw.focus();
 			return;
 		}
 
+		if(fitc_nickname.value.length>10){
+			alert('닉네임은 10글자 이하로 입력해주세요');
+			fitc_nickname.focus();
+			return;
+		}
+		
+		if(fitc_pw.value != check_pw.value){
+			alert('비밀번호가 일치하지 않습니다.');
+			fitc_pw.focus();
+			return;
+		}
+		
 		var form = document.getElementById("signupForm");
 		form.submit();
 	}
@@ -35,7 +54,7 @@
 		<table>
 			<tr>
 				<td>아이디 : </td>
-				<td><input type="text" placeholder="아이디" name="fitc_id" id="fitc_id" /></td>
+				<td><input type="text" placeholder="아이디" name="fitc_id" id="fitc_id" readonly="readonly"/></td>
 				<td><input type="button" id="checkID" value="중복확인" onclick="window.open('checkidForm','pop', 'resizable=no scrollbars=yes top=300 left=500 width=300 height=180');return false"></td>
 			</tr>
 			<tr>
@@ -51,8 +70,12 @@
 				<td><input type="text" placeholder="이름" name="fitc_name" id="fitc_name" /></td>
 			</tr>
 			<tr>
+				<td>닉네임 : </td>
+				<td><input type="text" placeholder="닉네임" name="fitc_nickname" id="fitc_nickname" /></td>
+			</tr>
+			<tr>
 				<td>이메일 : </td>
-				<td><input type="text" placeholder="이메일" name="fitc_email" id="fitc_email" /></td>
+				<td><input type="email" placeholder="이메일" name="fitc_email" id="fitc_email" /></td>
 			</tr>
 			<tr>
 				<td><input type="button" value="회원가입" onclick="signUP()"/></td>
