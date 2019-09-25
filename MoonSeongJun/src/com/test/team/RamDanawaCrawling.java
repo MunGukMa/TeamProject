@@ -88,7 +88,7 @@ public class RamDanawaCrawling {
 
 		} finally {
 
-			driver.close();
+			//driver.close();
 		}
 		driver.close();
 
