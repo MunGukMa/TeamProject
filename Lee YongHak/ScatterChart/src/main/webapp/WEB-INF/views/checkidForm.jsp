@@ -8,6 +8,10 @@
 <script>
 	function idchk(){
 		var id = document.getElementById('fitc_id').value;
+		if(id == null || id == ""){
+			alert("아이디를 입력해주세요");
+			return;
+		}
 		location.href="/three/checkID?fitc_id="+id;
 		
 		/*var fitc_id = document.getElementById("fitc_id");
@@ -31,7 +35,7 @@
 <c:choose>
 	<c:when test="${result == true }">
 	<div style="display:;">
-		${sessionScope.fitc_id } 아이디는 사용가능합니다.
+		${fitc_id } 아이디는 사용가능합니다.
 		<p class="list_btn">
 		<a href="#" onclick="idsubmit()">적용</a>
 		</p>
@@ -40,14 +44,14 @@
 	<c:when test="${result == false }">
 	<form id="checkidForm" action="checkID" method="post">
 	<div style="display:;">
-		${sessionScope.fitc_id } 아이디는 이미 사용중입니다.
+		${fitc_id } 아이디는 이미 사용중입니다.
 		<p class="list_btn">
 		<input type="text" class="wr_idcheck" id="fitc_id"/> <a href="#" onclick="return idchk()">중복확인</a>
 		</p>
 	</div>
 	</form>
 	</c:when>
-	<c:when test="${result == null}">
+	<c:when test="${fitc_id == null}">
 	<form id="checkidForm" action="checkID" method="post">
 	<div style="display:;">
 		<p class="list_btn">

@@ -40,21 +40,24 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "signUP", method = RequestMethod.POST)
-	public String signUP(MemberVO vo) {
+	public String signUP(MemberVO vo,String fitc_email_01,String fitc_email_02) {
+		String mail = fitc_email_01+"@"+fitc_email_02;
+		vo.setFitc_email(mail);
+		System.out.println(vo);
 		dao.signUP(vo);
 		System.out.println(vo);
 		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "checkID", method = RequestMethod.GET)
-	public String checkID(MemberVO vo, RedirectAttributes rttr, HttpSession session) {
+	public String checkID(MemberVO vo, RedirectAttributes rttr) {
 		boolean result = false;
 		
 		if(dao.checkID(vo) == 1) {
-			session.setAttribute("fitc_id", vo.getFitc_id());
+			rttr.addFlashAttribute("fitc_id", vo.getFitc_id());			
 			result = false;
 		}else {
-			session.setAttribute("fitc_id", vo.getFitc_id());
+			rttr.addFlashAttribute("fitc_id", vo.getFitc_id());			
 			result = true;
 		}
 		if(vo.getFitc_id() == null || vo.getFitc_id().equals("")) {
@@ -69,16 +72,25 @@ public class MemberController {
 	
 	@RequestMapping(value = "logIN", method = RequestMethod.POST)
 	public String logIN(MemberVO vo, HttpSession session) {
-		vo = dao.logIN(vo);
-		session.setAttribute("fitc_id", vo.getFitc_id());
-		session.setAttribute("fitc_pw", vo.getFitc_pw());
-		session.setAttribute("fitc_name", vo.getFitc_name());
-		session.setAttribute("fitc_nickname", vo.getFitc_nickname());
-		session.setAttribute("fitc_email", vo.getFitc_email());
+		boolean result = false;
 		
-		System.out.println(dao.logIN(vo));
-		System.out.println(session.getAttribute("fitc_id"));
-		
+		if(dao.logIN(vo) != null) {
+			vo = dao.logIN(vo);
+			session.setAttribute("fitc_id", vo.getFitc_id());
+			session.setAttribute("fitc_pw", vo.getFitc_pw());
+			session.setAttribute("fitc_name", vo.getFitc_name());
+			session.setAttribute("fitc_nickname", vo.getFitc_nickname());
+			session.setAttribute("fitc_email", vo.getFitc_email());
+			
+			System.out.println("로그인 멤버 확인"+dao.logIN(vo));
+			System.out.println(session.getAttribute("fitc_id"));
+			result = true;
+			
+		}else {
+			System.out.println("로그인 멤버 확인"+dao.logIN(vo));
+			result = false;
+			
+		}		
 		
 		return "home";
 	}
@@ -115,7 +127,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "updateInfo", method = RequestMethod.POST)
-	public String updateInfo(MemberVO vo, HttpSession session) {
+	public String updateInfo(MemberVO vo, HttpSession session, String fitc_email_01, String fitc_email_02) {
+		String mail = fitc_email_01+"@"+fitc_email_02;
+		vo.setFitc_email(mail);
+		System.out.println(vo);
 		dao.updateInfo(vo);
 		System.out.println(vo);
 		return "home";

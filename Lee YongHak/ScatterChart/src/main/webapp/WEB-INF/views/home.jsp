@@ -122,6 +122,17 @@
 		{
 			document.getElementById('nondiv').style.display="none";
 		}
+
+		function logIN(){
+			var form = document.getElementById("login");
+			form.submit();
+
+			if(result==false){
+				alert("아이디와 비밀번호를 확인해주세요");
+				return;
+			}
+			
+		}		
 						
 	</script>
 	<style>
@@ -316,7 +327,7 @@
 	        </ul>
 	    </c:if>
 	    <c:if test="${sessionScope.fitc_id == null }">
-	    	<form action="logIN" method="post">
+	    	<form id="login" action="logIN" method="post">
 				<table>
 					<tr>
 						<td width="50px">ID : </td>
@@ -327,7 +338,7 @@
 						<td width="250px"><input type="password" name="fitc_pw" id="fitc_pw" style="width:70%" /></td>
 					</tr>
 					<tr>
-						<td width="50px"><input type="submit" value="로그인"/></td>
+						<td width="50px"><input type="button" value="로그인" onclick="logIN()"/></td>
 					</tr>
 				</table>		
 			</form>
