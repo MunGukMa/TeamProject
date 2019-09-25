@@ -22,6 +22,10 @@
 		var form = document.getElementById("signupForm");
 		form.submit();
 	}
+
+	function cancel(){
+		location.href="/three"
+	}
 </script>
 </head>
 <body>
@@ -31,28 +35,28 @@
 		<table>
 			<tr>
 				<td>아이디 : </td>
-				<td><input type="text" placeholder="아이디" id="fitc_id" /></td>
+				<td><input type="text" placeholder="아이디" name="fitc_id" id="fitc_id" /></td>
 				<td><input type="button" id="checkID" value="중복확인" onclick="window.open('checkidForm','pop', 'resizable=no scrollbars=yes top=300 left=500 width=300 height=180');return false"></td>
 			</tr>
 			<tr>
 				<td>비밀번호 : </td>
-				<td><input type="password" placeholder="비밀번호" id="fitc_pw" /></td>
+				<td><input type="password" placeholder="비밀번호" name="fitc_pw" id="fitc_pw" /></td>
 			</tr>
 			<tr>
 				<td>비밀번호 확인 : </td>
-				<td><input type="password" placeholder="비밀번호 확인" id="check_pw"></td>
+				<td><input type="password" placeholder="비밀번호 확인" name="check_pw" id="check_pw"></td>
 			</tr>
 			<tr>
 				<td>이름 : </td>
-				<td><input type="text" placeholder="이름" id="fitc_name" /></td>
+				<td><input type="text" placeholder="이름" name="fitc_name" id="fitc_name" /></td>
 			</tr>
 			<tr>
 				<td>이메일 : </td>
-				<td><input type="text" placeholder="이메일" id="fitc_email" /></td>
+				<td><input type="text" placeholder="이메일" name="fitc_email" id="fitc_email" /></td>
 			</tr>
 			<tr>
 				<td><input type="button" value="회원가입" onclick="signUP()"/></td>
-				<td><input type="button" value="취소" onclick="home" /></td>
+				<td><input type="button" value="취소" onclick="cancel()" /></td>
 			</tr>
 		</table>		
 	</form>

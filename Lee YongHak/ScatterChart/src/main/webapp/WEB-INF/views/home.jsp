@@ -129,7 +129,12 @@
 		{
 			text-decoration:none;
 		}
+		
 		/*div{
+	        border: 1px solid #ccc;
+	    }*/
+	    
+	    /*table, th, td{
 	        border: 1px solid #ccc;
 	    }*/
 	
@@ -226,7 +231,7 @@
 	    }
 	    
 	    .topMenuLi:hover .submenu{
-	    	height: 125px;
+	    	height: 156px;
 	    }
 	    
 	    .infoBanner{
@@ -296,23 +301,40 @@
     <aside>
 	    <div class="box3">
 	    <nav id="topMenu">
+	    <c:if test="${sessionScope.fitc_id != null }">
 		    <ul>
 	        	<li class="topMenuLi" value="banner">
-	        		<a class="menuLink">welcome</a>
+	        		<a class="menuLink">${sessionScope.fitc_id}님 Welcome</a>
 	        		<ul class="submenu">
 	        			<li><a href="#" class="submenuLink longLink">메뉴1</a></li>
 	        			<li><a href="#" class="submenuLink longLink">메뉴2</a></li>
 	        			<li><a href="#" class="submenuLink longLink">메뉴3</a></li>
-	        			<c:if test="${sessionScope.userid == null }">
-	        				<li><a href="loginForm" class="submenuLink longLink">LOGIN</a></li>
-	        			</c:if>
-	        			<c:if test="${sessionScope.userid != null }">
-	        				<li><a href="#" class="submenuLink longLink">LOGOUT</a></li>	        			
-	        			</c:if>
-	        			</ul>
+	        			<li><a href="/three/logOUT" class="submenuLink longLink">LOGOUT</a></li>
+	        			<li><a href="/three/updateInfoForm" class="submenuLink longLink">회원정보 수정</a></li>
+	        		</ul>
 	        	</li>
 	        </ul>
-	     </nav>
+	    </c:if>
+	    <c:if test="${sessionScope.fitc_id == null }">
+	    	<form action="logIN" method="post">
+				<table>
+					<tr>
+						<td width="50px">ID : </td>
+						<td width="250px"><input type="text" name="fitc_id" id="fitc_id" style="width:70%" /></td>
+					</tr>
+					<tr>
+						<td width="50px">PW : </td>
+						<td width="250px"><input type="password" name="fitc_pw" id="fitc_pw" style="width:70%" /></td>
+					</tr>
+					<tr>
+						<td width="50px"><input type="submit" value="로그인"/></td>
+					</tr>
+				</table>		
+			</form>
+			<a href="signupForm">아직 회원이 아니신가요?</a><br>
+			<a href="#" onclick="window.open('searchInfoForm','pop','resizeable=no scrollbars=yes width=600 height=400');return false"> 아이디 / 비밀번호 찾기 </a>
+	    </c:if>
+	    </nav>
         </div>
     </aside>
 	<section>

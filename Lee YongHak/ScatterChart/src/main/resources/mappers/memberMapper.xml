@@ -40,5 +40,43 @@
 				
 	</select>
 	
+	<select id="searchInfo" parameterType="MemberVO" resultType="MemberVO">
+	
+		select *
+		from
+			chart_member
+		where
+			fitc_name = #{fitc_name}
+			AND fitc_email = #{fitc_email}
+	
+	</select>
+	
+	<select id="searchPW" parameterType="MemberVO" resultType="MemberVO">
+	
+		select *
+		from
+			chart_member
+		where
+			fitc_id = #{fitc_id}
+			AND fitc_name = #{fitc_name}
+			AND fitc_email = #{fitc_email}
+	
+	</select>
+	
+	<update id="updateInfo" parameterType="MemberVO">
+	
+		update
+	 		chart_member
+	 	set 		
+	 		<if test="fitc_pw != ''">
+	 		fitc_pw = #{fitc_pw},
+	 		</if>
+	 		fitc_name = #{fitc_name},
+	 		fitc_email = #{fitc_email}
+	 	where
+	 		fitc_id = #{fitc_id}
+	
+	</update>
+	
 </mapper>
 

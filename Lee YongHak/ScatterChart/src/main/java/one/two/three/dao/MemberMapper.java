@@ -8,5 +8,7 @@ public interface MemberMapper {
 	public int checkID(MemberVO vo);
 	public MemberVO logIN(MemberVO vo);
 	public MemberVO searchInfo(MemberVO vo);
+	public MemberVO searchPW(MemberVO vo);
+	public void updateInfo(MemberVO vo);
 
 }

@@ -31,5 +31,15 @@ public class MemberDAO {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.searchInfo(vo);
 	}
+	
+	public MemberVO searchPW(MemberVO vo) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.searchPW(vo);
+	}
+	
+	public void updateInfo(MemberVO vo) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		mapper.updateInfo(vo);
+	}
 
 }
