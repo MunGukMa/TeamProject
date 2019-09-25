@@ -1,7 +1,7 @@
 package team.project.one.vo;
 
 public class RamVO {
-	private int ram_seq;
+	private int num;
 	private String name;
 	private String spec;
 	private String src_link;
@@ -10,20 +10,20 @@ public class RamVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RamVO(int ram_seq, String name, String spec, String src_link) {
+	public RamVO(int num, String name, String spec, String src_link) {
 		super();
-		this.ram_seq = ram_seq;
+		this.num = num;
 		this.name = name;
 		this.spec = spec;
 		this.src_link = src_link;
 	}
 
-	public int getRam_seq() {
-		return ram_seq;
+	public int getNum() {
+		return num;
 	}
 
-	public void setRam_seq(int ram_seq) {
-		this.ram_seq = ram_seq;
+	public void setNum(int num) {
+		this.num = num;
 	}
 
 	public String getName() {
@@ -52,7 +52,12 @@ public class RamVO {
 
 	@Override
 	public String toString() {
-		return "RamVO [ram_seq=" + ram_seq + ", name=" + name + ", spec=" + spec + ", src_link=" + src_link + "]";
+		return "RamVO [num=" + num + ", name=" + name + ", spec=" + spec + ", src_link=" + src_link + ", getNum()="
+				+ getNum() + ", getName()=" + getName() + ", getSpec()=" + getSpec() + ", getSrc_link()="
+				+ getSrc_link() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
+
+	
 	
 }
