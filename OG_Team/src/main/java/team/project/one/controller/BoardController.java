@@ -1,4 +1,4 @@
-package team.hundred.fitc.controller;
+package team.project.one.controller;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import team.hundred.fitc.dao.BoardDAO;
+import team.project.one.dao.BoardDAO;
 
 @Controller
 public class BoardController {
