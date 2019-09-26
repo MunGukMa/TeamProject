@@ -53,7 +53,9 @@ public class BoardDAO {
 		    // adding random number, length of 5
 		    int math = (int)(Math.random() * 100000); 
 			String resizeImage = "C:/Programming/SpringHome/FitC/src/main/webapp/resources/images/"
-												+ file.getName() + "_resized" + math + ".jpg";
+												+ file.getName() + "_resized_" + math + ".jpg";
+			String machineLearningImage = "C:/Programming/SpringHome/FitC/src/main/webapp/resources/machine/"
+					+ file.getName() + "_machineLearning_" + math + ".jpg";
 			
 			Image image = ImageIO.read(convert);
 			int imageWidth = image.getWidth(null);
@@ -69,15 +71,31 @@ public class BoardDAO {
 			g.dispose();
 			
 			ImageIO.write(newImage, "jpg", new File(resizeImage));
+			ImageIO.write(newImage, "jpg", new File(machineLearningImage));
 
 			try {
 				
 				String str = tess.doOCR(new File(resizeImage));
 				String[] split = str.split("\n");
 
+				// CPU
+				result.add(split[1]);
+				System.out.println(split[1]);
+				
 				// Split Check
 				for(int i = 0 ; i < split.length ; i++){
-					result.add(split[i]);
+					if(split[i].contains("[")){
+						// Mainboard
+						result.add(split[i]);
+						System.out.println(split[i]);
+						// Graphics
+						result.add(split[i + 2]);
+						System.out.println(split[i + 2]);
+						// RAM
+						String[] ram = split[i + 10].split("GB");
+						result.add(ram[0] + "GB" );
+						System.out.println(ram[0]);
+					}
 				}
 
 				return result;

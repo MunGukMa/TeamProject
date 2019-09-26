@@ -10,62 +10,56 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.min.js"></script>
 <script>
-
-	$(function() {
-		$('#3dpchip').on('click', chip);
-		$('#confirm').on('click', readImage);
-	})
-
-	function chip() {
-		window.open("https://www.3dpchip.com/3dp/chip_down_kor.php",
-						"3DP Chip", "width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
-	}
-	
-	function readImage(){
-		var formData = new FormData();
-		formData.append('uploadFile', $('#uploadFile')[0].files[0]);
+	$(function(){
+		var result = JSON.parse(sessionStorage.getItem('result'));
 		
-		var fileSize = $('#uploadFile')[0].files[0].size;
-		var maxSize = 1024 * 120;		
-		
-		if(fileSize > maxSize){
-			alert("크기가 너무 큽니다.");
-			return false;
-		} else {
-			$.ajax({
-				url: 'tesseract',
-				type: 'POST',
-				data: formData,
-				dataType: 'json',
-				enctype: 'multipart/form-data',
-				contentType: false,
-				processData: false,
-				success: function(result){
-					
-					//console.log(result);
-					
-					sessionStorage.setItem('result', JSON.stringify(result));
-					location.href = "/fitc/comInfo/"
-					
-					/*
-					$(result).each(function(index, item){
-						$('#result').append('<ul><li>' + result[item] + '</li></ul>');
-						alert(item);
-					})
-					*/
-					
-				},
-				error: function(){
-					alert("tesseract Error");
-				}
-			});
+		/*
+		for(var i = 0 ; i < result.length ; i++){
+			console.log(result[i])
 		}
-	};
+		*/
+		if(result != null){
+			$('#cpuResult').empty();
+			$('#mbResult').empty();
+			$('#gpResult').empty();
+			$('#ramResult').empty();
+			
+			$('#cpuResult').append(result[0]);
+			$('#mbResult').append(result[1]);
+			$('#gpResult').append(result[2]);
+			$('#ramResult').append(result[3]);
+
+			setTimeout(function(){
+				var check = confirm("입력하신 정보와 일치합니까?");
+				if(check == true){
+					$('#cpu').val(result[0])
+					$('#mainboard').val(result[1])
+					$('#graphic').val(result[2])
+					$('#ram').val(result[3])
+				} else {
+					alert("죄송합니다, 직접 입력해주세요.")
+					$('#cpu').val(result[0])
+					$('#mainboard').val(result[1])
+					$('#graphic').val(result[2])
+					$('#ram').val(result[3])
+				}
+			}, 1000);
+		} else {
+			alert("컴퓨터 정보를 입력해주세요.")
+		}
+	})
+	
+	/*
+	$(document).ready(function(){ }) // 데이터가 바인딩 되기 이전
+	$(window).load(function(){ }) // 데이터 바인딩 된 이후
+	setTimeout(function(){ }) // 시간 설정 후
+	*/
 	
 </script>
 <style>
 
 	a {
+	
 		text-decoration: none;
 	}
 	/*div{
@@ -289,34 +283,56 @@
 		</div>
 	</aside>
 	
-	<form action="tesseract" method="POST" enctype="multipart/form-data">
 	<section>
 		<div>
 			<table border="1">
 				<tr>
-					<th colspan="2">${sessionScope.userid} 님의 컴퓨터 정보 가져오기</th>
+					<td colspan="2">${sessionScope.userid} 님의 컴퓨터 정보</td>
 				</tr>
 				<tr>
-					<td><input type="file" id="uploadFile" accept="image/**"></td>
-					<td><input type="button" id="confirm" value="정보 가져오기"></td>
-				</tr>
-				<tr>
-					<td colspan="2"><a href="#" id="3dpchip">3DP Chip 사이트로 가기</a></td>
-				</tr>
-				<tr>
-					<td colspan="2" rowspan="4" id="td3">
-						* 사용 방법 *<br/>
-						1. 위 링크를 통해, 3DP Chips를 다운로드.<br/>
-						2. 설치 후, 프로그램 실행.<br/>
-						3. 프로그램 실행 시, 아래의 버튼을 클릭하여 캡쳐 출력하기.<br/>
-						<img src="resources/icon/3DP Chip.jpg"><br/>
-						4. 캡쳐 파일을 위 '파일 선택'에 첨부, '정보 가져오기' 클릭!
+					<td>
+						<h3>CPU 정보</h3><br/>
+						<span id="cpuResult"></span>
 					</td>
-				</tr>	
+					<td>
+						<h3>CPU</h3><br/>
+						<input type="text" id="cpu" value=""><input type="button" value="검색" id="cpuConfirm">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h3>메인보드 정보</h3><br/>
+						<span id="mbResult"></span>
+					</td>
+					<td>
+						<h3>Mainboard</h3><br/>
+						<input type="text" id="mainboard" value=""><input type="button" value="검색" id="mainboardConfirm">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h3>그래픽카드 정보</h3><br/>
+						<span id="gpResult"></span>
+					</td>
+					<td>
+						<h3>Graphics</h3><br/>
+						<input type="text" id="graphic" value=""><input type="button" value="검색" id="graphicConfirm">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h3>RAM 정보</h3><br/>
+						<span id="ramResult"></span>
+					</td>
+					<td>
+						<h3>RAM</h3><br/>
+						<input type="text" id="ram" value=""><input type="button" value="검색" id="ramConfirm">
+					</td>
+				</tr>
 			</table>
 		</div>
 	</section>
-	</form>
+
 	<footer>
 		<div class="footer">
 			푸터<br> 출처가 들어갈 자리

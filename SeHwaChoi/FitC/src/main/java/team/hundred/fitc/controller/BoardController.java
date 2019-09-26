@@ -23,9 +23,9 @@ public class BoardController {
 		return "/infoCheck";
 	}
 	
-	@RequestMapping(value = "/sample", method = RequestMethod.GET)
-	public String sample() {
-		return "/sample";
+	@RequestMapping(value = "/comInfo", method = RequestMethod.GET)
+	public String comInfo() {
+		return "/comInfo";
 	}
 	
 	@RequestMapping(value = "/tesseract", method = {RequestMethod.POST, RequestMethod.GET})

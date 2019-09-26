@@ -144,7 +144,13 @@
 	}
 
 	function fitEstimate() {
-		location.href = "/fitc/infoCheck";
+		var estimate = confirm("본인의 컴퓨터 부품에 대해 알고 계신가요?");
+		if(estimate == true){
+			location.href = "/fitc/comInfo"
+		} else {
+			location.href = "/fitc/infoCheck";			
+		}
+		
 	}
 </script>
 <style>
