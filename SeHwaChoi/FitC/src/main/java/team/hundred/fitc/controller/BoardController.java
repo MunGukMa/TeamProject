@@ -1,11 +1,13 @@
 package team.hundred.fitc.controller;
 
-import java.io.File;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import team.hundred.fitc.dao.BoardDAO;
 
@@ -20,17 +22,14 @@ public class BoardController {
 		return "/infoCheck";
 	}
 	
-	@RequestMapping(value = "/tesseract", method = RequestMethod.POST)
-	public String tesseract(File formData){
-		String str = dao.tesseract(formData);
-		if(str != null){
-			
-			
-			
-			return str;
+	@RequestMapping(value = "/tesseract", method = {RequestMethod.POST, RequestMethod.GET})
+	public ArrayList<String> tesseract(@RequestParam("uploadFile") MultipartFile file){
+		ArrayList<String> list = dao.tesseract(file);
+		if(list != null){
+			return list;
 		} else {
 			System.out.println("Error");
-			return "error";
+			return list;
 		}
 	}
 }

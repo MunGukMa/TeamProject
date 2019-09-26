@@ -13,34 +13,48 @@
 
 	$(function() {
 		$('#3dpchip').on('click', chip);
-		$('#fileConfirm').on('click', confirm);
+		$('#confirm').on('click', readImage);
 	})
 
 	function chip() {
-		window
-				.open("https://www.3dpchip.com/3dp/chip_down_kor.php",
-						"3DP Chip",
-						"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+		window.open("https://www.3dpchip.com/3dp/chip_down_kor.php",
+						"3DP Chip", "width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
 	}
-
-	function confirm() {
-		var formData = new FormData(document.getElementById("uploadFile"));
-
+	
+	function readImage(){
+		var formData = new FormData();
+		formData.append('uploadFile', $('#uploadFile')[0].files[0]);
+		
 		$.ajax({
-			url : '/fitc/tesseract',
-			type : 'POST',
-			data : formData,
-			contentType : false,
-			processData : false,
-			success : function(result) {
-				if(result != "error"){
+			url: 'tesseract',
+			type: 'POST',
+			data: formData,
+			enctype: 'multipart/form-data',
+			contentType: false,
+			processData: false,
+			dataType: 'text',
+			success: function(result){
+				
+				$(result).each(function(index,item)
+						{
+							alert(item);
 					
+						})
+				
+				/* if(result != null){
+					for(var i = 0 ; i < result.length ; i++){
+						alert("result[i]");
+					}
 				} else {
-					alert("정보를 읽어오는데에 실패하였습니다.");
-				}
+					alert("Failed");
+				}*/
+			} ,
+			error: function(){
+				alert("Error");
 			}
 		});
-	}
+	};
+	
 </script>
 <style>
 
@@ -267,26 +281,22 @@
 			</nav>
 		</div>
 	</aside>
-
+	
+	<form action="tesseract" method="POST" enctype="multipart/form-data">
 	<section>
 		<div>
 			<table border="1">
 				<tr>
-					<th colspan="3">${sessionScope.userid} 님의 컴퓨터 정보 가져오기</th>
+					<th colspan="2">${sessionScope.userid} 님의 컴퓨터 정보 가져오기</th>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="file" id="uploadFile"></td>
-					<td><input type="button" value="정보 가져오기" id="fileConfirm"></td>
+					<td><input type="file" id="uploadFile"></td>
+					<td><input type="button" id="confirm" value="정보 가져오기"></td>
 				</tr>
 				<tr>
-					<td colspan="3"><a href="#" id="3dpchip">3DP Chip 사이트로 가기</a></td>
+					<td colspan="2"><a href="#" id="3dpchip">3DP Chip 사이트로 가기</a></td>
 				</tr>
 				<tr>
-					<td>
-						<h3>CPU</h3>
-						<input type="text" id="cpu">
-						<input type="button" class="searchButton" value="검색">
-					</td>
 					<td colspan="2" rowspan="4" id="td3">
 						* 사용 방법 *<br/>
 						1. 위 링크를 통해, 3DP Chips를 다운로드.<br/>
@@ -295,35 +305,15 @@
 						<img src="resources/icon/3DP Chip.jpg"><br/>
 						4. 캡쳐 파일을 위 '파일 선택'에 첨부, '정보 가져오기' 클릭!
 					</td>
-				</tr>
-				<tr>
-					<td>
-						<h3>VGA</h3>
-						<input type="text" id="vga">
-						<input type="button" class="searchButton" value="검색">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<h3>MainBoard</h3>
-						<input type="text" id="mainboard">
-						<input type="button" class="searchButton" value="검색">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<h3>RAM</h3>
-						<input type="text" id="ram">
-						<input type="button" class="searchButton" value="검색">
-					</td>
 				</tr>	
 			</table>
 		</div>
 	</section>
-
+	</form>
 	<footer>
 		<div class="footer">
 			푸터<br> 출처가 들어갈 자리
+			<span id="result"></span>
 		</div>
 	</footer>
 
