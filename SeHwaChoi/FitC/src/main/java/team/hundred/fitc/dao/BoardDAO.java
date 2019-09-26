@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 
@@ -31,7 +33,6 @@ public class BoardDAO {
 		tess.setDatapath("C:/Programming/4. Tesseract/tessdata/");
 		tess.setLanguage("eng+kor");
 		
-		/*
 		Calendar cal = Calendar.getInstance();
 		long todayMil = cal.getTimeInMillis();
 		long oneDayMil = 24*60*60*1000;
@@ -40,18 +41,19 @@ public class BoardDAO {
 
 		File path = new File("C:/Programming/SpringHome/FitC/src/main/webapp/resources/images/") ;
 		File[] list = path.listFiles();
-		*/
 		
 		try{
-			System.out.println("저장시작");
+
 			File convert = new File(file.getOriginalFilename());
 			convert.createNewFile(); 
 		    FileOutputStream fos = new FileOutputStream(convert); 
 		    fos.write(file.getBytes());
 		    fos.close(); 
 		    
+		    // adding random number, length of 5
+		    int math = (int)(Math.random() * 100000); 
 			String resizeImage = "C:/Programming/SpringHome/FitC/src/main/webapp/resources/images/"
-												+ file.getName() + "_resized.jpg";
+												+ file.getName() + "_resized" + math + ".jpg";
 			
 			Image image = ImageIO.read(convert);
 			int imageWidth = image.getWidth(null);
@@ -67,24 +69,17 @@ public class BoardDAO {
 			g.dispose();
 			
 			ImageIO.write(newImage, "jpg", new File(resizeImage));
-			System.out.println("저장종료");
+
 			try {
-				System.out.println("리딩시작");
+				
 				String str = tess.doOCR(new File(resizeImage));
-				System.out.println("리딩중");
 				String[] split = str.split("\n");
-				result.add(split[1]); // cpu
-				result.add(split[2]); // mainboard
-				result.add(split[4]); // vga
-				result.add(split[8]); // ram
-				
-				for(int i =0;i<split.length;i++)
-				{
-					System.out.println(split[i]);
+
+				// Split Check
+				for(int i = 0 ; i < split.length ; i++){
+					result.add(split[i]);
 				}
-				
-				
-				System.out.println("리딩종료");
+
 				return result;
 				
 			} catch (TesseractException e) {
@@ -94,7 +89,8 @@ public class BoardDAO {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		/*
+		
+		// Image File Delete Method
 		for(int j=0 ; j < list.length; j++){
 		    fileDate = new Date(list[j].lastModified()) ;
 		    fileCal.setTime(fileDate);
@@ -104,7 +100,7 @@ public class BoardDAO {
 		        list[j].delete() ;
 		    }
 		}
-		*/
+		
 		return result;
 	}
 }

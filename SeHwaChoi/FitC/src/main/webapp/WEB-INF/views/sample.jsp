@@ -10,47 +10,11 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.min.js"></script>
 <script>
-
-	$(function() {
-		$('#3dpchip').on('click', chip);
-		$('#confirm').on('click', readImage);
+	$(function(){
+		var result = localStorage.getItem('result');
+		$('#result').append(result);
 	})
 
-	function chip() {
-		window.open("https://www.3dpchip.com/3dp/chip_down_kor.php",
-						"3DP Chip", "width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
-	}
-	
-	function readImage(){
-		var formData = new FormData();
-		formData.append('uploadFile', $('#uploadFile')[0].files[0]);
-		
-		$.ajax({
-			url: 'tesseract',
-			type: 'POST',
-			data: formData,
-			dataType: 'json',
-			enctype: 'multipart/form-data',
-			contentType: false,
-			processData: false,
-			success: function(result){
-				
-				localStorage.setItem('result', result);
-				location.href = "/fitc/sample/"
-				
-				/*
-				$(result).each(function(index, item){
-					$('#result').append('<ul><li>' + result[item] + '</li></ul>');
-				})
-				*/
-				
-			},
-			error: function(){
-				alert("tesseract Error");
-			}
-		});
-	};
-	
 </script>
 <style>
 
@@ -278,34 +242,45 @@
 		</div>
 	</aside>
 	
-	<form action="tesseract" method="POST" enctype="multipart/form-data">
 	<section>
 		<div>
 			<table border="1">
+				
 				<tr>
-					<th colspan="2">${sessionScope.userid} 님의 컴퓨터 정보 가져오기</th>
-				</tr>
-				<tr>
-					<td><input type="file" id="uploadFile"></td>
-					<td><input type="button" id="confirm" value="정보 가져오기"></td>
-				</tr>
-				<tr>
-					<td colspan="2"><a href="#" id="3dpchip">3DP Chip 사이트로 가기</a></td>
-				</tr>
-				<tr>
-					<td colspan="2" rowspan="4" id="td3">
-						* 사용 방법 *<br/>
-						1. 위 링크를 통해, 3DP Chips를 다운로드.<br/>
-						2. 설치 후, 프로그램 실행.<br/>
-						3. 프로그램 실행 시, 아래의 버튼을 클릭하여 캡쳐 출력하기.<br/>
-						<img src="resources/icon/3DP Chip.jpg"><br/>
-						4. 캡쳐 파일을 위 '파일 선택'에 첨부, '정보 가져오기' 클릭!
+					<td rowspan="4">
+						<span id="result"></span>
 					</td>
-				</tr>	
+					<td>
+						CPU<br/>
+						<input type="text" id="cpu"><input type="button" value="검색" id="cpuConfirm">
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						Mainboard<br/>
+						<input type="text" id="mainboard"><input type="button" value="검색" id="mainboardConfirm">
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						Graphics<br/>
+						<input type="text" id="graphic"><input type="button" value="검색" id="graphicConfirm">
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						RAM<br/>
+						<input type="text" id="ram"><input type="button" value="검색" id="ramConfirm">
+					</td>
+				</tr>
+					
 			</table>
 		</div>
 	</section>
-	</form>
+
 	<footer>
 		<div class="footer">
 			푸터<br> 출처가 들어갈 자리
