@@ -1,4 +1,4 @@
-package team.hundred.fitc.dao;
+package team.project.one.dao;
 
 import java.awt.Graphics;
 import java.awt.Image;
