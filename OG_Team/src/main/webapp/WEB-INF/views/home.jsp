@@ -17,6 +17,11 @@
 			var ctx = document.getElementById("mainchart").getContext('2d');
 			var myChart
 			
+			if(${dbchk}==false)
+			{
+				makedb();
+			};
+			
 			$.ajax
 			({
 				url:"/one/gamelist",
@@ -49,7 +54,7 @@
 			        pointClickRadius: 15,
 			        pointStyle:['circle','circle', gameicon[0], gameicon[1], gameicon[2], gameicon[3], gameicon[4], gameicon[5]],			
 		            data: [{x:0, y:0}, {x:10, y:10}, {x:gameary[0].pclevel, y:gameary[0].gamelevel}, {x:gameary[1].pclevel, y:gameary[1].gamelevel}, {x:gameary[2].pclevel, y:gameary[2].gamelevel}, 
-		            	{x:gameary[3].pclevel, y:gameary[3].gamelevel}, {x:gameary[4].pclevel, y:gameary[4].gamelevel}, {x:gameary[5].pclevel, y:gameary[5].gamelevel} ] //컨트롤러에서 모델로 받아온다.
+		            	{x:gameary[3].pclevel, y:gameary[3].gamelevel}, {x:gameary[4].pclevel, y:gameary[4].gamelevel}] //컨트롤러에서 모델로 받아온다.
 		            
 		        }]
 		    }
@@ -130,6 +135,7 @@
 			var gamename = obj.name;
 			location.href="/one/makelist?gamename="+gamename; 
 		}
+		
 						
 	</script>
 	<style>
@@ -383,7 +389,6 @@
 				<td colspan="2">
 					<input id="rebtn" type="button" value="추천견적" onclick="alert('추천견적');">
 					<input id="fitbtn" type="button" value="맞춤견적" onclick="alert('맞춤견적');">
-					<input id="rvbtn" type="button" value="최저가견적" onclick="pagemove(this);">
 					<input type="button" value="창 닫기" onclick="closediv();">
 				</td>
 			</tr>
