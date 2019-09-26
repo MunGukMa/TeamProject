@@ -1,6 +1,7 @@
 package com.test.team;
 
 public class SteamVO {
+	int num;
 	String appid;
 	String name;
 	
@@ -9,7 +10,7 @@ public class SteamVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SteamVO(String appid, String name) {
+	public SteamVO(int num, String appid, String name) {
 		super();
 		this.appid = appid;
 		this.name = name;
@@ -31,8 +32,18 @@ public class SteamVO {
 		this.name = name;
 	}
 
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("SteamVO [appid=%s, name=%s]", appid, name);
+		return "SteamVO [num=" + num + ", appid=" + appid + ", name=" + name + "]";
 	}
+
+	
 }

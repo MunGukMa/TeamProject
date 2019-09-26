@@ -16,11 +16,11 @@ public class GpuParsingTest {
 	public static void main(String[] args) {
 		// Jsoup를 이용해서 http://www.cgv.co.kr/movies/ 크롤링
 
-		String kaisha = "nvidia";
+		String kaisha = "amd";
 		int index = 0;
 		ArrayList<GraphicCardVO> list = new ArrayList<GraphicCardVO>();
 		String tdp = null; 
-		for(int year = 2017;year<2020;year++){
+		for(int year = 2014;year<2020;year++){
 			String url_tdp = "https://www.techpowerup.com/gpu-specs/?mfgr="+kaisha+"&released="+year+"&sort=name"; //크롤링할 url지정
 			Document doc_tdp = null;        //Document에는 페이지의 전체 소스가 저장된다
 
@@ -44,7 +44,7 @@ public class GpuParsingTest {
 			for(int i=1;i<tdp_string.length;i++) {
 				if(i%3==1){
 					try {
-						Thread.sleep(5000);
+						Thread.sleep(3000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -138,8 +138,10 @@ public class GpuParsingTest {
 			}
 		}
 		System.out.println(list.size());
-		jdbc(list);
-
+		//jdbc(list);
+		for(GraphicCardVO vo : list) {
+			System.out.println(vo);
+		}
 
 	}
 	public static void jdbc(ArrayList<GraphicCardVO> list) {

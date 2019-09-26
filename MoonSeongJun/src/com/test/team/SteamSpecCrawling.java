@@ -36,15 +36,15 @@ public class SteamSpecCrawling {
 
 		//Driver SetUp
 		ChromeOptions options = new ChromeOptions();
-		options.setCapability("ignoreProtectedModeSettings", true);
-		driver = new ChromeDriver();
+        options.addArguments("headless");
+		driver = new ChromeDriver(options);
 	}
 
 	public void crawl() {
 
 		SteamDAO dao = new SteamDAO();
 		try {
-			base_url = "https://store.steampowered.com/app/238960";
+			base_url = "https://store.steampowered.com/app/208650/Batman_Arkham_Knight/";
 			driver.get(base_url);
 			//Thread.sleep(5000);
 
@@ -54,52 +54,28 @@ public class SteamSpecCrawling {
 				String result=null;
 				System.out.println("=========================================================================");
 				for(WebElement ele : element){ 
-					//if(ele.getText().contains("Processor")&&ele.getText().contains("Graphics"))
-					result = ele.getText();
-
+					if(ele.getText().length()>4)
+						result = ele.getText();
 				}
 				System.out.println(result);
 
 				System.out.println("=========================================================================");
 			} else { 
-				if(driver.findElement(By.className("pageheader")).getText().equals("Oops, sorry!")){
 				Select age = new Select(driver.findElement(By.id("ageYear")));
 				
 				age.selectByValue("1999");
-				System.out.println("시벌");
 
 				WebElement temp = driver.findElement(By.xpath("//*[@id='app_agegate']/div[1]/div[4]/a[1]"));
 
-				System.out.println("탱");
 				temp.click();
-				Thread.sleep(5000);
-				String name = driver.findElement(By.xpath("/html/body/div[1]/div[7]/div[4]/div[1]/div[2]/div[2]/div[2]/div/div[3]")).getText();
-				By fullList = By.className("game_area_sys_req_full");
-				By leftList = By.className("game_area_sys_req_leftCol");
-				By rightList = By.className("game_area_sys_req_rightCol");
-				List<WebElement> full = driver.findElements(fullList);
-				List<WebElement> left = driver.findElements(leftList);
-				List<WebElement> right = driver.findElements(rightList);
+				
+				Thread.sleep(2000);
+				element = driver.findElements(By.className("bb_ul"));
 
-				System.out.println(name);
-
-				for(WebElement e : full){
-					System.out.println(e.getText());
-				}
-
-				for(WebElement e : left){
-					System.out.println(e.getText());
-				}
-
-				for(WebElement e : right){
-					System.out.println(e.getText());
-				}
-
-				Thread.sleep(5000);
-				driver.navigate().to(base_url);
+				//Thread.sleep(5000);
 				
 				}
-			}
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

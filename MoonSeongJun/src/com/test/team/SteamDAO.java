@@ -16,12 +16,13 @@ public class SteamDAO {
 		try{
 			for(int i = 0 ; i < vo.size() ; i++){
 				String sql = "INSERT INTO steam_product(num, appid, name)"
-						+ " values(steam_seq.NEXTVAL, ?, ?)";
+						+ " values(?, ?, ?)";
 				try{
 					pstmt = conn.prepareStatement(sql);
 					conn.setAutoCommit(false);
-					pstmt.setString(1, vo.get(i).getAppid());
-					pstmt.setString(2, vo.get(i).getName());
+					pstmt.setInt(1, vo.get(i).getNum());
+					pstmt.setString(2, vo.get(i).getAppid());
+					pstmt.setString(3, vo.get(i).getName());
 					row = row + pstmt.executeUpdate();
 				} catch(Exception e) {
 					e.printStackTrace();
@@ -51,7 +52,7 @@ public class SteamDAO {
 					pstmt = conn.prepareStatement(sql);
 					rs = pstmt.executeQuery();
 					while(rs.next()) {
-						list.add(new SteamVO(rs.getString(2),rs.getString(3)));
+						list.add(new SteamVO(rs.getInt(1), rs.getString(2),rs.getString(3)));
 					}
 				} catch(Exception e) {
 					e.printStackTrace();

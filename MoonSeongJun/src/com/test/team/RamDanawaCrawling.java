@@ -81,7 +81,7 @@ public class RamDanawaCrawling {
 				if(page==29)
 					break;
 				for(RamVO vo : list){
-					System.out.println(vo); //리스트 출력
+					System.out.println(vo);
 				}
 			}
 		} catch (Exception e) {
