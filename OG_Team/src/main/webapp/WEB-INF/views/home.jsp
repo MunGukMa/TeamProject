@@ -136,6 +136,15 @@
 			location.href="/one/makelist?gamename="+gamename; 
 		}
 		
+		function fitEstimate() {
+		var estimate = confirm("본인의 컴퓨터 부품에 대해 알고 계신가요?");
+		if(estimate == true){
+			location.href = "/one/comInfo"
+		} else {
+			location.href = "/one/infoCheck";			
+		}
+		
+	}
 						
 	</script>
 	<style>
@@ -388,7 +397,7 @@
 			<tr>
 				<td colspan="2">
 					<input id="rebtn" type="button" value="추천견적" onclick="alert('추천견적');">
-					<input id="fitbtn" type="button" value="맞춤견적" onclick="alert('맞춤견적');">
+					<input id="fitbtn" type="button" value="맞춤견적" onclick="fitEstimate();">
 					<input type="button" value="창 닫기" onclick="closediv();">
 				</td>
 			</tr>
