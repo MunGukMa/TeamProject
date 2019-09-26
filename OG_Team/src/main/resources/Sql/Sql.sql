@@ -47,7 +47,7 @@ casesize varchar2(100),
 addop varchar2(150))
 
 create table fit_gpu (
-gpu_sec number primary key,
+num number primary key,
 manufacturer varchar2(10) not null,
 product_name varchar2(50) not null,
 chip varchar2(20) not null,
