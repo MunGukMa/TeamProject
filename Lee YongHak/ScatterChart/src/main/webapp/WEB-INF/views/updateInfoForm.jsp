@@ -46,6 +46,18 @@
 			return;
 		}
 
+		if(fitc_email_01.value.length == 0){
+			alert('이메일을 입력해주세요')
+			fitc_email_01.focus();
+			return;
+		}
+
+		if(fitc_email_02.value.length == 0){
+			alert('이메일을 입력해주세요')
+			fitc_email_02.focus();
+			return;
+		}
+
 		var form = document.getElementById("update");
 		form.submit();
 	}	

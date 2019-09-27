@@ -27,6 +27,9 @@
 		var fitc_pw = document.getElementById("fitc_pw");
 		var check_pw = document.getElementById("check_pw");
 		var fitc_name = document.getElementById("fitc_name");
+		var fitc_nickname = document.getElementById("fitc_nickname");
+		var fitc_email_01 = document.getElementById("fitc_email_01");
+		var fitc_email_02 = document.getElementById("fitc_email_02");
 		
 		if(fitc_id.value.length<4 || fitc_id.value.length>10){
 			alert('아이디는 4~10글자로 입력해주세요');
@@ -49,6 +52,24 @@
 		if(fitc_pw.value != check_pw.value){
 			alert('비밀번호가 일치하지 않습니다.');
 			fitc_pw.focus();
+			return;
+		}
+
+		if(fitc_name.value.length == 0){
+			alert('이름을 입력해주세요')
+			fitc_name.focus();
+			return;
+		}
+
+		if(fitc_email_01.value.length == 0){
+			alert('이메일을 입력해주세요')
+			fitc_email_01.focus();
+			return;
+		}
+
+		if(fitc_email_02.value.length == 0){
+			alert('이메일을 입력해주세요')
+			fitc_email_02.focus();
 			return;
 		}
 		    	

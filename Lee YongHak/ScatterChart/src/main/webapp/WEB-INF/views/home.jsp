@@ -319,7 +319,7 @@
 	        		<ul class="submenu">
 	        			<li><a href="#" class="submenuLink longLink">메뉴1</a></li>
 	        			<li><a href="#" class="submenuLink longLink">메뉴2</a></li>
-	        			<li><a href="#" class="submenuLink longLink">메뉴3</a></li>
+	        			<li><a href="/three/board/boardList" class="submenuLink longLink">견적게시판</a></li>
 	        			<li><a href="/three/logOUT" class="submenuLink longLink">LOGOUT</a></li>
 	        			<li><a href="/three/updateInfoForm" class="submenuLink longLink">회원정보 수정</a></li>
 	        		</ul>
@@ -328,22 +328,20 @@
 	    </c:if>
 	    <c:if test="${sessionScope.fitc_id == null }">
 	    	<form id="login" action="logIN" method="post">
-				<table>
+				<table style="border:1px solid #ccc; width:140%">
 					<tr>
-						<td width="50px">ID : </td>
-						<td width="250px"><input type="text" name="fitc_id" id="fitc_id" style="width:70%" /></td>
+						<td width="250px"><input type="text" name="fitc_id" id="fitc_id" placeholder="ID" style="width:90%" /></td>
 					</tr>
 					<tr>
-						<td width="50px">PW : </td>
-						<td width="250px"><input type="password" name="fitc_pw" id="fitc_pw" style="width:70%" /></td>
+						<td width="250px"><input type="password" name="fitc_pw" id="fitc_pw" placeholder="PASSWORD" style="width:90%" /></td>
 					</tr>
 					<tr>
-						<td width="50px"><input type="button" value="로그인" onclick="logIN()"/></td>
+						<td width="250px"><input type="button" value="로그인" onclick="logIN()" style="width:100%" /></td>
 					</tr>
 				</table>		
 			</form>
-			<a href="signupForm">아직 회원이 아니신가요?</a><br>
-			<a href="#" onclick="window.open('searchInfoForm','pop','resizeable=no scrollbars=yes width=600 height=400');return false"> 아이디 / 비밀번호 찾기 </a>
+			<a href="signupForm" style="font-size:10px" >아직 회원이 아니신가요?</a><br>
+			<a href="#" onclick="window.open('searchInfoForm','pop','resizeable=no scrollbars=yes width=600 height=400');return false" style="font-size:10px" > 아이디 / 비밀번호 찾기 </a>
 	    </c:if>
 	    </nav>
         </div>

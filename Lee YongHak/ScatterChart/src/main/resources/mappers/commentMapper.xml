@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="one.two.three.dao.CommentMapper">
+	
+	<select id="commentList" parameterType="int" resultType="CommentVO">
+	
+		select *
+		from
+			comments
+		where
+			b_num = #{b_num}
+		order by
+			c_num desc
+	
+	</select>
+	
+	<insert id="commentWrite" parameterType="CommentVO">
+	
+		insert into
+			comments
+		values (comments_seq.nextval, #{b_num}, #{fitc_id}, #{comments}, sysdate )		
+	
+	</insert>
+	
+	<delete id="commentDelete" parameterType="CommentVO">
+		delete
+			comments
+		where
+			c_num = #{c_num}
+			AND fitc_id = #{fitc_id}
+	</delete>
+	
+	<update id="commentUpdate" parameterType="CommentVO">
+		
+		update
+			comments
+		set
+			comments = #{comments}
+		where
+			fitc_id = #{fitc_id}
+			AND c_num = #{c_num}
+			
+	</update>
+</mapper>
