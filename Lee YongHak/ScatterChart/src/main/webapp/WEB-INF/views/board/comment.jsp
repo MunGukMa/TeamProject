@@ -7,38 +7,58 @@
 <title>Insert title here</title>
 <script>
 
+	function commentWrite(){
+		var comments = document.getElementById("comments");
+		if(comments.value.length==0){
+			alert("댓글을 입력하세요");
+			comments.focus();
+			return;
+		}
+		var form = document.getElementById("commentForm");
+		form.submit();
+	}
+
+	
+
 </script>
 </head>
 <body>
-<div>
-	<form id="commentForm" name="commentForm" method="post">
-	<br><br>
-		<div>
-			<div>
-               <span><strong>Comments</strong></span> <span id="cCnt"></span>
-           	</div>
-           	<div>
-           		 <table class="table">                    
-                    <tr>
-                        <td>
-                            <textarea style="width: 800px" rows="2" cols="30" id="comment" name="comment" placeholder="댓글을 입력하세요"></textarea>
-                            <br>
-                            <div>
-                                <a href='#' onclick="reg_comment('${result.code }')" class="btn pull-right btn-success">등록</a>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-           	</div>		
-		</div>
-		<input type="hidden" id="b_code" name="b_code" value="${result.code }" />		
-	</form>
-</div>
-<div class="container">
-    <form id="commentListForm" name="commentListForm" method="post">
-        <div id="commentList">
-        </div>
-    </form>
+<!-- 댓글 입력 -->
+<form action="/three/board/commentWrite" id="commentForm" method="post">
+	<input type="hidden" name="b_num" value="${vo.b_num }" />
+	<table id="commentinput" style="margin-left: auto; margin-right: auto;">
+		<tr>
+			<td>
+				<input id="comments" type="text" name="comments" required="required"/>
+				<input id="commentWrite" type="button" value="댓글 입력" onclick="commentWrite()"/>
+			</td>
+		</tr>
+	</table>
+</form>
+
+<!-- 댓글 출력 -->
+<div id="commentdisplay">
+<table class="comment" style="margin-left: auto; margin-right: auto;">
+	<c:forEach items="${commentList}" var="comment">
+		<tr>
+			<td class="comments">
+				${comment.comments}
+			</td>
+			<td class="commentid">
+				<span>${comment.fitc_id} </span>
+			</td>
+			<td class="commentdate">
+				<span>${comment.c_date}</span>
+			</td>
+			<c:if test="${sessionScope.fitc_id == comment.fitc_id }">
+				<td class="commentbtn">
+					<input type="button" value="삭제" onclick="commentDelete('${comment.c_date}')" >
+					<input type="button" value="수정" onclick="commentModify('${comment.c_date}', '${comment.comments}')">
+				</td>
+			</c:if>
+		</tr>
+	</c:forEach>
+</table>
 </div>
 </body>
 </html>

@@ -12,6 +12,17 @@
 				location.href="/three/board/boardDelete?b_num=${vo.b_num}"
 			}
 		}
+
+		/*function commentWrite(){
+			var comments = document.getElementById("comments");
+			if(comments.value.length==0){
+				alert("댓글을 입력하세요");
+				comments.focus();
+				return;
+			}
+			var form = document.getElementById("commentForm");
+			form.submit();
+		}*/
 	</script>
 	<style>
 		a
@@ -189,11 +200,11 @@
 	<h2 style="text-align:center"> [견적게시판] </h2>
         <div class="box1" id="board_div" >
 	    	<table style="margin-left: auto; margin-right: auto;">
-		    	
-				<tr>
-					<th>번호</th>
-					<td>${vo.b_num}</td>
+		    	<tr>
+					<th>제목</th>
+					<td>${vo.title}</td>
 				</tr>
+		    	
 				<tr>
 					<th>작성자</th>
 					<td>${vo.fitc_id}</td>
@@ -207,9 +218,10 @@
 					<td>${vo.hit}</td>
 				</tr>
 				<tr>
-					<th>제목</th>
-					<td>${vo.title}</td>
+					<th>견적</th>
+					<td>${vo.pcsets}</td>
 				</tr>
+				
 				<tr>
 					<th>내용</th>
 					<td><textarea readonly="readonly">${vo.b_content}</textarea></td>
@@ -224,7 +236,47 @@
 					</td>
 				</tr>
 			</table>
-	    	<%@ include file="../board/comment.jsp" %>
+			
+			
+	    	<!-- 댓글 입력 -->
+			<form action="/three/board/commentWrite" id="commentForm" method="post">
+				<input type="hidden" name="b_num" value="${vo.b_num }" />
+				<table id="commentinput" style="margin-left: auto; margin-right: auto;">
+					<tr>
+						<td>
+							<textarea rows="3" cols="10" style="width: 300px" id="comments" name="comments"></textarea>
+							<input id="commentWrite" type="submit" value="댓글 입력"/>
+						</td>
+					</tr>
+				</table>
+			</form>
+			
+			<!-- 댓글 출력 -->
+			<div id="commentdisplay">
+			<table class="comment" style="margin-left: auto; margin-right: auto;">
+				<c:forEach items="${commentList}" var="comment">
+					<tr>
+						<td class="comments">
+							${comment.comments}
+						</td>
+						<td class="commentid">
+							<span>${comment.fitc_id} </span>
+						</td>
+						<td class="commentdate">
+							<span>${comment.c_date}</span>
+						</td>
+						<c:if test="${sessionScope.fitc_id == comment.fitc_id }">
+							<td class="commentbtn">
+								<input type="button" value="삭제" onclick="commentDelete('${comment.c_date}')" >
+								<input type="button" value="수정" onclick="commentModify('${comment.c_date}', '${comment.comments}')">
+							</td>
+						</c:if>
+					</tr>
+				</c:forEach>
+			</table>
+			</div>
+	    	
+	    	<!-- 게시글 목록 -->
 	    	<table style="margin-left: auto; margin-right: auto;">
 				<tr>
 					<th>번호</th>

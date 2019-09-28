@@ -23,6 +23,16 @@
 	
 	<context:component-scan base-package="one.two.three" />
 	
+	<!-- interceptor 등록 -->
+	<beans:bean id="loginInterceptor" class="one.two.three.interceptor.loginInterceptor" />
 	
+	<!-- 아래 주석을 제거하여 interceptor 적용 -->
+ 	<interceptors> 
+ 		<interceptor>
+			<mapping path="/three/board/boardWriteForm" />
+			<mapping path="/three/board/boardUpdateForm" />
+ 			<beans:ref bean="loginInterceptor"/>
+ 		</interceptor>
+ 	</interceptors>
 	
 </beans:beans>

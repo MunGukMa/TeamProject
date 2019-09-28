@@ -41,7 +41,7 @@ public class BoardController {
 		ArrayList<PCSetVO> pcsetList = dao.pcsetList(fitc_id);
 		model.addAttribute("pcsetList", pcsetList);
 		System.out.println(pcsetList);
-		System.out.println(pcsetList.get(0).getPcnum());
+		System.out.println(pcsetList.size());
 		
 		return "/board/boardWriteForm";
 	}
@@ -132,46 +132,46 @@ public class BoardController {
 		return "redirect:/board/boardRead?b_num=" + vo.getB_num();
 	}
 		
-		@RequestMapping(value = "boardDelete", method = RequestMethod.GET)
-		public String boardDelete(BoardVO vo, HttpSession session, RedirectAttributes rttr) {
-			String fitc_id = (String)session.getAttribute("fitc_id");
-			vo.setFitc_id(fitc_id);
-			boolean result;
-			if(dao.boardDelete(vo) != 1) {
-				result=false;
-			}else {
-				result=true;
-			}
-			rttr.addAttribute("d_result", result);
-			return "redirect:/board/boardList";
+	@RequestMapping(value = "boardDelete", method = RequestMethod.GET)
+	public String boardDelete(BoardVO vo, HttpSession session, RedirectAttributes rttr) {
+		String fitc_id = (String)session.getAttribute("fitc_id");
+		vo.setFitc_id(fitc_id);
+		boolean result;
+		if(dao.boardDelete(vo) != 1) {
+			result=false;
+		}else {
+			result=true;
 		}
+		rttr.addAttribute("d_result", result);
+		return "redirect:/board/boardList";
+	}
+	
+	//댓글 쓰기
+	@RequestMapping(value = "commentWrite", method = RequestMethod.POST)
+	public String commentWrite(CommentVO vo, HttpSession session, RedirectAttributes rttr) {
+		String fitc_id = (String)session.getAttribute("fitc_id");
+		vo.setFitc_id(fitc_id);
+		rttr.addAttribute("b_num", vo.getB_num());
 		
-		//댓글 쓰기
-		@RequestMapping(value = "commentWrite", method = RequestMethod.POST)
-		public String commentWrite(CommentVO vo, HttpSession session, RedirectAttributes rttr) {
-			String fitc_id = (String)session.getAttribute("fitc_id");
-			vo.setFitc_id(fitc_id);
-			rttr.addAttribute("b_num", vo.getB_num());
+		return "redirect:/board/boardRead";
+	}
+	
+	//댓글 삭제
+	@RequestMapping(value = "commentDelete", method = RequestMethod.GET)
+	public String commentDelete(CommentVO vo, HttpSession session) {
+		String fitc_id = (String)session.getAttribute("fitc_id");
+		vo.setFitc_id(fitc_id);			
+		
+		return "redirect:/board/boardRead?b_num=" + vo.getB_num();
+	}
+	
+	//댓글 삭제
+	@RequestMapping(value = "commentUpdate", method = RequestMethod.GET)
+	public String commentUpdate(CommentVO vo, HttpSession session, RedirectAttributes rttr) {
+		String fitc_id = (String)session.getAttribute("fitc_id");
+		vo.setFitc_id(fitc_id);			
+	
+		return "redirect:/board/boardRead?b_num=" + vo.getB_num();
+	}
 			
-			return "/board/boardRead";
-		}
-		
-		//댓글 삭제
-		@RequestMapping(value = "commentDelete", method = RequestMethod.GET)
-		public String commentDelete(CommentVO vo, HttpSession session) {
-			String fitc_id = (String)session.getAttribute("fitc_id");
-			vo.setFitc_id(fitc_id);			
-			
-			return "redirect:/board/boardRead?b_num=" + vo.getB_num();
-		}
-		
-		//댓글 삭제
-		@RequestMapping(value = "commentUpdate", method = RequestMethod.GET)
-		public String commentUpdate(CommentVO vo, HttpSession session, RedirectAttributes rttr) {
-			String fitc_id = (String)session.getAttribute("fitc_id");
-			vo.setFitc_id(fitc_id);			
-		
-			return "redirect:/board/boardRead?b_num=" + vo.getB_num();
-		}
-				
 }

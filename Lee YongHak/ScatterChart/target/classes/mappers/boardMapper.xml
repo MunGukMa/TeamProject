@@ -38,9 +38,9 @@
 	
 		insert into
 			chart_board
-			(b_num, fitc_id, title, b_content, b_date)
+			(b_num, fitc_id, title, pcsets, b_content, b_date)
 		values
-			(chart_board_seq.nextval, #{fitc_id}, #{title}, #{b_content}, sysdate)
+			(chart_board_seq.nextval, #{fitc_id}, #{title}, #{pcsets}, #{b_content}, sysdate)
 	
 	</insert>
 	
@@ -50,6 +50,7 @@
 			chart_board
 		set
 			title = #{title},
+			pcsets = #{pcsets},
 			b_content = #{b_content}
 		where
 			b_num = #{b_num}

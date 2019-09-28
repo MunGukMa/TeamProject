@@ -10,7 +10,7 @@ public class PCSetVO {
 	private String cpu;
 	private String ram;
 	private String vga;
-	private String pccase;
+	private String pc_case;
 	private String pcdate;
 
 }
