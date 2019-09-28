@@ -43,7 +43,7 @@
 			return;
 		}
 
-		if(fitc_nickname.value.length>10){
+		if(fitc_nickname.value.length>10 || fitc_nickname.value.length == 0){
 			alert('닉네임은 10글자 이하로 입력해주세요');
 			fitc_nickname.focus();
 			return;

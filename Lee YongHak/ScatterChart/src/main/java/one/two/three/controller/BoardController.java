@@ -46,9 +46,17 @@ public class BoardController {
 		return "/board/boardWriteForm";
 	}
 	
-	//게시판 글쓰기 화면
+	//게시판 수정 화면
 	@RequestMapping(value = "boardUpdateForm", method = RequestMethod.GET)
-	public String boardUpdateForm() {
+	public String boardUpdateForm(Model model, HttpSession session, PCSetVO vo) {
+		String fitc_id = (String)session.getAttribute("fitc_id");
+		vo.setFitc_id(fitc_id);
+			
+		ArrayList<PCSetVO> pcsetList = dao.pcsetList(fitc_id);
+		model.addAttribute("pcsetList", pcsetList);
+		System.out.println(pcsetList);
+		System.out.println(pcsetList.size());
+		
 		return "/board/boardUpdateForm";
 	}
 	
@@ -115,7 +123,7 @@ public class BoardController {
 		return "redirect:/board/boardList";
 	}
 	
-	// 게시글 수정
+	// 게시판 글 수정
 	@RequestMapping(value = "boardUpdate", method = RequestMethod.POST)
 	public String boardUpdate(BoardVO vo, HttpSession session, RedirectAttributes rttr) {
 		String fitc_id = (String)session.getAttribute("fitc_id");
@@ -127,7 +135,11 @@ public class BoardController {
 			result = true;
 		}
 		
+		ArrayList<PCSetVO> pcsetList = dao.pcsetList(fitc_id);
+		
 		rttr.addAttribute("u_result", result);
+		rttr.addAttribute("pcsetList", pcsetList);
+		
 		System.out.println(vo);
 		return "redirect:/board/boardRead?b_num=" + vo.getB_num();
 	}
@@ -165,7 +177,7 @@ public class BoardController {
 		return "redirect:/board/boardRead?b_num=" + vo.getB_num();
 	}
 	
-	//댓글 삭제
+	//댓글 수정
 	@RequestMapping(value = "commentUpdate", method = RequestMethod.GET)
 	public String commentUpdate(CommentVO vo, HttpSession session, RedirectAttributes rttr) {
 		String fitc_id = (String)session.getAttribute("fitc_id");

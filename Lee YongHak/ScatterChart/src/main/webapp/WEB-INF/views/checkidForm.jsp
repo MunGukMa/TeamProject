@@ -12,6 +12,12 @@
 			alert("아이디를 입력해주세요");
 			return;
 		}
+
+		if(id.length<4 || id.length>10){
+			alert('아이디는 4~10글자로 입력해주세요');
+			return;
+		}
+		
 		location.href="/three/checkID?fitc_id="+id;
 		
 		/*var fitc_id = document.getElementById("fitc_id");

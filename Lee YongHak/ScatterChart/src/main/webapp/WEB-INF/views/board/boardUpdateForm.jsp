@@ -8,10 +8,15 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>	
 	<script>
 	
-		/*function write(){
-			var form = document.getElementById("boardWriteForm");
-			form.submit();
-		}*/
+		function pcsetting(){
+			if(pcset.value == '-1'){
+				setting.value='';
+			}else{
+				setting.value="CPU : ${pcsetList.get(i).cpu}, RAM : ${pcsetList.get(i).ram}, VGA : ${pcsetList.get(i).vga}, CASE : ${pcsetList.get(i).pc_case}";
+				setting.readonly = true;
+			}				
+		}
+		
 	</script>
 	<style>
 		a
@@ -195,6 +200,18 @@
 		                    <tr>
 		                        <th>제목</th>
 		                        <td><input style="width: 500px" type="text" id="title" name="title" /></td>
+		                    </tr>
+		                    <tr>
+		                        <th>견적</th>
+		                        <td>
+		                        	<input type="text" name="setting" id="setting" style="width:400px"><br>
+		                        	<select style="width:300px" class="pcset" name="pcset" id="pcset" onchange="pcsetting()">
+		                        		<option value="-1" selected>견적을 선택하세요</option>
+		                        		<c:forEach var="i" begin="0" end="${pcsetList.size()-1 }" >
+		                        		<option value="${pcsetList.get(i)}">견적 ${pcsetList.get(i).getPcnum()}</option>
+		                        		</c:forEach>
+		                        	</select>
+		                        </td>
 		                    </tr>
 		                    <tr>
 		                        <th>내용</th>

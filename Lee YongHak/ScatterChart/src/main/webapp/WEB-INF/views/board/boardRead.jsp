@@ -7,10 +7,26 @@
 	<title>차트 연동하기</title>
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>	
 	<script>
+
 		function boardDelete(){
 			if(confirm("삭제하시겠습니까?")){
 				location.href="/three/board/boardDelete?b_num=${vo.b_num}"
 			}
+		}
+
+		function logIN(){
+			var form = document.getElementById("login");
+			form.submit();
+
+			if(result==false){
+				alert("아이디와 비밀번호를 확인해주세요");
+				return;
+			}
+			
+		}
+
+		function pageProc(currentPage, searchItem, searchKeyword) {
+			location.href="/three/board/boardRead?currentPage=" + currentPage + "&searchItem=" + searchItem + "&searchKeyword=" + searchKeyword;
 		}
 
 		/*function commentWrite(){
@@ -177,7 +193,7 @@
 	        </ul>
 	    </c:if>
 	    <c:if test="${sessionScope.fitc_id == null }">
-	    	<form id="login" action="logIN" method="post">
+	    	<form id="/three/login" action="logIN" method="post">
 				<table style="border:1px solid #ccc; width:140%">
 					<tr>
 						<td width="250px"><input type="text" name="fitc_id" id="fitc_id" placeholder="ID" style="width:90%" /></td>
@@ -224,7 +240,7 @@
 				
 				<tr>
 					<th>내용</th>
-					<td><textarea readonly="readonly">${vo.b_content}</textarea></td>
+					<td><textarea readonly="readonly" style="width: 500px" rows="10" cols="10">${vo.b_content}</textarea></td>
 				</tr>
 				<tr>
 					<td class="right" colspan="2">
@@ -315,7 +331,7 @@
 					<form action="/three/board/boardList" method="get">
 						<select name="searchItem">
 							<option value="title" selected="selected">제목</option>
-							<option value="userid">작성자</option>
+							<option value="fitc_id">작성자</option>
 						</select>
 						<input type="text" name="searchKeyword">
 						<input type="submit" value="검색">

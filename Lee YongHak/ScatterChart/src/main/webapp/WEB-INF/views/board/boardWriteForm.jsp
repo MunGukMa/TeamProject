@@ -13,16 +13,17 @@
 			form.submit();
 		}*/
 
-		alert("CPU : ${pcsetList.get(1).cpu}, RAM : ${pcsetList.get(1).ram}, VGA : ${pcsetList.get(1).vga}, CASE : ${pcsetList.get(1).pc_case}")
+		alert("CPU : ${pcsetList.get(1).cpu},\n RAM : ${pcsetList.get(1).ram},\n VGA : ${pcsetList.get(1).vga},\n CASE : ${pcsetList.get(1).pc_case}");
 		
 		function pcsetting(){
+			for(var i = 0; i<${pcsetList.size()}; i++){
 				if(pcset.value == '-1'){
-					setting.value='';
-				}else{
-					setting.value="CPU : ${pcsetList.get(i).cpu}, RAM : ${pcsetList.get(i).ram}, VGA : ${pcsetList.get(i).vga}, CASE : ${pcsetList.get(i).pc_case}";
-					setting.readonly = true;
+					pcsets.value='';
+				}else if(pcset.value == 'i'){
+					pcsets.value="CPU : ${pcsetList.get(i).cpu}, RAM : ${pcsetList.get(i).ram}, VGA : ${pcsetList.get(i).vga}, CASE : ${pcsetList.get(i).pc_case}";
+					pcsets.readonly = true;
 				}
-					
+			}		
 		}
 		
 	</script>
@@ -212,11 +213,11 @@
 		                    <tr>
 		                        <th>견적</th>
 		                        <td>
-		                        	<input type="text" name="setting" id="setting" style="width:400px"><br>
+		                        	<input type="text" name="pcsets" id="pcsets" style="width:400px"><br>
 		                        	<select style="width:300px" class="pcset" name="pcset" id="pcset" onchange="pcsetting()">
 		                        		<option value="-1" selected>견적을 선택하세요</option>
 		                        		<c:forEach var="i" begin="0" end="${pcsetList.size()-1 }" >
-		                        		<option value="${pcsetList.get(i)}">견적 ${pcsetList.get(i).getPcnum()}</option>
+		                        		<option value="i">견적 ${pcsetList.get(i).getPcnum()}</option>
 		                        		</c:forEach>
 		                        	</select>
 		                        </td>

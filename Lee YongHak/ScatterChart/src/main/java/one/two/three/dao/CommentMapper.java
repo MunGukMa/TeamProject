@@ -7,7 +7,7 @@ import one.two.three.vo.CommentVO;
 public interface CommentMapper {
 	
 	public ArrayList<CommentVO> commentList(int b_num);
-	public int commentWrite(CommentVO vo);
-	public int commentUpdate(CommentVO vo);
-	public int commentDelete(CommentVO vo);
+	public void commentWrite(CommentVO vo);
+	public void commentUpdate(CommentVO vo);
+	public void commentDelete(CommentVO vo);
 }
