@@ -3,21 +3,25 @@ create table chart_board
 b_num number(10) primary key,
 fitc_id varchar2(30) not null,
 title varchar2(50) not null,
-pcsets varchar2(500) ,
 b_content varchar2(500) not null,
 b_date date default sysdate,
 hit number(10) default 0,
+pcset_cpu varchar2(300),
+pcset_ram varchar2(300),
+pcset_vga varchar2(300),
+pcset_pc_case varchar2(300),
 CONSTRAINT chart_board_fk foreign key(fitc_id)
 REFERENCES chart_member(fitc_id) on delete CASCADE
 )
 
+
 create SEQUENCE chart_board_seq;
 
 insert into chart_board
-values(chart_board_seq.nextval, 'aaaa', '°ßÀû Æò°¡ Á»¿ä', 'ÀÌ·¸°Ô Â®´Âµ¥ Æò°¡ ºÎÅ¹µå·Á¿ä', sysdate, 0);
+values(chart_board_seq.nextval, 'aaaa', 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½', 'ï¿½Ì·ï¿½ï¿½ï¿½ Â®ï¿½Âµï¿½ ï¿½ï¿½ ï¿½ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½', sysdate, 0);
 
 insert into chart_board
-values(chart_board_seq.nextval, 'aaaa', 'ÀÌ°Å °ßÀû ¾î¶¶?', '¤µ¤¼¤ºÀÓ? ¤¾¤¼¤ºÀÓ?', sysdate, 0);
+values(chart_board_seq.nextval, 'aaaa', 'ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½î¶¶?', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?', sysdate, 0);
 
 commit;
 

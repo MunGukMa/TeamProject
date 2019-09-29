@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import one.two.three.util.PageNavigator;
@@ -160,13 +161,21 @@ public class BoardController {
 	
 	//댓글 쓰기
 	@RequestMapping(value = "commentWrite", method = RequestMethod.POST)
-	public String commentWrite(CommentVO vo, HttpSession session, RedirectAttributes rttr) {
+	@ResponseBody
+	public ArrayList<CommentVO> commentWrite(CommentVO vo, HttpSession session, RedirectAttributes rttr) {
 		String fitc_id = (String)session.getAttribute("fitc_id");
 		vo.setFitc_id(fitc_id);
-		rttr.addAttribute("b_num", vo.getB_num());
+		System.out.println("받은정보");
+		System.out.println(vo);
+		dao.commentWrite(vo);
+		ArrayList<CommentVO> comlist = dao.commentList(vo.getB_num());
 		
-		return "redirect:/board/boardRead";
-	}
+		/* rttr.addAttribute("b_num", vo.getB_num()); */
+		  
+		return comlist;
+		 	
+		}
+	
 	
 	//댓글 삭제
 	@RequestMapping(value = "commentDelete", method = RequestMethod.GET)

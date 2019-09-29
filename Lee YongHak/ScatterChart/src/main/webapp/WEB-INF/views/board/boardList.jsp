@@ -1,11 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>차트 연동하기</title>
-	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>	
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">	
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">	
+	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script>
 
 	function logIN(){
@@ -30,12 +37,37 @@
 			text-decoration:none;
 		}
 		
+		a:hover{
+			text-decoration:none;
+		}
+		
 		/*div{
 	        border: 1px solid #ccc;
 	    }*/
 	    
-	    table, th, td{
-	        border: 1px solid #ccc;
+	    .th_num{
+	    	width:10%;
+	    }
+	    
+	    .th_title{
+	    	width:50%;
+	    }
+	    
+	    .th_fitc_id{
+	    
+	    }
+	    
+	    .th_hit{
+	    	width:10%;
+	    }
+	    
+	    .th_date{
+	    	width:15%;
+	    }
+	    
+	    
+	    th{
+	    	text-align:center;
 	    }
 	
 	    h1, h5{
@@ -107,7 +139,7 @@
 	    }
 	    
 	    .longLink{
-	    	width: 150px;
+	    	width: 148px;
 	    }
 	    
 	    .submenu{
@@ -212,24 +244,32 @@
     </aside>
 	<section>
 	<h2 style="text-align:center"> [견적게시판] </h2>
+	<hr/>
         <div class="box1" id="board_div" >
-	    	<table style="margin-left: auto; margin-right: auto;">
+	    	<table style="margin-left: auto; margin-right: auto;" class="table table-bordered table-striped table-hover">
+	    		<thead>
 				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>조회</th>
-					<th>날짜</th>
+					<th class="th_num">번호</th>
+					<th class="th_title">제목</th>
+					<th class="th_fitc_id">작성자</th>
+					<th class="th_hit">조회</th>
+					<th class="th_date">날짜</th>
 				</tr>
+				</thead>
+				<tbody>
 				<c:forEach items="${list}" var="boardVO">
 					<tr>
 						<td class="center" style="text-align:center">${boardVO.b_num}</td>
-						<td id="title"><a href="/three/board/boardRead?b_num=${boardVO.b_num}">${boardVO.title}</a></td>
+						<td id="title" style="padding-left:2%"><a href="/three/board/boardRead?b_num=${boardVO.b_num}">${boardVO.title}</a></td>
 						<td class="center" style="text-align:center">${boardVO.fitc_id}</td>
 						<td class="center" style="text-align:center">${boardVO.hit}</td>
-						<td id="inputdate" style="text-align:center">${boardVO.b_date}</td>
+						<td id="inputdate" style="text-align:center">
+							<fmt:parseDate value="${boardVO.b_date}" var="parseRegdate" pattern="yyyy-MM-dd HH:mm:ss" />
+							<fmt:formatDate value="${parseRegdate}" pattern="MM.dd HH:mm"/>	
+						</td>
 					</tr>
 				</c:forEach>
+				</tbody>
 				<tr style="text-align:center">
 					<td id="navigator" colspan="5">
 						<a href="javascript:pageProc(${navi.currentPage - navi.pagePerGroup}, '${searchCondition}', '${searchKeyword}')">◁◁ </a> &nbsp;&nbsp;
@@ -244,25 +284,23 @@
 						<a href="javascript:pageProc(${navi.currentPage + 1}, '${searchCondition}', '${searchKeyword}')">▶</a> &nbsp;&nbsp;
 						<a href="javascript:pageProc(${navi.currentPage + navi.pagePerGroup}, '${searchCondition}', '${searchKeyword}')">▷▷</a>
 					</td>
-				</tr>
-						
+				</tr>						
 				<tr>
-					<td id="boardSearch" colspan="4">
+					<td id="boardSearch" colspan="5" style="text-align:center">
 					<form action="/three/board/boardList" method="get">
 						<select name="searchItem">
 							<option value="title" selected="selected">제목</option>
 							<option value="fitc_id">작성자</option>
 						</select>
 						<input type="text" name="searchKeyword">
-						<input type="submit" value="검색">
+						<input type="submit" value="검색" >
+						<button type="button" class="btn" >버튼</button>
 					</form>
 					</td>
-					<td class="right">
-						<a href="/three/board/boardWriteForm">글쓰기</a>
-					</td>
 				</tr>				
-				
 			</table>
+			<hr/>
+			<a class="btn btn-default pull-right" href="/three/board/boardWriteForm">글쓰기</a>
    		</div>    
     </section>
 	<footer>

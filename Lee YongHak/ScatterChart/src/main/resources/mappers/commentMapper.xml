@@ -17,7 +17,7 @@
 	
 	</select>
 	
-	<insert id="commentWrite" parameterType="CommentVO">
+	<insert id="commentWrite" parameterType="CommentVO" >
 	
 		insert into
 			comments

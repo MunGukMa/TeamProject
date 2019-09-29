@@ -5,7 +5,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>차트 연동하기</title>
-	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>	
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">	
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">	
+	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script>
 	
 		/*function write(){
@@ -13,15 +19,26 @@
 			form.submit();
 		}*/
 
-		alert("CPU : ${pcsetList.get(1).cpu},\n RAM : ${pcsetList.get(1).ram},\n VGA : ${pcsetList.get(1).vga},\n CASE : ${pcsetList.get(1).pc_case}");
+		//alert("CPU : ${pcsetList.get(1).cpu},\n RAM : ${pcsetList.get(1).ram},\n VGA : ${pcsetList.get(1).vga},\n CASE : ${pcsetList.get(1).pc_case}");
 		
 		function pcsetting(){
 			for(var i = 0; i<${pcsetList.size()}; i++){
 				if(pcset.value == '-1'){
-					pcsets.value='';
+					//pcsets.value='';
+					//pcsets.style.display = 'none';
+					pcset_table.style.display='none';
+					pcset_cpu.value="";
+					pcset_ram.value="";
+					pcset_vga.value="";
+					pcset_case.value="";
 				}else if(pcset.value == 'i'){
-					pcsets.value="CPU : ${pcsetList.get(i).cpu}, RAM : ${pcsetList.get(i).ram}, VGA : ${pcsetList.get(i).vga}, CASE : ${pcsetList.get(i).pc_case}";
-					pcsets.readonly = true;
+					//pcsets.value="CPU : ${pcsetList.get(i).cpu}, RAM : ${pcsetList.get(i).ram}, VGA : ${pcsetList.get(i).vga}, CASE : ${pcsetList.get(i).pc_case}";
+					//pcsets.style.display = 'block';
+					pcset_table.style.display='block';
+					pcset_cpu.value="${pcsetList.get(i).cpu}";
+					pcset_ram.value="${pcsetList.get(i).ram}";
+					pcset_vga.value="${pcsetList.get(i).vga}";
+					pcset_pc_case.value="${pcsetList.get(i).pc_case}";
 				}
 			}		
 		}
@@ -30,6 +47,10 @@
 	<style>
 		a
 		{
+			text-decoration:none;
+		}
+		
+		a:hover{
 			text-decoration:none;
 		}
 		
@@ -110,7 +131,7 @@
 	    }
 	    
 	    .longLink{
-	    	width: 150px;
+	    	width: 148px;
 	    }
 	    
 	    .submenu{
@@ -201,20 +222,38 @@
     </aside>
 	<section>
 	<h2 style="text-align:center"> [글 작성] </h2>
-        <div>
+        <div class="box1">
 		    <form action="/three/board/boardWrite" id="boardWriteForm" name="boardWriteForm" method="post">
 		        <div>
 		            <div>
-		                <table style="margin-left: auto; margin-right: auto;">
+		                <table class="table" style="margin-left: auto; margin-right: auto;">
 		                    <tr>
-		                        <th>제목</th>
-		                        <td><input style="width: 500px" type="text" id="title" name="title" /></td>
+		                        <th class="write_title" style="width:10%">제목</th>
+		                        <td><input style="width: 100%" type="text" id="title" name="title" /></td>
 		                    </tr>		                    
 		                    <tr>
-		                        <th>견적</th>
+		                        <th class="write_pcset">견적</th>
 		                        <td>
-		                        	<input type="text" name="pcsets" id="pcsets" style="width:400px"><br>
-		                        	<select style="width:300px" class="pcset" name="pcset" id="pcset" onchange="pcsetting()">
+		                        	<table class="pcset_table" id="pcset_table" name="pcset_table" style="display:none;">
+		                        		<tr>
+		                        			<th>CPU</th>
+		                        			<td><input id="pcset_cpu" name="pcset_cpu" class="pcset_cpu" readonly="readonly" style="border:none;" /></td>
+		                        		</tr>
+		                        		<tr>
+		                        			<th>RAM</th>
+		                        			<td><input id="pcset_ram" name="pcset_ram" class="pcset_ram" readonly="readonly" style="border:none" /></td>
+		                        		</tr>
+		                        		<tr>
+		                        			<th>VGA</th>
+		                        			<td><input id="pcset_vga" name="pcset_vga" class="pcset_vga" readonly="readonly" style="border:none" /></td>
+		                        		</tr>
+		                        		<tr>
+		                        			<th>CASE</th>
+		                        			<td><input id="pcset_pc_case" name="pcset_pc_case" class="pcset_pc_case" readonly="readonly" style="border:none" /></td>
+		                        		</tr>
+		                        	</table>
+		                        	<!--  <input type="text" name="pcsets" id="pcsets" style="width:100%" readonly="readonly" style="display:none"><hr> -->
+		                        	<select style="width:100%" class="pcset" name="pcset" id="pcset" onchange="pcsetting()">
 		                        		<option value="-1" selected>견적을 선택하세요</option>
 		                        		<c:forEach var="i" begin="0" end="${pcsetList.size()-1 }" >
 		                        		<option value="i">견적 ${pcsetList.get(i).getPcnum()}</option>
@@ -223,8 +262,8 @@
 		                        </td>
 		                    </tr>		                    
 		                    <tr>
-		                        <th>내용</th>
-		                        <td><textarea style="width: 500px" rows="10" cols="10" id="b_content" name="b_content"></textarea></td>
+		                        <th class="write_content">내용</th>
+		                        <td><textarea style="width: 100%" rows="10" cols="10" id="b_content" name="b_content"></textarea></td>
 		                    </tr>
 		                    
 		                </table>

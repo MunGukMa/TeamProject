@@ -1,13 +1,68 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>차트 연동하기</title>
-	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>	
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">	
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">	
+	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script>
 
+		window.onload = function()
+		{
+			$('#rpybtn').on('click',commentWrite);
+
+
+
+		}
+
+		function commentWrite()
+		{
+			$.ajax({
+				url:"/three/board/commentWrite",
+				type:"post",				
+				data:$('#commentForm').serialize(),
+				success:function(result){
+						alert("된당");
+						$('.removetr').remove();
+						$(result).each(function(index,item)
+						{
+							$('#rpytab').append('<tr class="removetr" id="comlist"><td>'+item.comments+'</td><td>'+item.fitc_id+'</td><td>'+item.c_date
+									+'</td><td><input type="button" value="삭제" id="'+item.c_num+'" onclick="commentDelete(this)"></td>'+
+									'<td><input type="button" value="수정" id="'+item.c_num+'" onclick="commentModify(this)"</td></tr>');
+						}
+						)	
+					},
+				error:function()
+				{
+					alert("안된당");
+				}
+			})
+		}
+
+		function commentTable()
+		{
+			$.ajax({
+				url:"",
+				type:"post",				
+				success:function(){
+						alert("된당");
+					},
+				error:function()
+				{
+					alert("안된당");
+				}
+			})
+		}
+
+		
 		function boardDelete(){
 			if(confirm("삭제하시겠습니까?")){
 				location.href="/three/board/boardDelete?b_num=${vo.b_num}"
@@ -41,8 +96,11 @@
 		}*/
 	</script>
 	<style>
-		a
-		{
+		a{
+			text-decoration:none;
+		}
+		
+		a:hover{
 			text-decoration:none;
 		}
 		
@@ -50,8 +108,36 @@
 	        border: 1px solid #ccc;
 	    }*/
 	    
-	    table, th, td{
+	    /*table, th, td{
 	        border: 1px solid #ccc;
+	    }*/
+	    
+	    .th_num{
+	    	width:10%;
+	    }
+	    
+	    .th_title{
+	    	width:50%;
+	    }
+	    
+	    .th_fitc_id{
+	    
+	    }
+	    
+	    .th_hit{
+	    	width:10%;
+	    }
+	    
+	    .th_date{
+	    	width:15%;
+	    }
+	    
+	    .read_title{
+	    	font-weight:bold;
+	    }
+	    
+	    th{
+	    	text-align:center;
 	    }
 	
 	    h1, h5{
@@ -123,7 +209,7 @@
 	    }
 	    
 	    .longLink{
-	    	width: 150px;
+	    	width: 148px;
 	    }
 	    
 	    .submenu{
@@ -214,36 +300,48 @@
     </aside>
 	<section>
 	<h2 style="text-align:center"> [견적게시판] </h2>
+	<hr/>
         <div class="box1" id="board_div" >
-	    	<table style="margin-left: auto; margin-right: auto;">
+	    	<table class="table" style="margin-left: auto; margin-right: auto;">
 		    	<tr>
-					<th>제목</th>
-					<td>${vo.title}</td>
-				</tr>
-		    	
-				<tr>
-					<th>작성자</th>
-					<td>${vo.fitc_id}</td>
-				</tr>
-				<tr>
-					<th>작성일</th>
-					<td>${vo.b_date}</td>
-				</tr>
-				<tr>
-					<th>조회</th>
-					<td>${vo.hit}</td>
-				</tr>
-				<tr>
-					<th>견적</th>
-					<td>${vo.pcsets}</td>
+					<td><div><span class="read_title">${vo.title}</span></div><br>
+						<span>작성자 : ${vo.fitc_id}</span> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span style="text-align:right">${vo.b_date}</span> 					
+					</td>
 				</tr>
 				
 				<tr>
-					<th>내용</th>
-					<td><textarea readonly="readonly" style="width: 500px" rows="10" cols="10">${vo.b_content}</textarea></td>
+					<td class="read_hit">조회수 : ${vo.hit} | 댓글수 : ${commentList.size()}</td>
 				</tr>
 				<tr>
-					<td class="right" colspan="2">
+					<td>
+					<c:if test="${vo.pcset_cpu != null}">
+						<table class="pcset_table" id="pcset_table" style="border:solid 1px;">
+		                	<tr style="border:solid 1px;">
+		                    	<th>CPU</th>
+		                        <td style="border:solid 1px;">${vo.pcset_cpu}</td>
+		                    </tr>
+		                    <tr style="border:solid 1px;">
+		                        <th>RAM</th>
+		                        <td style="border:solid 1px;">${vo.pcset_ram}</td>
+		                    </tr>
+		                    <tr style="border:solid 1px;">
+		                       	<th>VGA</th>
+		                        <td style="border:solid 1px;">${vo.pcset_vga}</td>
+		                    </tr>
+		                    <tr style="border:solid 1px;">
+		                        <th>CASE</th>
+		                        <td style="border:solid 1px;">${vo.pcset_pc_case}</td>
+		                    </tr>
+		                </table>
+					</c:if>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><textarea readonly="readonly" style="width:100%" rows="10" cols="10">${vo.b_content}</textarea></td>
+				</tr>
+				<tr>
+					<td class="right" colspan="2" align="right">
 						<c:if test="${sessionScope.fitc_id == vo.fitc_id}">
 							<a href="/three/board/boardUpdateForm?b_num=${vo.b_num}"><input type="button" value="수정"></a>
 							<input type="button" value="삭제" onclick="boardDelete()">
@@ -260,8 +358,9 @@
 				<table id="commentinput" style="margin-left: auto; margin-right: auto;">
 					<tr>
 						<td>
-							<textarea rows="3" cols="10" style="width: 300px" id="comments" name="comments"></textarea>
+							<textarea rows="3" cols="10" style="width:100%" id="comments" name="comments"></textarea><br/>
 							<input id="commentWrite" type="submit" value="댓글 입력"/>
+							<input id="rpybtn" type="button" value="테스트버튼">
 						</td>
 					</tr>
 				</table>
@@ -269,47 +368,54 @@
 			
 			<!-- 댓글 출력 -->
 			<div id="commentdisplay">
-			<table class="comment" style="margin-left: auto; margin-right: auto;">
+			<table id="rpytab" class="comment" style="margin-left: auto; margin-right: auto;">
 				<c:forEach items="${commentList}" var="comment">
-					<tr>
-						<td class="comments">
-							${comment.comments}
-						</td>
+					<tr class="removetr">
 						<td class="commentid">
 							<span>${comment.fitc_id} </span>
 						</td>
+						<td class="comments">
+							<span>${comment.comments}</span>
+						</td>						
 						<td class="commentdate">
 							<span>${comment.c_date}</span>
 						</td>
 						<c:if test="${sessionScope.fitc_id == comment.fitc_id }">
 							<td class="commentbtn">
-								<input type="button" value="삭제" onclick="commentDelete('${comment.c_date}')" >
-								<input type="button" value="수정" onclick="commentModify('${comment.c_date}', '${comment.comments}')">
+								<span><input type="button" value="삭제" onclick="commentDelete('${comment.c_date}')" ></span>
+								<span><input type="button" value="수정" onclick="commentModify('${comment.c_date}', '${comment.comments}')"></span>
 							</td>
 						</c:if>
 					</tr>
 				</c:forEach>
 			</table>
 			</div>
-	    	
+	    	<hr/>
 	    	<!-- 게시글 목록 -->
-	    	<table style="margin-left: auto; margin-right: auto;">
+	    	<table style="margin-left: auto; margin-right: auto;" class="table table-bordered table-striped table-hover">
+	    		<thead>
 				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>조회</th>
-					<th>날짜</th>
+					<th class="th_num">번호</th>
+					<th class="th_title">제목</th>
+					<th class="th_fitc_id">작성자</th>
+					<th class="th_hit">조회</th>
+					<th class="th_date">날짜</th>
 				</tr>
+				</thead>
+				<tbody>
 				<c:forEach items="${list}" var="boardVO">
 					<tr>
 						<td class="center" style="text-align:center">${boardVO.b_num}</td>
-						<td id="title"><a href="/three/board/boardRead?b_num=${boardVO.b_num}">${boardVO.title}</a></td>
+						<td id="title" style="padding-left:2%"><a href="/three/board/boardRead?b_num=${boardVO.b_num}">${boardVO.title}</a></td>
 						<td class="center" style="text-align:center">${boardVO.fitc_id}</td>
 						<td class="center" style="text-align:center">${boardVO.hit}</td>
-						<td id="inputdate" style="text-align:center">${boardVO.b_date}</td>
+						<td id="inputdate" style="text-align:center">
+							<fmt:parseDate value="${boardVO.b_date}" var="parseRegdate" pattern="yyyy-MM-dd HH:mm:ss" />
+							<fmt:formatDate value="${parseRegdate}" pattern="MM.dd HH:mm"/>	
+						</td>
 					</tr>
 				</c:forEach>
+				</tbody>
 				<tr style="text-align:center">
 					<td id="navigator" colspan="5">
 						<a href="javascript:pageProc(${navi.currentPage - navi.pagePerGroup}, '${searchCondition}', '${searchKeyword}')">◁◁ </a> &nbsp;&nbsp;
@@ -324,24 +430,23 @@
 						<a href="javascript:pageProc(${navi.currentPage + 1}, '${searchCondition}', '${searchKeyword}')">▶</a> &nbsp;&nbsp;
 						<a href="javascript:pageProc(${navi.currentPage + navi.pagePerGroup}, '${searchCondition}', '${searchKeyword}')">▷▷</a>
 					</td>
-				</tr>
-						
+				</tr>						
 				<tr>
-					<td id="boardSearch" colspan="4">
+					<td id="boardSearch" colspan="5" style="text-align:center">
 					<form action="/three/board/boardList" method="get">
 						<select name="searchItem">
 							<option value="title" selected="selected">제목</option>
 							<option value="fitc_id">작성자</option>
 						</select>
 						<input type="text" name="searchKeyword">
-						<input type="submit" value="검색">
+						<input type="submit" value="검색" >
+						<button type="button" class="btn" >버튼</button>
 					</form>
 					</td>
-					<td class="right">
-						<a href="/three/board/boardWriteForm">글쓰기</a>
-					</td>
-				</tr>
+				</tr>				
 			</table>
+			<hr/>
+			<a class="btn btn-default pull-right" href="/three/board/boardWriteForm">글쓰기</a>
    		</div>    
     </section>
 	<footer>

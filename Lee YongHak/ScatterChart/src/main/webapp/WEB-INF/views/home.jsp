@@ -8,10 +8,16 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.min.js"></script>
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">	
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">	
+	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script>
 		var gameary = new Array();
 		var gameicon = new Array();
-		var addwin ;
+		var addwin;
 		var testva;
 		window.onload = function(){
 			var ctx = document.getElementById("mainchart").getContext('2d');
@@ -135,9 +141,13 @@
 		}		
 						
 	</script>
-	<style>
-		a
-		{
+	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+	<style type='text/css'>
+		a{
+			text-decoration:none;
+		}
+		
+		a:hover{
 			text-decoration:none;
 		}
 		
@@ -150,8 +160,18 @@
 	    }*/
 	
 	    h1, h5{
-	        text-align: center;
-	        font-family: 'NanumGothic';
+	    	text-align: center;
+	    	/*font-family: 'Lobster', cursive;*/
+	    	color:white;
+	    	
+	    }
+	    
+	    /*body{
+	    	background-color:rgba(0,0,0,0.5);
+	    }*/
+	    
+	    .headBox{
+	    	background-color:rgba(0,0,0,0.5);
 	    }
 	    
 	    .box1{
@@ -160,7 +180,8 @@
 	        width: 60%;
 	        height: 60%;
 	        margin-bottom: 5%; 
-	        align-content: center
+	        align-content: center;
+	        background-color:white;
 	    }
 	
 	    .box2{
@@ -218,7 +239,7 @@
 	    }
 	    
 	    .longLink{
-	    	width: 150px;
+	    	width: 148px;
 	    }
 	    
 	    .submenu{
@@ -294,9 +315,9 @@
 </head>
 <body>
 	<header>
-        <div>
+        <div class="headBox">
             <h1>
-                <a href="/three" >Fit-c</a>
+                <a href="/three" style="color:white">Fit-c</a>
             </h1>
 			<h5>
 				Fit your game
@@ -330,10 +351,10 @@
 	    	<form id="login" action="logIN" method="post">
 				<table style="border:1px solid #ccc; width:140%">
 					<tr>
-						<td width="250px"><input type="text" name="fitc_id" id="fitc_id" placeholder="ID" style="width:90%" /></td>
+						<td width="250px"><input type="text" name="fitc_id" id="fitc_id" placeholder="ID" style="width:100%" /></td>
 					</tr>
 					<tr>
-						<td width="250px"><input type="password" name="fitc_pw" id="fitc_pw" placeholder="PASSWORD" style="width:90%" /></td>
+						<td width="250px"><input type="password" name="fitc_pw" id="fitc_pw" placeholder="PASSWORD" style="width:100%" /></td>
 					</tr>
 					<tr>
 						<td width="250px"><input type="button" value="로그인" onclick="logIN()" style="width:100%" /></td>
@@ -348,8 +369,8 @@
     </aside>
 	<section>
         <div class="box1" id="chart_div" >
-	     <canvas id="mainchart" ></canvas>
-	     <div id="nondiv" style="display:none;">
+	    <canvas id="mainchart" ></canvas>
+	    <div id="nondiv" style="display:none;">
 	     	<table style="width:100%;">
 			<tr>
 				<th colspan="2">
