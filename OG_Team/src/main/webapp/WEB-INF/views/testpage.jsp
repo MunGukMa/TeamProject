@@ -5,9 +5,55 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script
+  src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"
+  integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script>
+	var malist;
+	
+	window.onload=function()
+	{
+		var languages = [
+			"ActionScript", "AppleScript", "Asp","BASIC", "C",
+			"C++", "Clojure", "COBOL", "ColdFusion", "Erlang",
+			"Fortran", "Groovy", "Haskell", "Java", "JavaScript",
+			"Lisp", "Perl", "PHP", "Python", "Ruby",
+			"Scala", "Scheme"
+		];
+		
+		
+		$('.userspec').autocomplete({
+			source: function(request,response)
+			{
+				$.ajax({
+					url:"getauto",
+					type:"get",
+					dataType: "json",
+					data:{keyvalue : request.term},
+					success: function(data)
+					{
+						response($.map(data, function(item) 
+		                {
+		                 	return {label: item,value: item}
+		                }));
+					}
+				})
+			},
+			focus: function(event, ui){ return false;},
+			minLength: 2
+		});
+	}
+	
+
+	
+	
+</script>
 <style>
 	table
-	{
+	{s
 		text-align:center;
 	}
 </style>
@@ -17,7 +63,8 @@
 	<table border="1">
 		<tr>
 			<th colspan="3">
-				<img src="${game. imagelink}"><h2>${game.gamename}의 직접견적</h2>
+				<img src="${game. imagelink}">
+				<h2><%-- ${sessionScope.userid} --%>마문국님의 견적서</h2>
 			</th>
 		</tr>
 		<tr>
@@ -39,7 +86,8 @@
 				${game.gamecpu}
 			</td>
 			<td>
-				<input type="text"><input type="button" value="검색">
+				<input class="userspec" name="usercpu" id="usercpu" type="text"><input type="button" value="검색">
+			
 			</td>
 		</tr>
 		<tr>
@@ -50,7 +98,8 @@
 				${game.gamegpu}
 			</td>
 			<td>
-				<input type="text"><input type="button" value="검색">
+				<input class="userspec" name="usergpu" id="usergpu" type="text"><input type="button" value="검색">
+				<div id="autocom"></div>
 			</td>
 		</tr>
 		<tr>
@@ -61,7 +110,8 @@
 				${game.gameram}
 			</td>
 			<td>
-				<input type="text"><input type="button" value="검색">
+				<input class="userspec" name="userram" id="userram" type="text"><input type="button" value="검색">
+				<div id="autocom"></div>
 			</td>
 		</tr>
 		<tr>
@@ -72,7 +122,8 @@
 				
 			</td>
 			<td>
-				<input type="text"><input type="button" value="검색">
+				<input class="userspec" name="usermainboard" id="usermainboard" type="text"><input type="button" value="검색">
+				<div id="autocom"></div>
 			</td>
 		</tr>
 		<tr>
@@ -83,7 +134,8 @@
 				
 			</td>
 			<td>
-				<input type="text"><input type="button" value="검색">
+				<input class="userspec" name="userpower" id="userpower" type="text"><input type="button" value="검색">
+				<div id="autocom"></div>
 			</td>
 		</tr>
 		<tr>
@@ -94,13 +146,12 @@
 				
 			</td>
 			<td>
-				<input type="text"><input type="button" value="검색">
+				<input class="userspec" name="usercase" id="usercase" type="text"><input type="button" value="검색">
+				<div id="autocom"></div>
 			</td>
 		</tr>
 		
 	</table>
-
-
-
+	
 </body>
 </html>
