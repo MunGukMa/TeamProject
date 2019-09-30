@@ -4,36 +4,67 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="team.project.one.dao.ParsingMapper">
-	<!-- <insert id="insertMainBoard" parameterType="MainBoardVO" >
-		insert into
-			mainboard
-		values(
-			mb_seq.nextval,#{name},#{sockets},#{formFactor},#{chipset},#{RAM},
-			#{releaseDate},#{audioChip},#{usb2},#{usb3},#{sata},null
-		)
-	</insert> -->
 	<insert id="insertMainBoard" parameterType="java.util.List">
-		insert into mainboard(num, name, sockets, formFactor, chipSet, RAM, releaseDate, audioChip, usb2, usb3, sata)
-		select seq.nextval, A.* from(
- 		<foreach item="item" collection="list" separator="UNION ALL " >
-   			select #{item.name} as name,
-        	#{item.sockets} as sockets,
-       		#{item.formFactor} as formFactor,
-       		#{item.chipset} as chipset,
-       		#{item.RAM} as RAM,
-       		#{item.releaseDate} as releaseDate,
-       		#{item.audioChip} as audioChip,
-       		#{item.usb2} as usb2,
-       		#{item.usb3} as usb3,
-       		#{item.sata} as sata,
-  			from dual
- 		</foreach>) A
-</insert>
-	<select id="getnumber" resultType="int">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_mainboard(num, name, sockets, formFactor, chipSet, RAM, releaseDate, audioChip, usb2, usb3, sata)
+			values
+	   			(${item.num},#{item.name},#{item.sockets},#{item.formFactor},#{item.chipSet},#{item.RAM},#{item.releaseDate},
+	       		#{item.audioChip},#{item.usb2},#{item.usb3},#{item.sata})
+ 		</foreach>
+	</insert>
+	<insert id="insertPower" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_power(num, name, price, power, output, fansize, fannum, atx, sata, connecter, etc, releasedate)
+			values
+	   			(${item.num},#{item.name},#{item.price, jdbcType=VARCHAR},#{item.power, jdbcType=VARCHAR},#{item.output, jdbcType=VARCHAR},#{item.fanSize, jdbcType=VARCHAR},#{item.fanNum, jdbcType=VARCHAR},
+	       		#{item.atx, jdbcType=VARCHAR},#{item.sata, jdbcType=VARCHAR},#{item.connecter, jdbcType=VARCHAR},#{item.etc, jdbcType=VARCHAR},#{item.releaseDate, jdbcType=VARCHAR})
+ 		</foreach>
+	</insert>
+	<insert id="insertCpu" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_cpu(num, cpuname, cpucode, cores, clock, socket, process, l3cache, tdp, released)
+			values
+	   			(#{item.num},#{item.cpuname},#{item.cpucode},#{item.cores},#{item.clock},#{item.socket},#{item.process},
+	       		#{item.l3cache},#{item.tdp},#{item.released})
+ 		</foreach>
+	</insert>
+	<insert id="insertCase" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_case(num, casename, rowprice, power, mainboardsize, casesize, addop)
+			values
+	   			(${item.num},#{item.casename},#{item.rowprice, jdbcType=VARCHAR},#{item.power, jdbcType=VARCHAR},#{item.mainboardsize, jdbcType=VARCHAR},#{item.casesize, jdbcType=VARCHAR},#{item.addop, jdbcType=VARCHAR})
+ 		</foreach>
+	</insert>
+	<insert id="insertRam" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_ram(num, name, spec, src_link)
+			values
+	   			(${item.num},#{item.name},#{item.spec},#{item.src_link})
+ 		</foreach>
+	</insert>
+	<insert id="insertGpu" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_gpu(num, manufacturer, product_name, chip, realeased_date, bus, m_size,m_ddr,m_bit,g_clock,m_clock,tdp,rank)
+			values
+	   			(${item.num},
+	   			#{item.company},
+	   			#{item.product_name},
+	   			#{item.chip},
+	   			#{item.released_date},#{item.bus},#{item.m_size},#{item.m_ddr},#{item.m_bit},#{item.g_clock},#{item.m_clock},#{item.tdp},#{item.rank})
+ 		</foreach>
+	</insert>
+	<insert id="insertSteam" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_steam(num, appid, name)
+			values
+	   			(${item.num},#{item.appid},#{item.name})
+ 		</foreach>
+	</insert>
+	<select id="getCnt" parameterType="String" resultType="int">
 		select 
-			count(name)
+			count(num)
 		from 
-			mainboard
+			${value}
 	</select>
 	
 </mapper>
