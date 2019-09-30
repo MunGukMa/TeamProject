@@ -41,316 +41,332 @@ public class ParsingService
 	int mainboardcnt = 0;
 
 	//WebDriver
-    WebDriver driver;
-    
+	WebDriver driver;
+
 	@Autowired
 	ParsingDAO dao;
-	
-    //Properties
-    public final String WEB_DRIVER_ID = "webdriver.chrome.driver";
-    public final String WEB_DRIVER_PATH = "C:\\SetupFile\\chromedriver.exe";
-    private String base_url;
-    
-    
-    public void connSelenium() {
-        //System Property SetUp
-        System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
-        
-        //Driver SetUp
-        ChromeOptions options = new ChromeOptions();
-        options.setCapability("ignoreProtectedModeSettings", true);
-        driver = new ChromeDriver();
-    }
-    
-    public void mainBoardParsing() {
-    	mainboardcnt = 1;
-        try {
-            //get page (= 브라우저에서 url을 주소창에 넣은 후 request 한 것과 같다)
-        	ArrayList<MainBoardVO> list = new ArrayList<MainBoardVO>();
-        	for(int page = 1 ; page < 2 ; page++){
-  
-            	base_url = "https://motherboarddb.com/motherboards/?dt=list&so=y&year=2010,2019&page=" + page;
-            	driver.get(base_url);
-                Thread.sleep(5000);
-               
-                
-                String pagesize = driver.findElement(By.xpath("//*[@id='table-wrapper']/div[1]/div[1]/ul/li[2]")).getText();
-                String[] tempp = pagesize.split("-");
-                String[] temppp = tempp[0].split(" ");
-                String[] tempppp = tempp[tempp.length - 1].split(" ");
-                int startnum = Integer.parseInt(temppp[temppp.length - 1]);
-                int endnum = Integer.parseInt(tempppp[tempppp.length - 3]);
-                
-                for(int num = 2 ; num < endnum - startnum + 3 ; num++){
-                	
-                	MainBoardVO vo = new MainBoardVO();
-                	
-                	//메인보드 제품명	
-	                String name = driver.findElement(By.xpath("//*[@id='table-wrapper']/div[" + num + "]/div[2]/div[1]/a/h4")).getText();
-	                vo.setName(name);
-	                
-	                //제품정보1
-	                String info1 = driver.findElement(By.xpath("//*[@id='table-wrapper']/div[" + num + "]/div[2]/div[2]/div[1]/ul")).getText();
-	                String[] data1 = info1.split("\n");
-	                for(int x = 0 ; x < data1.length ; x++){
-	                	String[] result = data1[x].split(":");
-	                	for(int y = 0 ; y < result.length; y++){
-		                	if(result.length == 2 && result[y].contains("Socket(s)")){
-		                		vo.setSockets(result[y+1]);
-		                	} else if(result.length == 1 && result[y].contains("Socket(s)")){
-		                		vo.setSockets("NA");
-	                		} else if(result.length == 2 && result[y].contains("Form Factor")){
-		                		vo.setFormFactor(result[y+1]);
-		                	} else if(result.length == 1 && result[y].contains("Form Factor")){
-		                		vo.setFormFactor("NA");
-		                	} else if(result.length == 2 && result[y].contains("Chipset")){
-		                		vo.setChipSet(result[y+1]);
-		                	} else if(result.length == 1 && result[y].contains("Chipset")){
-		                		vo.setChipSet("NA");
-		                	} else if(result.length == 2 && result[y].contains("RAM")){
-		                		vo.setRAM(result[y+1]);
-		                	} else if(result.length == 1 && result[y].contains("RAM")){
-		                		vo.setRAM("NA");
-		                	} else if(result.length == 2 && result[y].contains("Release Year")){
-		                		vo.setReleaseDate(result[y+1]);
-		                	} else if(result.length == 1 && result[y].contains("Release Year")){
-		                		vo.setReleaseDate("NA");
-		                	} else {
 
-		                	}
-	                	}
-	                }
-            
-            		//제품정보2
-	                String info2 = driver.findElement(By.xpath("//*[@id='table-wrapper']/div[" + num + "]/div[2]/div[2]/div[2]")).getText();
-	                String[] data2 = info2.split("\n");
-	                for(int x = 0 ; x < data2.length ; x++){
-	                	String[] result = data2[x].split(":");
-	                	for(int y = 0 ; y < result.length; y++){
-	                		if(result.length == 2 && result[y].contains("Audio Chip")){
-		                		vo.setAudioChip(result[y+1]);
-		                	} else if(result.length == 1 && result[y].contains("Audio Chip")){
-		                		vo.setAudioChip("NA");
-	                		} else if(result.length == 2 && result[y].contains("USB 2.0 Header")){
-		                		vo.setUsb2(result[y+1]);
-		                	} else if(result.length == 1 && result[y].contains("USB 2.0 Header")){
-		                		vo.setUsb2("NA");
-		                	} else if(result.length == 2 && result[y].contains("USB 3.0 Header")){
-		                		vo.setUsb3(result[y+1]);
-		                	} else if(result.length == 1 && result[y].contains("USB 3.0 Header")){
-		                		vo.setUsb3("NA");
-		                	} else if(result.length == 2 && result[y].contains("SATA3")){
-		                		vo.setSata(result[y+1]);
-		                	} else if(result.length == 1 && result[y].contains("SATA3")){
-		                		vo.setSata("NA");
-		                	} else {
+	//Properties
+	public final String WEB_DRIVER_ID = "webdriver.chrome.driver";
+	public final String WEB_DRIVER_PATH = "C:\\SetupFile\\chromedriver.exe";
+	private String base_url;
 
-		                	}
-	                	}
-	                } // last for end
-	                vo.setNum(mainboardcnt);
-	                mainboardcnt++;
-	                list.add(vo);
-	        	} // second for end   
-                dao.insertMainBoard(list);
-        	} // first for end
-        	
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            driver.close();
-        } // first try end
-    } // class end
-    
-    public void powerParsing() 
-    {
-    	powercnt = 1;
-        try 
-        {
-        	for(int page = 10127 ; page < 10135 ; page++){ // 10127 ~ 10135
-            base_url = "https://search.shopping.naver.com/search/all.nhn?origQuery=%EC%BB%B4%ED%93%A8%ED%84%B0%20%ED%8C%8C%EC%9B%8C&spec=M1863%7CM"+ 
-            			page+"&pagingIndex=1&pagingSize=20&viewType=list&sort=rel&frm=NVSHATT&query=%EC%BB%B4%ED%93%A8%ED%84%B0%20%ED%8C%8C%EC%9B%8C";
-           	driver.get(base_url);
-           	Thread.sleep(5000);
-            ArrayList<PowerVO> list = new ArrayList<PowerVO>();
 
-            By myList = By.className("info");
-            List<WebElement> elements = driver.findElements(myList);
-            for(WebElement e : elements){ 
-                	if(!e.getText().contains("광고")){
-                		PowerVO vo = new PowerVO();
-                		String[] data = e.getText().split("\n");
-	                		
-                		// 제품명 data[0]
-                		//System.out.println(data[0]);
-                		vo.setName(data[0]);
-                		
-                		// 제품가격 data[1]
-                		String[] price = data[1].split("원");
-                		if(price[0].contains("최저")){
-	                		String[] price1 = price[0].split("저");
-	                		//System.out.println(price1[1]);
-	                		vo.setPrice(price1[1]);
-                		} else {
-                			//System.out.println(price[0]);
-                			vo.setPower(price[0]);
-                		}
-                		
-                		// 제품규격 data[3]
-                		String[] spec = data[3].split("\\|");
-                		for(int i = 0 ; i < spec.length ; i++){
-                			
-                			// 파워 규격
-                			if(spec[i].contains("파워 규격")){
-                				String[] power = spec[i].split(": ");
-                				//System.out.println(power[1]);
-                				vo.setPower(power[1]);
-                			}
-                			
-                			// 정격 출력
-                			else if(spec[i].contains("정격 출력")){
-                				String[] output = spec[i].split(": ");
-                				//System.out.println(output[1]);
-                				vo.setOutput(output[1]);
-                			}
-                			
-                			// 쿨링팬 크기
-                			else if(spec[i].contains("쿨링팬 크기")){
-                				String[] fanSize = spec[i].split(": ");
-                				//System.out.println(fanSize[1]);
-                				vo.setFanSize(fanSize[1]);
-                			}
-                			
-                			// 쿨링팬 개수
-                			else if(spec[i].contains("쿨링팬 개수")){
-                				String[] fanNum = spec[i].split(": ");
-                				//System.out.println(fanNum[1]);
-                				vo.setFanNum(fanNum[1]);
-                			}
-                			
-                			// ATX 12V 규격
-                			else if(spec[i].contains("ATX 12V 규격")){
-                				String[] atx = spec[i].split(": ");
-                				//System.out.println(atx[1]);
-                				vo.setAtx(atx[1]);
-                			}
-                			
-                			// sata 커넥터
-                			else if(spec[i].contains("SATA 커넥터")){
-                				String[] sata = spec[i].split(": ");
-                				//System.out.println(sata[1]);
-                				vo.setSata(sata[1]);
-                			}
-                			
-                			// 커넥터
-                			else if(spec[i].contains("커넥터")){
-                				String[] connecter = spec[i].split(": ");
-                				//System.out.println(connecter[1]);
-                				vo.setConnecter(connecter[1]);
-                			}
-                			
-                			// 부가기능
-                			else if(spec[i].contains("부가기능")){
-                				String[] etc = spec[i].split(": ");
-                				//System.out.println(etc[1]);
-                				vo.setEtc(etc[1]);
-                			}
-                		}
-                		
-                		// 제품등록일 data[?]
-                		for(int y = 0 ; y < data.length ; y++){
-                			if(data[y].contains("등록일")){
-		                		String[] date = data[y].split("록일 ");
-		                		String[] date1 = date[1].split("찜하기");
-		                		//System.out.println(date1[0]);
-		                		vo.setReleaseDate(date1[0]);
-                			}
-                		}
-                		vo.setNum(powercnt);
-                		powercnt++;
-                		list.add(vo);
-                	}	
-                }
-                dao.insertPower(list);
-        	}
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            driver.close();
-        }
-    }
-    
-    public void cpuParsing(int year) 
-	{
-    	cpucnt = 1;
-		ArrayList<CpuVO> cpulist = new ArrayList<CpuVO>();
-		
-		String url="https://www.techpowerup.com/cpudb/?released="+year+"&mobile=No&server=No&sort=name";
+	public void connSelenium() {
+		//System Property SetUp
+		System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
+
+		//Driver SetUp
+		ChromeOptions options = new ChromeOptions();
+		options.setCapability("ignoreProtectedModeSettings", true);
+		driver = new ChromeDriver();
+	}
+
+	public void mainBoardParsing() {
+		mainboardcnt = 1;
 		try {
-			org.jsoup.nodes.Document doc =Jsoup.connect(url).get();
-			Iterator<Element> test = doc.select("td").iterator();
-			int count =0;
-			CpuVO vo = new CpuVO();
-			while(test.hasNext()) 
-			{
-				switch (count) {
-				case 0: 
-					vo.setCpuname(test.next().text());
-					count++;
-					break;
-				case 1: 
-					vo.setCpucode(test.next().text());
-					count++;
-					break;
-				case 2: 
-					vo.setCores(test.next().text());
-					count++;
-					break;
-				case 3: 
-					vo.setClock(test.next().text());
-					count++;
-					break;
-				case 4: 
-					vo.setSocket(test.next().text());
-					count++;
-					break;
-				case 5: 
-					vo.setProcess(test.next().text());
-					count++;
-					break;
-				case 6: 
-					vo.setL3cache(test.next().text());
-					count++;
-					break;
-				case 7: 
-					vo.setTdp(test.next().text());
-					count++;
-					break;
-				case 8:
-					vo.setReleased(test.next().text());
-					vo.setNum(cpucnt);
-					cpucnt++;
-					cpulist.add(vo);
-					vo=new CpuVO();
-					count=0;
-					break;
-				default:
-					break;
-				}	
-			}
-			dao.insertCpu(cpulist);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			connSelenium();
+			//get page (= 브라우저에서 url을 주소창에 넣은 후 request 한 것과 같다)
+			ArrayList<MainBoardVO> list = new ArrayList<MainBoardVO>();
+			for(int page = 1 ; page < 84 ; page++){
+				System.out.println(page+" 페이지");
+				base_url = "https://motherboarddb.com/motherboards/?dt=list&so=y&year=2010,2019&page=" + page;
+				driver.get(base_url);
+				Thread.sleep(5000);
+				String pagesize = driver.findElement(By.xpath("//*[@id='table-wrapper']/div[1]/div[1]/ul/li[2]")).getText();
+				String[] tempp = pagesize.split("-");
+				String[] temppp = tempp[0].split(" ");
+				String[] tempppp = tempp[tempp.length - 1].split(" ");
+				int startnum = Integer.parseInt(temppp[temppp.length - 1]);
+				int endnum = Integer.parseInt(tempppp[tempppp.length - 3]);
+				for(int num = 2 ; num < endnum - startnum + 3 ; num++){
+					MainBoardVO vo = new MainBoardVO();
+					//메인보드 제품명	
+					String name = driver.findElement(By.xpath("//*[@id='table-wrapper']/div[" + num + "]/div[2]/div[1]/a/h4")).getText();
+					vo.setName(name);
+					//제품정보1
+					String info1 = driver.findElement(By.xpath("//*[@id='table-wrapper']/div[" + num + "]/div[2]/div[2]/div[1]/ul")).getText();
+					String[] data1 = info1.split("\n");
+					for(int x = 0 ; x < data1.length ; x++){
+						String[] result = data1[x].split(":");
+						for(int y = 0 ; y < result.length; y++){
+							if(result.length == 2 && result[y].contains("Socket(s)")){
+								vo.setSockets(result[y+1]);
+							} else if(result.length == 1 && result[y].contains("Socket(s)")){
+								vo.setSockets("NA");
+							} else if(result.length == 2 && result[y].contains("Form Factor")){
+								vo.setFormFactor(result[y+1]);
+							} else if(result.length == 1 && result[y].contains("Form Factor")){
+								vo.setFormFactor("NA");
+							} else if(result.length == 2 && result[y].contains("Chipset")){
+								vo.setChipSet(result[y+1]);
+							} else if(result.length == 1 && result[y].contains("Chipset")){
+								vo.setChipSet("NA");
+							} else if(result.length == 2 && result[y].contains("RAM")){
+								vo.setRAM(result[y+1]);
+							} else if(result.length == 1 && result[y].contains("RAM")){
+								vo.setRAM("NA");
+							} else if(result.length == 2 && result[y].contains("Release Year")){
+								vo.setReleaseDate(result[y+1]);
+							} else if(result.length == 1 && result[y].contains("Release Year")){
+								vo.setReleaseDate("NA");
+							} else {
+
+							}
+						}
+					}
+					//제품정보2
+					String info2 = driver.findElement(By.xpath("//*[@id='table-wrapper']/div[" + num + "]/div[2]/div[2]/div[2]")).getText();
+					String[] data2 = info2.split("\n");
+					for(int x = 0 ; x < data2.length ; x++){
+						String[] result = data2[x].split(":");
+						for(int y = 0 ; y < result.length; y++){
+							if(result.length == 2 && result[y].contains("Audio Chip")){
+								vo.setAudioChip(result[y+1]);
+							} else if(result.length == 1 && result[y].contains("Audio Chip")){
+								vo.setAudioChip("NA");
+							} else if(result.length == 2 && result[y].contains("USB 2.0 Header")){
+								vo.setUsb2(result[y+1]);
+							} else if(result.length == 1 && result[y].contains("USB 2.0 Header")){
+								vo.setUsb2("NA");
+							} else if(result.length == 2 && result[y].contains("USB 3.0 Header")){
+								vo.setUsb3(result[y+1]);
+							} else if(result.length == 1 && result[y].contains("USB 3.0 Header")){
+								vo.setUsb3("NA");
+							} else if(result.length == 2 && result[y].contains("SATA3")){
+								vo.setSata(result[y+1]);
+							} else if(result.length == 1 && result[y].contains("SATA3")){
+								vo.setSata("NA");
+							} else {
+							}
+						}
+					} // last for end
+					vo.setNum(mainboardcnt);
+					mainboardcnt++;
+					list.add(vo);
+				} // second for end   
+			} // first for end
+			dao.insertMainBoard(list);
+			System.out.println(mainboardcnt-1+"개의 MainBoard DB를 Fit_Mainboard 테이블에 저장하였습니다.");
+		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			driver.close();
+		} // first try end
+		
+		
+	} // class end
+
+	public void powerParsing() 
+	{
+		powercnt = 1;
+		try 
+		{
+			ArrayList<PowerVO> list = new ArrayList<PowerVO>();
+			connSelenium();
+			for(int page = 10127 ; page < 10135 ; page++){ // 10127 ~ 10135
+				base_url = "https://search.shopping.naver.com/search/all.nhn?origQuery=%EC%BB%B4%ED%93%A8%ED%84%B0%20%ED%8C%8C%EC%9B%8C&spec=M1863%7CM"+ 
+						page+"&pagingIndex=1&pagingSize=20&viewType=list&sort=rel&frm=NVSHATT&query=%EC%BB%B4%ED%93%A8%ED%84%B0%20%ED%8C%8C%EC%9B%8C";
+				driver.get(base_url);
+				Thread.sleep(5000);
+
+				By myList = By.className("info");
+				List<WebElement> elements = driver.findElements(myList);
+				for(WebElement e : elements){ 
+					if(!e.getText().contains("광고")){
+						PowerVO vo = new PowerVO();
+						String[] data = e.getText().split("\n");
+
+						// 제품명 data[0]
+						//System.out.println(data[0]);
+						vo.setName(data[0]);
+
+						// 제품가격 data[1]
+						String[] price = data[1].split("원");
+						if(price[0].contains("최저")){
+							String[] price1 = price[0].split("저");
+							//System.out.println(price1[1]);
+							vo.setPrice(price1[1]);
+						} else {
+							//System.out.println(price[0]);
+							vo.setPower(price[0]);
+						}
+
+						// 제품규격 data[3]
+						String[] spec = data[3].split("\\|");
+						for(int i = 0 ; i < spec.length ; i++){
+
+							// 파워 규격
+							if(spec[i].contains("파워 규격")){
+								String[] power = spec[i].split(": ");
+								//System.out.println(power[1]);
+								vo.setPower(power[1]);
+							}
+
+							// 정격 출력
+							else if(spec[i].contains("정격 출력")){
+								String[] output = spec[i].split(": ");
+								//System.out.println(output[1]);
+								vo.setOutput(output[1]);
+							}
+
+							// 쿨링팬 크기
+							else if(spec[i].contains("쿨링팬 크기")){
+								String[] fanSize = spec[i].split(": ");
+								//System.out.println(fanSize[1]);
+								vo.setFanSize(fanSize[1]);
+							}
+
+							// 쿨링팬 개수
+							else if(spec[i].contains("쿨링팬 개수")){
+								String[] fanNum = spec[i].split(": ");
+								//System.out.println(fanNum[1]);
+								vo.setFanNum(fanNum[1]);
+							}
+
+							// ATX 12V 규격
+							else if(spec[i].contains("ATX 12V 규격")){
+								String[] atx = spec[i].split(": ");
+								//System.out.println(atx[1]);
+								vo.setAtx(atx[1]);
+							}
+
+							// sata 커넥터
+							else if(spec[i].contains("SATA 커넥터")){
+								String[] sata = spec[i].split(": ");
+								//System.out.println(sata[1]);
+								vo.setSata(sata[1]);
+							}
+
+							// 커넥터
+							else if(spec[i].contains("커넥터")){
+								String[] connecter = spec[i].split(": ");
+								//System.out.println(connecter[1]);
+								vo.setConnecter(connecter[1]);
+							}
+
+							// 부가기능
+							else if(spec[i].contains("부가기능")){
+								String[] etc = spec[i].split(": ");
+								//System.out.println(etc[1]);
+								vo.setEtc(etc[1]);
+							}
+						}
+
+						// 제품등록일 data[?]
+						for(int y = 0 ; y < data.length ; y++){
+							if(data[y].contains("등록일")){
+								String[] date = data[y].split("록일 ");
+								String[] date1 = date[1].split("찜하기");
+								//System.out.println(date1[0]);
+								vo.setReleaseDate(date1[0]);
+							}
+						}
+						vo.setNum(powercnt);
+						if(vo.getOutput()==null || vo.getPower()==null)
+						{
+							System.out.println("=================");
+							System.out.println(vo);
+							System.out.println("=================");
+						}
+						powercnt++;
+						list.add(vo);
+					}	
+				}
+			}
+			dao.insertPower(list);
+			System.out.println(powercnt-1+"개의 Power DB를 Fit_Power 테이블에 저장하였습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			driver.close();
 		}
 	}
-    
-    public ArrayList<CaseVO> Caseparsing() 
+
+	public void cpuParsing() 
 	{
-    	casecnt = 1;
-    	ArrayList<CaseVO> caselist = new ArrayList<CaseVO>();
+		cpucnt = 1;
+		ArrayList<CpuVO> cpulist = new ArrayList<CpuVO>();
+
+		for(int i= 2011; i<2020;i++){
+			try {
+				System.out.println(i+"년도 CPU Parsing");
+				String url="https://www.techpowerup.com/cpudb/?released="+i+"&mobile=No&server=No&sort=name";
+				org.jsoup.nodes.Document doc =Jsoup.connect(url).get();
+				Iterator<Element> test = doc.select("td").iterator();
+				int count =0;
+				CpuVO vo = new CpuVO();
+				while(test.hasNext()) 
+				{
+					
+					switch (count) {
+					case 0: 
+						vo.setCpuname(test.next().text());
+						count++;
+						break;
+					case 1: 
+						vo.setCpucode(test.next().text());
+						count++;
+						break;
+					case 2: 
+						vo.setCores(test.next().text());
+						count++;
+						break;
+					case 3: 
+						vo.setClock(test.next().text());
+						count++;
+						break;
+					case 4: 
+						vo.setSocket(test.next().text());
+						count++;
+						break;
+					case 5: 
+						vo.setProcess(test.next().text());
+						count++;
+						break;
+					case 6: 
+						vo.setL3cache(test.next().text());
+						count++;
+						break;
+					case 7: 
+						vo.setTdp(test.next().text());
+						count++;
+						break;
+					case 8:
+						vo.setReleased(test.next().text());
+						vo.setNum(cpucnt);
+						cpucnt++;
+						count = 0;
+						if(cpulist.size()>0){
+						if(cpulist.get(cpulist.size()-1).getNum()==vo.getNum())
+						{
+							System.out.println("Error!!!!!!!!");
+							System.out.println(vo);
+							break;
+						}}
+						cpulist.add(vo);
+						vo=new CpuVO();
+						break;
+					default:
+						break;
+					}	
+				}
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		dao.insertCpu(cpulist);
+		System.out.println(cpucnt-1+"개의 CPU정보를 Fit_cpu 테이블에 저장하였습니다");
+	}
+
+	public void Caseparsing() 
+	{
+		casecnt = 1;
+		ArrayList<CaseVO> caselist = new ArrayList<CaseVO>();
 		String url="https://search.shopping.naver.com/search/all.nhn?origQuery=%EC%BB%B4%ED%93%A8%ED%84%B0%20%EC%BC%80%EC%9D%B4%EC%8A%A4&pagingIndex=1&pagingSize=80&viewType=list&sort=rel&cat_id=50001621&frm=NVSHCAT&query=%EC%BB%B4%ED%93%A8%ED%84%B0%20%EC%BC%80%EC%9D%B4%EC%8A%A4";
-		
+
 		try {
 			org.jsoup.nodes.Document doc =Jsoup.connect(url).get();
 			Iterator<Element> element =doc.select("ul.goods_list div.info").iterator();
@@ -363,7 +379,7 @@ public class ParsingService
 					String[] tempname = null;
 					tempname= temp.split("최저");
 					String casename = tempname[0];
-					String[] temprowprice = tempname[1].split("원 판");
+					String[] temprowprice = tempname[1].split("원 ");
 					String rowprice = temprowprice[0];
 					String[] addop = temprowprice[1].split("PC케이스 ");
 					String[] plusop = addop[1].split("\\|");
@@ -372,19 +388,19 @@ public class ParsingService
 					String casesize = null;
 					String tempcasesize = null;
 					String tempaddop = null;
-				
+
 					for(int i=0;i<plusop.length-1;i++) 
 					{
 						if(plusop[i].contains("파워규격")) 
 						{
 							String[] tmlist = plusop[i].split(" : ");
 							tempvo.setPower(tmlist[tmlist.length-1]);
-							
+
 						}else if(plusop[i].contains("메인보드 규격")) 
 						{
 							String[] tmlist = plusop[i].split(" : ");
 							tempvo.setMainboardsize(tmlist[tmlist.length-1]);
-							
+
 						}else if(plusop[i].contains("케이스 크기")||plusop[i].contains("품목")) 
 						{
 							String[] tmlist = plusop[i].split(" : ");
@@ -428,25 +444,29 @@ public class ParsingService
 					}
 					tempvo.setAddop(tempaddop);
 					tempvo.setNum(casecnt);
+					System.out.println(tempvo);
 					casecnt++;
 					caselist.add(tempvo);
 				}
 			}
+			dao.insertCase(caselist);
+			System.out.println(casecnt-1+"개의 Case DB를 Fit_Case에 저장하였습니다.");
 		} catch(Exception e) 
 		{
 			e.printStackTrace();
 		}
-		return caselist;
 	}
 
-    public void ramParsing()
-    {
-    	try {
+	public void ramParsing()
+	{
+		try {
 			int page=1;
-			int num = 0;
+			int num = 1;
 			String name = null;
 			String spec = null;
 			String src_link = null;
+			connSelenium();
+			base_url = "http://prod.danawa.com/list/?cate=1131326&15main_11_03";
 			JavascriptExecutor js = (JavascriptExecutor)driver;
 			driver.get(base_url);
 
@@ -478,9 +498,10 @@ public class ParsingService
 				if(page==29)
 					break;
 				for(RamVO vo : list){
-					System.out.println(vo); //리스트 출력
+					System.out.println(vo);
 				}
 			}
+			dao.insertRam(list);
 		} catch (Exception e) {
 
 			//e.printStackTrace();
@@ -489,16 +510,20 @@ public class ParsingService
 
 			//driver.close();
 		}
+		driver.close();
 
 	}
-    
-    public void gpuParsing()
-    {
-    	String kaisha = "nvidia";
+
+
+
+	public void gpuParsing()
+	{
+		connSelenium();
+		String kaisha = "nvidia";
 		int index = 0;
 		ArrayList<GpuVO> list = new ArrayList<GpuVO>();
 		String tdp = null; 
-		for(int year = 2017;year<2020;year++){
+		for(int year = 2010;year<2020;year++){
 			String url_tdp = "https://www.techpowerup.com/gpu-specs/?mfgr="+kaisha+"&released="+year+"&sort=name"; //크롤링할 url지정
 			Document doc_tdp = null;        //Document에는 페이지의 전체 소스가 저장된다
 
@@ -530,7 +555,7 @@ public class ParsingService
 					System.out.println(kaisha +"-"+ year+"년도 "+tdp_string[i]+"W");
 					if(!tdp_string[i].equals("unknown")) 
 						url = "https://www.techpowerup.com/gpu-specs/?mfgr="+kaisha+"&released="+year+"&tdp="+tdp_string[i]+"%20W&sort=name";
-					 else
+					else
 						url = "https://www.techpowerup.com/gpu-specs/?mfgr="+kaisha+"&released="+year+"&tdp=unknown&sort=name";
 					Document doc = null; 
 					try {
@@ -587,6 +612,8 @@ public class ParsingService
 						case 7:
 							vo.setM_clock(ie.next().text());
 							vo.setTdp(tdp_string[i]+tdp_string[i+1]);
+							vo.setNum(gpucnt);
+							gpucnt++;
 							list.add(vo);
 							index=0;
 							System.out.println(vo);
@@ -601,6 +628,9 @@ public class ParsingService
 					}
 				}
 			}
+
+			
+
 			System.out.println("========================================================================");
 			//		while (ie.hasNext()) {
 			//			System.out.println(ie.next().text());
@@ -615,50 +645,57 @@ public class ParsingService
 				year=2009;
 			}
 		}
+		dao.insertGpu(list);
 		System.out.println(list.size());
-	
-    }
-    
-    public void steamAppidParsing()
-    {
-        try {
 
-        	base_url = "https://steamdb.info/graph/";
-        	driver.get(base_url);
-            Thread.sleep(5000);
-            
-            ArrayList<SteamVO> list = new ArrayList<SteamVO>();
-            
-            Select length = new Select(driver.findElement(By.name("table-apps_length")));
-        	length.selectByVisibleText("All");
-        	Thread.sleep(5000);
-            
-        	for(int i = 2 ; i < 1191 ; i++){
-        		SteamVO vo = new SteamVO();
-        		
-        		By appidInfo = By.xpath("//*[@id='table-apps']/tbody/tr[" + i + "]/td[2]");
-        		By nameInfo = By.xpath("//*[@id='table-apps']/tbody/tr[" + i + "]/td[3]");
-        		
-        		String appid = driver.findElement(appidInfo).getText();
-        		String name = driver.findElement(nameInfo).getText();
-        		
-        		vo.setAppid(appid);
-        		vo.setName(name);
-        		
-        		list.add(vo);
-        	}
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            driver.close();
-        }
-    }
-    
-    public void steamSpecParsing()
-    {
-    	ArrayList<SteamVO> list = new ArrayList<>();
-    	/*list = dao.getAppid();*/
+	}
+
+	public void steamAppidParsing()
+	{
+		int steamcnt = 1;
 		try {
+			connSelenium();
+			base_url = "https://steamdb.info/graph/";
+			driver.get(base_url);
+			Thread.sleep(5000);
+
+			ArrayList<SteamVO> list = new ArrayList<SteamVO>();
+
+			Select length = new Select(driver.findElement(By.name("table-apps_length")));
+			length.selectByVisibleText("All");
+			Thread.sleep(5000);
+
+			for(int i = 2 ; i < 1191 ; i++){
+				SteamVO vo = new SteamVO();
+
+				By appidInfo = By.xpath("//*[@id='table-apps']/tbody/tr[" + i + "]/td[2]");
+				By nameInfo = By.xpath("//*[@id='table-apps']/tbody/tr[" + i + "]/td[3]");
+
+				String appid = driver.findElement(appidInfo).getText();
+				String name = driver.findElement(nameInfo).getText();
+
+				vo.setAppid(appid);
+				vo.setName(name);
+				vo.setNum(steamcnt);
+				steamcnt++;
+				System.out.println(vo);
+				list.add(vo);
+			}
+			dao.insertSteam(list);
+			System.out.println(steamcnt-1+"개의 Steam Db를 Fit_Steam 테이블에 저장하였습니다");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			driver.close();
+		}
+	}
+
+	public void steamSpecParsing()
+	{
+		ArrayList<SteamVO> list = new ArrayList<>();
+		/*list = dao.getAppid();*/
+		try {
+			connSelenium();
 			for(int i = 0; i<list.size()-1;i++){
 
 				base_url = "https://store.steampowered.com/app/"+list.get(i).getAppid();
@@ -679,13 +716,13 @@ public class ParsingService
 				} else {
 					System.out.println(list.get(i).getName());
 					Select age = new Select(driver.findElement(By.id("ageYear")));
-	            	age.selectByValue("1999");
-	            	System.out.println("시벌");
-            		WebElement temp = driver.findElement(By.xpath("//*[@id='app_agegate']/div[1]/div[4]/a[1]"));
-            		System.out.println("탱");
-            		temp.click();
-            		Thread.sleep(5000);
-            		i--;
+					age.selectByValue("1999");
+					System.out.println("시벌");
+					WebElement temp = driver.findElement(By.xpath("//*[@id='app_agegate']/div[1]/div[4]/a[1]"));
+					System.out.println("탱");
+					temp.click();
+					Thread.sleep(5000);
+					i--;
 				}
 				System.out.println("=========================================================================");
 			}
@@ -694,18 +731,19 @@ public class ParsingService
 		} finally {
 			driver.close();
 		}
-    }
-    
-    	
-	public boolean getCnt(String str) 
-	{
-		if(dao.getCnt(str)<1)
-		{
-			return false;
-		}
-		return true;
 	}
 
-	
-	
+
+	public boolean getCnt(String str) 
+	{
+		int result = dao.getCnt(str);
+		System.out.println(result);
+		if(result<1)
+		{
+			return false;
+		} else return true;
+	}
+
+
+
 }
