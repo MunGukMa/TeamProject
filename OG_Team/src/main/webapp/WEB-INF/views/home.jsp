@@ -17,11 +17,6 @@
 			var ctx = document.getElementById("mainchart").getContext('2d');
 			var myChart
 			
-			if(${dbchk}==false)
-			{
-				makedb();
-			};
-			
 			$.ajax
 			({
 				url:"/one/gamelist",
@@ -122,6 +117,8 @@
 			    data: data,
 			    options: option	
 			});
+			
+			dbchk;
 						                     			
 		}
 		
@@ -145,6 +142,37 @@
 		}
 		
 	}
+	function dbchk()
+		{
+			$.ajax({
+				url:"/one/dbchk",
+				type:"get",
+				success:function(result)
+				{
+					var a = result;
+					alert(a)
+					if(a=="false")
+					{
+						alert("makedb접속");
+						$.ajax
+						({
+							url:"/one/db/makedb",
+							type:"get",
+							error:function()
+							{
+								alert("error");
+							}
+						})
+					}
+				},
+				error:function()
+				{
+					dbchk;
+				}
+			})
+			
+		}	
+		
 						
 	</script>
 	<style>
