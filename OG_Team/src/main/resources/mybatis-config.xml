@@ -4,11 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		<typeAlias type="team.project.one.vo.CaseVO" alias ="CaseVO" />
+		<typeAlias type="team.project.one.vo.CpuVO" alias ="CpuVO" />
 		<typeAlias type="team.project.one.vo.GameVO" alias ="GameVO" />
+		<typeAlias type="team.project.one.vo.GpuVO" alias ="GpuVO" />
 		<typeAlias type="team.project.one.vo.MainBoardVO" alias ="MainBoardVO" />
+		<typeAlias type="team.project.one.vo.PowerVO" alias ="PowerVO" />
+		<typeAlias type="team.project.one.vo.RamVO" alias ="RamVO" />
+		<typeAlias type="team.project.one.vo.SteamVO" alias ="SteamVO" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/chartmapper.xml" />
 		<mapper resource="mappers/parsingmapper.xml" />
+		<mapper resource="mappers/automapper.xml" />
 	</mappers>
 </configuration>
