@@ -7,22 +7,7 @@ gamecpu varchar2(50),
 gameram varchar2(50),
 gamegpu varchar2(50),
 gameaddop varchar2(100),
-memo varchar2(100))
-
-create table fit_mainboard(
-num number primary key, 
-name varchar2(100), 
-sockets varchar2(100), 
-formFactor varchar2(100), 
-chipSet varchar2(100), 
-RAM varchar2(100), 
-releaseDate varchar2(100), 
-audioChip varchar2(100), 
-usb2 varchar2(100), 
-usb3 varchar2(100), 
-sata varchar2(100),
-memo varchar2(50)
-)
+memo varchar2(100));
 
 create table fit_cpu (
 num number primary key,
@@ -35,16 +20,16 @@ process varchar2(100) not null,
 l3cache varchar2(100) not null,
 tdp varchar2(100) not null,
 released varchar2(100) not null,
-point number not null)
+point number default null);
 
 create table fit_case(
 num number primary key,
-casename varchar2(50),
+casename varchar2(100),
 rowprice varchar2(20),
 power varchar2(50),
-mainboardsize varchar2(50),
+mainboardsize varchar2(100),
 casesize varchar2(100),
-addop varchar2(150))
+addop varchar2(600));
 
 create table fit_gpu (
 num number primary key,
@@ -88,16 +73,16 @@ create table fit_power
 (
     num number primary key,
     name varchar2(200) not null,
-    price varchar2(20) not null,
-    power varchar2(20) not null,
+    price varchar2(20),
+    power varchar2(20) ,
     output varchar2(20) not null,
-    fanSize varchar2(20) not null,
-    fanNum varchar2(10) not null,
-    atx varchar2(10) not null,
-    sata varchar2(10) not null,
-    connecter varchar2(200) not null,
-    etc varchar2(500) not null,
-    releaseDate varchar2(20) not null
+    fanSize varchar2(20),
+    fanNum varchar2(10),
+    atx varchar2(10),
+    sata varchar2(10),
+    connecter varchar2(200),
+    etc varchar2(500),
+    releaseDate varchar2(20)
 );
 
 create table fit_steam
@@ -106,3 +91,5 @@ create table fit_steam
     appid varchar2(100) not null,
     name varchar2(200) not null
 );
+
+
