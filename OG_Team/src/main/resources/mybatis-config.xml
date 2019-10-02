@@ -12,10 +12,13 @@
 		<typeAlias type="team.project.one.vo.PowerVO" alias ="PowerVO" />
 		<typeAlias type="team.project.one.vo.RamVO" alias ="RamVO" />
 		<typeAlias type="team.project.one.vo.SteamVO" alias ="SteamVO" />
+		<typeAlias type="team.project.one.vo.MemberVO" alias ="MemberVO" />
+
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/chartmapper.xml" />
 		<mapper resource="mappers/parsingmapper.xml" />
 		<mapper resource="mappers/automapper.xml" />
+		<mapper resource="mappers/membermapper.xml" />
 	</mappers>
 </configuration>
