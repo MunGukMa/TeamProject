@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team.project.one.dao.MemberMapper">
+	<insert id="signUP" parameterType="MemberVO">
+	
+		insert into
+			fit_member(fit_)
+		values
+		(
+			#{fitc_id},
+			#{fitc_pw},
+			#{fitc_name},
+			#{fitc_nickname},
+			#{fitc_email}
+		)
+				
+	</insert>
+	
+	<select id="checkID" parameterType="MemberVO" resultType="int">
+	
+		select
+			count(*)
+		from
+			chart_member
+		where
+			fitc_id = #{fitc_id}	
+	</select>
+	
+	<select id="logIN" parameterType="MemberVO" resultType="MemberVO">
+	
+		select *
+		from
+			chart_member
+		where
+			fitc_id = #{fitc_id}
+			AND fitc_pw = #{fitc_pw}
+				
+	</select>
+	
+	<select id="searchInfo" parameterType="MemberVO" resultType="MemberVO">
+	
+		select *
+		from
+			chart_member
+		where
+			fitc_name = #{fitc_name}
+			AND fitc_email = #{fitc_email}
+	
+	</select>
+	
+	<select id="searchPW" parameterType="MemberVO" resultType="MemberVO">
+	
+		select *
+		from
+			chart_member
+		where
+			fitc_id = #{fitc_id}
+			AND fitc_name = #{fitc_name}
+			AND fitc_email = #{fitc_email}
+	
+	</select>
+	
+	<update id="updateInfo" parameterType="MemberVO">
+	
+		update
+	 		chart_member
+	 	set 		
+	 		
+	 		fitc_pw = #{fitc_pw},	 		
+	 		fitc_nickname = #{fitc_nickname},
+	 		fitc_email = #{fitc_email}
+	 	where
+	 		fitc_id = #{fitc_id}
+	
+	</update>
+	
+</mapper>
+
