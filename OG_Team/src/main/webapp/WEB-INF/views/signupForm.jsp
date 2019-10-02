@@ -1,0 +1,133 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	function changeEmail() {
+		if (selectEmail.value == '1') {
+			fitc_email_02.readonly = false;
+			fitc_email_02.value = '';
+			fitc_email_02.focus();
+		} else {
+			fitc_email_02.readonly = true;
+			fitc_email_02.value = selectEmail.value;
+		}
+
+	}
+
+	function signUP() {
+		/* var fitc_id = document.getElementById("fitc_id");
+		var fitc_pw = document.getElementById("fitc_pw");
+		var check_pw = document.getElementById("check_pw");
+		var fitc_name = document.getElementById("fitc_name");
+		var fitc_nickname = document.getElementById("fitc_nickname");
+		var fitc_email_01 = document.getElementById("fitc_email_01");
+		var fitc_email_02 = document.getElementById("fitc_email_02");
+		
+		if(fitc_id.value.length<4 || fitc_id.value.length>10){
+			alert('아이디는 4~10글자로 입력해주세요');
+			fitc_id.focus();
+			return;
+		}
+
+		if(fitc_pw.value.length<4 || fitc_pw.value.length>10){
+			alert('비밀번호는 4~10글자로 입력해주세요');
+			fitc_pw.focus();
+			return;
+		}
+
+		if(fitc_nickname.value.length>10 || fitc_nickname.value.length == 0){
+			alert('닉네임은 10글자 이하로 입력해주세요');
+			fitc_nickname.focus();
+			return;
+		}
+		
+		if(fitc_pw.value != check_pw.value){
+			alert('비밀번호가 일치하지 않습니다.');
+			fitc_pw.focus();
+			return;
+		}
+
+		if(fitc_name.value.length == 0){
+			alert('이름을 입력해주세요')
+			fitc_name.focus();
+			return;
+		}
+
+		if(fitc_email_01.value.length == 0){
+			alert('이메일을 입력해주세요')
+			fitc_email_01.focus();
+			return;
+		}
+
+		if(fitc_email_02.value.length == 0){
+			alert('이메일을 입력해주세요')
+			fitc_email_02.focus();
+			return;
+		} */
+
+		var form = document.getElementById("signupForm");
+		form.submit();
+	}
+
+	function cancel() {
+		location.href = "/one/"
+	}
+</script>
+</head>
+<body>
+	<h1>회원가입</h1>
+	<div>
+		<form name="signupForm" id="signupForm" action="signUP" method="post">
+			<table>
+				<tr>
+					<td>아이디 :</td>
+					<td><input type="text" placeholder="아이디" name="fit_userid"
+						id="fitc_id" /> <input type="button" id="checkID" value="중복확인"
+						onclick="window.open('checkidForm','pop', 'resizable=no scrollbars=yes top=300 left=500 width=400 height=200');return false">
+					</td>
+				</tr>
+				<tr>
+					<td>비밀번호 :</td>
+					<td><input type="password" placeholder="비밀번호"
+						name="fit_userpwd" id="fit_userpwd" /></td>
+				</tr>
+				<tr>
+					<td>비밀번호 확인 :</td>
+					<td><input type="password" placeholder="비밀번호 확인"
+						 id="check_pw"></td>
+				</tr>
+				<tr>
+					<td>닉네임 :</td>
+					<td><input type="text" placeholder="닉네임" name="fit_usernick"
+						id="fitc_nickname" /></td>
+				</tr>
+				<tr>
+					<td>이메일 :</td>
+					<td><input type="text" name="fitc_email_01"
+						class="selectEmail" id="fitc_email_01" /> @ <input type="text"
+						name="fitc_email_02" class="selectEmail" id="fitc_email_02"
+						style="width: 100px" /> <select style="width: 110px"
+						class="selectEmail" name="selectEmail" id="selectEmail"
+						onChange="changeEmail()">
+							<option value="1" selected>직접입력</option>
+							<option value="naver.com">naver.com</option>
+							<option value="google.com">google.com</option>
+							<option value="hanmail.net">hanmail.net</option>
+							<option value="nate.com">nate.com</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td><input type="button" value="회원가입" onclick="signUP()" /></td>
+					<td><input type="button" value="취소" onclick="cancel()" /></td>
+				</tr>
+			</table>
+		</form>
+
+	</div>
+</body>
+</html>
