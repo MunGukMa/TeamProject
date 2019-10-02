@@ -173,6 +173,18 @@
 			
 		}	
 		
+		///////////////////////// Add 1002 //////////////////////////////////
+		function logIN(){
+			var form = document.getElementById("login");
+			form.submit();
+
+			if(result==false){
+				alert("아이디와 비밀번호를 확인해주세요");
+				return;
+			}
+			
+		}	
+	
 						
 	</script>
 	<style>
@@ -347,22 +359,37 @@
     <aside>
 	    <div class="box3">
 	    <nav id="topMenu">
+		   <c:if test="${sessionScope.fitc_id != null }">
 		    <ul>
 	        	<li class="topMenuLi" value="banner">
-	        		<a class="menuLink">welcome</a>
+	        		<a class="menuLink">${sessionScope.fitc_nickname}님 Welcome</a>
 	        		<ul class="submenu">
-	        			<li><a href="#" class="submenuLink longLink">견적 맞추기</a></li>
-	        			<li><a href="#" class="submenuLink longLink">게임 상세 랭킹</a></li>
-	        			<li><a href="#" class="submenuLink longLink">사용자 게시판</a></li>
-	        			<c:if test="${sessionScope.userid == null }">
-	        				<li><a href="loginForm" class="submenuLink longLink">LOGIN</a></li>
-	        			</c:if>
-	        			<c:if test="${sessionScope.userid != null }">
-	        				<li><a href="#" class="submenuLink longLink">LOGOUT</a></li>	        			
-	        			</c:if>
-	        			</ul>
+	        			<li><a href="#" class="submenuLink longLink">메뉴1</a></li>
+	        			<li><a href="#" class="submenuLink longLink">메뉴2</a></li>
+	        			<li><a href="/one/board/boardList" class="submenuLink longLink">견적게시판</a></li>
+	        			<li><a href="/one/logOUT" class="submenuLink longLink">LOGOUT</a></li>
+	        			<li><a href="/one/updateInfoForm" class="submenuLink longLink">회원정보 수정</a></li>
+	        		</ul>
 	        	</li>
 	        </ul>
+	    </c:if>
+	    <c:if test="${sessionScope.fitc_id == null }">
+	    	<form id="login" action="logIN" method="post">
+				<table style="border:1px solid #ccc; width:140%">
+					<tr>
+						<td width="250px"><input type="text" name="fit_userid" id="fitc_id" placeholder="ID" style="width:90%" /></td>
+					</tr>
+					<tr>
+						<td width="250px"><input type="password" name="fit_userpwd" id="fitc_pw" placeholder="PASSWORD" style="width:90%" /></td>
+					</tr>
+					<tr>
+						<td width="250px"><input type="button" value="로그인" onclick="logIN()" style="width:100%" /></td>
+					</tr>
+				</table>		
+			</form>
+			<a href="signupForm" style="font-size:10px" >아직 회원이 아니신가요?</a><br>
+			<a href="#" onclick="window.open('searchInfoForm','pop','resizeable=no scrollbars=yes width=600 height=400');return false" style="font-size:10px" > 아이디 / 비밀번호 찾기 </a>
+	    </c:if> ///add 1002
 	     </nav>
         </div>
     </aside>
