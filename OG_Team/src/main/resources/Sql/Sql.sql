@@ -93,3 +93,11 @@ create table fit_steam
 );
 
 
+create table fit_member(
+    fit_userid varchar2(20) primary key,
+    fit_userpwd varchar2(20) not null,
+    fit_usernick varchar2(20) not null,
+    fit_usermail varchar2(50) not null,
+    fit_userkeyvalue varchar2(50) not null,
+    fit_userestimatenum varchar2(50)
+);
