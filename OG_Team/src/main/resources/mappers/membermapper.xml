@@ -7,14 +7,14 @@
 	<insert id="signUP" parameterType="MemberVO">
 	
 		insert into
-			fit_member(fit_)
+			fit_member(fit_userid,fit_userpwd,fit_usernick,fit_usermail,fit_userkeyvalue)
 		values
 		(
-			#{fitc_id},
-			#{fitc_pw},
-			#{fitc_name},
-			#{fitc_nickname},
-			#{fitc_email}
+			#{fit_userid},
+			#{fit_userpwd},
+			#{fit_usernick},
+			#{fit_usermail},
+			#{fit_userkeyvalue}
 		)
 				
 	</insert>
@@ -24,19 +24,19 @@
 		select
 			count(*)
 		from
-			chart_member
+			fit_member
 		where
-			fitc_id = #{fitc_id}	
+			fit_userid = #{fit_userid}	
 	</select>
 	
 	<select id="logIN" parameterType="MemberVO" resultType="MemberVO">
 	
 		select *
 		from
-			chart_member
+			fit_member
 		where
-			fitc_id = #{fitc_id}
-			AND fitc_pw = #{fitc_pw}
+			fit_userid = #{fit_userid}
+			AND fit_userpwd = #{fit_userpwd}
 				
 	</select>
 	
@@ -44,10 +44,10 @@
 	
 		select *
 		from
-			chart_member
+			fit_member
 		where
-			fitc_name = #{fitc_name}
-			AND fitc_email = #{fitc_email}
+			fit_usernick = #{fit_usernick}
+			AND fit_usermail = #{fit_usermail}
 	
 	</select>
 	
@@ -55,25 +55,25 @@
 	
 		select *
 		from
-			chart_member
+			fit_member
 		where
-			fitc_id = #{fitc_id}
-			AND fitc_name = #{fitc_name}
-			AND fitc_email = #{fitc_email}
+			fit_userid = #{fit_userid}
+			AND fit_username = #{fit_username}
+			AND fit_usermail = #{fit_usermail}
 	
 	</select>
 	
 	<update id="updateInfo" parameterType="MemberVO">
 	
 		update
-	 		chart_member
+	 		fit_member
 	 	set 		
 	 		
-	 		fitc_pw = #{fitc_pw},	 		
-	 		fitc_nickname = #{fitc_nickname},
-	 		fitc_email = #{fitc_email}
+	 		fit_userpwd = #{fit_userpwd},	 		
+	 		fit_usernick = #{fit_usernick},
+	 		fit_usermail = #{fit_usermail}
 	 	where
-	 		fitc_id = #{fitc_id}
+	 		fit_userid = #{fit_userid}
 	
 	</update>
 	
