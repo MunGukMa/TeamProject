@@ -111,4 +111,38 @@ public class CompareController {
 	public String compareTo(){
 		return "/compareTo";
 	}
+	
+	@RequestMapping(value = "/gameSpec", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public Chart comRecommend(String cpuname, String memory, String gpuname, Model model) {
+		Chart vo = new Chart();
+		vo.setCpu(cpuname);
+		vo.setVga(gpuname);
+		vo.setRam(memory);
+
+		return vo;
+	}
+	
+	@RequestMapping(value = "/comRecommend", method = RequestMethod.GET)
+	public String comRecommend2() {
+		return "/comRecommend";
+	}
+	
+	@RequestMapping(value = "/lowest", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public PcVO lowest(String cpu, String ram, String gpu, Model model) {
+		PcVO vo = new PcVO();
+		PcVO result = new PcVO();
+		System.out.println(cpu);
+		System.out.println(gpu);
+		System.out.println(ram);
+		vo.setCpu(cpu);
+		if(ram.equalsIgnoreCase("16Gb"))
+			vo.setRam("삼성전자 DDR4 16G");
+		else if(ram.equalsIgnoreCase("8Gb"))
+			vo.setRam("삼성전자 DDR4 8G");
+		vo.setGpu(gpu);
+		result = dao.lowestPrice(vo);
+		return result;
+	}
 }
