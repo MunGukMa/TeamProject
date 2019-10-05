@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!--  <setting name="logImpl" value="LOG4J"/> -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	<typeAliases>
+		<typeAlias type="team.hundred.fitc.vo.Chart" alias ="Chart" />
+		<typeAlias type="team.hundred.fitc.vo.MemberVO" alias ="MemberVO" />
+		<typeAlias type="team.hundred.fitc.vo.CpuVO" alias ="CpuVO" />
+		<typeAlias type="team.hundred.fitc.vo.MainBoardVO" alias ="MainBoardVO" />
+		<typeAlias type="team.hundred.fitc.vo.GpuVO" alias ="GpuVO" />
+		<typeAlias type="team.hundred.fitc.vo.RamVO" alias ="RamVO" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mappers/chartMapper.xml" />
+		<mapper resource="mappers/memberMapper.xml" />
+		<mapper resource="mappers/BoardMapper.xml" />
+	</mappers>
+</configuration>
