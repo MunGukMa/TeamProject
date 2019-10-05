@@ -18,6 +18,6 @@
 	<mappers>
 		<mapper resource="mappers/chartMapper.xml" />
 		<mapper resource="mappers/memberMapper.xml" />
-		<mapper resource="mappers/BoardMapper.xml" />
+		<mapper resource="mappers/CompareMapper.xml" />
 	</mappers>
 </configuration>
