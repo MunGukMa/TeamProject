@@ -1,4 +1,4 @@
-package team.hundred.fitc.vo;
+package team.project.one.vo;
 
 public class PcVO {
 	private String cpu;
