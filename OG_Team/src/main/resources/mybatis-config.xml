@@ -20,5 +20,6 @@
 		<mapper resource="mappers/parsingmapper.xml" />
 		<mapper resource="mappers/automapper.xml" />
 		<mapper resource="mappers/membermapper.xml" />
+		<mapper resource="mappers/CompareMapper.xml" />
 	</mappers>
 </configuration>
