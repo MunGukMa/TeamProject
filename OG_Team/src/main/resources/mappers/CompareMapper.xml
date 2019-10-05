@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="team.hundred.fitc.dao.CompareMapper">
+<mapper namespace="team.project.one.dao.CompareMapper">
 
 	<select id="searchCPU" parameterType="String" resultType="CpuVO">
 		SELECT
