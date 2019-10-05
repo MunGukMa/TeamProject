@@ -101,3 +101,42 @@ create table fit_member(
     fit_userkeyvalue varchar2(50) not null,
     fit_userestimatenum varchar2(50)
 );
+               
+create table fit_board(
+    fit_boardnum number primary key,
+    fit_userid varchar2(20) not null,
+    fit_boardtitle varchar2(50) not null,
+    fit_pcsets varchar2(30),
+    fit_boardcontent varchar2(200),
+    fit_boarddate date default sysdate,
+    fit_boardhit number default 0
+);
+
+
+create sequence fit_board_seq;
+
+
+create table fit_comment(
+fit_commentnum number primary key,
+fit_boardnum number not null,
+fit_userid varchar2(20) not null,
+fit_comments varchar2(100) not null,
+fit_commentdate date default sysdate
+);
+
+create sequence fit_comment_seq;
+
+create table fit_pcestimate(
+    fit_pcestimatenum number primary key,
+    fit_userid varchar2(20) not null,
+    fit_cpuname varchar2(100),
+    fit_casename varchar2(100),
+    fit_gpuname varchar2(100),
+    fit_mainboardname varchar2(100),
+    fit_powername varchar2(100),
+    fit_ramname varchar2(100)
+);
+
+create sequence fit_pcestimate_seq;
+               
+         
