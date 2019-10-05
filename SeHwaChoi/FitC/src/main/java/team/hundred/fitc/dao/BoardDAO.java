@@ -19,12 +19,36 @@ import org.springframework.web.multipart.MultipartFile;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import team.hundred.fitc.vo.CpuVO;
+import team.hundred.fitc.vo.GpuVO;
+import team.hundred.fitc.vo.MainBoardVO;
+import team.hundred.fitc.vo.RamVO;
 
 @Repository
 public class BoardDAO {
 
 	@Autowired
 	public SqlSession sqlSession;
+	
+	public ArrayList<CpuVO> searchCPU(String cpuname){
+		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+		return mapper.searchCPU(cpuname);
+	}
+	
+	public ArrayList<MainBoardVO> searchMB(String name){
+		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+		return mapper.searchMB(name);
+	}
+	
+	public ArrayList<GpuVO> searchGP(String product_name){
+		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+		return mapper.searchGP(product_name);
+	}
+	
+	public ArrayList<RamVO> searchRAM(String name){
+		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+		return mapper.searchRAM(name);
+	}
 	
 	public ArrayList<String> tesseract(MultipartFile file){
 
