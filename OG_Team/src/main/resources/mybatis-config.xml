@@ -13,6 +13,9 @@
 		<typeAlias type="team.project.one.vo.RamVO" alias ="RamVO" />
 		<typeAlias type="team.project.one.vo.SteamVO" alias ="SteamVO" />
 		<typeAlias type="team.project.one.vo.MemberVO" alias ="MemberVO" />
+		<typeAlias type="team.project.one.vo.BoardVO" alias ="BoardVO" />
+		<typeAlias type="team.project.one.vo.PCEstimateVO" alias ="PCEstimateVO" />
+		<typeAlias type="team.project.one.vo.CommentVO" alias ="CommentVO" />
 
 	</typeAliases>
 	<mappers>
@@ -21,5 +24,6 @@
 		<mapper resource="mappers/automapper.xml" />
 		<mapper resource="mappers/membermapper.xml" />
 		<mapper resource="mappers/CompareMapper.xml" />
+		<mapper resource="mappers/boardmapper.xml" />
 	</mappers>
 </configuration>
