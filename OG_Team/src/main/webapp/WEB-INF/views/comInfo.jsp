@@ -11,6 +11,14 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.min.js"></script>
 <script>
 	$(function(){
+		$('#cpuConfirm').on('click', searchCPU);
+		$('#mainboardConfirm').on('click', searchMB);
+		$('#graphicConfirm').on('click', searchGP);
+		$('#ramConfirm').on('click', searchRAM);
+		$('#compareConfirm').on('click', compareInfo);
+	})
+
+	$(function(){
 		var result = JSON.parse(sessionStorage.getItem('result'));
 		
 		/*
@@ -23,25 +31,28 @@
 			$('#mbResult').empty();
 			$('#gpResult').empty();
 			$('#ramResult').empty();
-			
+			/*
+				result list[0] = cpu
+				result list[1] = mainboard
+				result list[2] = graphic
+				result list[3] = ram
+			*/
 			$('#cpuResult').append(result[0]);
 			$('#mbResult').append(result[1]);
 			$('#gpResult').append(result[2]);
 			$('#ramResult').append(result[3]);
-
+			
 			setTimeout(function(){
 				var check = confirm("입력하신 정보와 일치합니까?");
 				if(check == true){
 					$('#cpu').val(result[0])
 					$('#mainboard').val(result[1])
 					$('#graphic').val(result[2])
-					$('#ram').val(result[3])
 				} else {
 					alert("죄송합니다, 직접 입력해주세요.")
 					$('#cpu').val(result[0])
 					$('#mainboard').val(result[1])
 					$('#graphic').val(result[2])
-					$('#ram').val(result[3])
 				}
 			}, 1000);
 		} else {
@@ -54,6 +65,118 @@
 	$(window).load(function(){ }) // 데이터 바인딩 된 이후
 	setTimeout(function(){ }) // 시간 설정 후
 	*/
+	
+	function searchCPU(){
+		var cpuname = $('#cpu').val();
+		if(cpuname == "" || cpuname == null){
+			alert("정보를 입력해주세요.")
+			$('#cpu').focus();
+			return false;
+		}
+		
+		$.ajax({
+			url: 'searchCPU',
+			type: 'POST',
+			data: {'cpuname' : cpuname},
+			dataType: 'JSON',
+			success: function(result){
+				
+				sessionStorage.setItem('resultCPU', JSON.stringify(result));
+				window.open("searchCPU_window", "searchCPU", 
+				"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+				
+			},
+			error: function(){alert("Error")}
+		})
+	}
+	
+	function searchMB(){
+		var name = $('#mainboard').val();
+		if(name == "" || name == null){
+			alert("정보를 입력해주세요.")
+			$('#mainboard').focus();
+			return false;
+		}
+		
+		$.ajax({
+			url: 'searchMB',
+			type: 'POST',
+			data: {'name' : name},
+			dataType: 'JSON',
+			success: function(result){
+
+				sessionStorage.setItem("resultMB", JSON.stringify(result));
+				window.open("searchMB_window", "searchMB",
+				"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+
+			},
+			error: function(){alert("Error")}
+		})
+	}
+	
+	function searchGP(){
+		var product_name = $('#graphic').val();
+		if(product_name == "" || product_name == null){
+			alert("정보를 입력해주세요.")
+			$('#graphic').focus();
+			return false;
+		}
+		
+		$.ajax({
+			url: 'searchGP',
+			type: 'POST',
+			data: {'product_name' : product_name},
+			dataType: 'JSON',
+			success: function(result){
+				
+				sessionStorage.setItem('resultGP', JSON.stringify(result));
+				window.open("searchGP_window", "searchGP",
+				"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+				
+			},
+			error: function(){alert("Error")}
+		})
+	}
+	
+	function searchRAM(){
+		var name = $('#ram').val();
+		if(name == "" || name == null){
+			alert("정보를 입력해주세요.")
+			$('#ram').focus();
+			return false;
+		}
+		
+		$.ajax({
+			url: 'searchRAM',
+			type: 'POST',
+			data: {'name' : name},
+			dataType: 'JSON',
+			success: function(result){
+				sessionStorage.setItem('resultRAM', JSON.stringify(result));
+				window.open("searchRAM_window", "searchRAM",
+				"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+			},
+			error: function(){alert("Error")}
+		})
+	}
+	
+	function compareInfo(){
+		var cpu = $('#cpu').val();
+		var mainboard = $('#mainboard').val();
+		var graphic = $('#graphic').val();
+		var ram = $('#ram').val();
+		
+		$.ajax({
+			url: "/fitc/compareAll",
+			type: "POST",
+			data: {'cpu' : cpu, 'mainboard' : mainboard, 'graphic' : graphic, 'ram' : ram},
+			dataType: "JSON",
+			success: function(result){
+				sessionStorage.setItem("compare", JSON.stringify(result));
+				location.href = "/fitc/compareTo";
+			}
+		})
+	}
 	
 </script>
 <style>
@@ -301,16 +424,6 @@
 				</tr>
 				<tr>
 					<td>
-						<h3>메인보드 정보</h3><br/>
-						<span id="mbResult"></span>
-					</td>
-					<td>
-						<h3>Mainboard</h3><br/>
-						<input type="text" id="mainboard" value=""><input type="button" value="검색" id="mainboardConfirm">
-					</td>
-				</tr>
-				<tr>
-					<td>
 						<h3>그래픽카드 정보</h3><br/>
 						<span id="gpResult"></span>
 					</td>
@@ -327,6 +440,22 @@
 					<td>
 						<h3>RAM</h3><br/>
 						<input type="text" id="ram" value=""><input type="button" value="검색" id="ramConfirm">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h3>메인보드 정보</h3><br/>
+						<span id="mbResult"></span>
+					</td>
+					<td>
+						<h3>Mainboard</h3><br/>
+						<input type="text" id="mainboard" value=""><input type="button" value="검색" id="mainboardConfirm">
+					</td>
+				</tr>
+				<tr>
+					<td>FitC</td>
+					<td>
+						<input type="button" value="비교 페이지" id="compareConfirm">
 					</td>
 				</tr>
 			</table>
