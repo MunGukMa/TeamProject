@@ -53,9 +53,7 @@ public class MemberController {
 		vo.setFit_usermail(mail);
 		String keyvalue = mailserv.mailSendWithUserKey(mail, vo.getFit_userid(), request);
 		vo.setFit_userkeyvalue(keyvalue);
-		/*dao.signUP(vo);*/
-		System.out.println(vo);
-		System.out.println(vo.getFit_userpwd());
+		dao.signUP(vo);
 		return "redirect:/";
 	}
 	
@@ -81,27 +79,32 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "logIN", method = RequestMethod.POST)
-	public String logIN(MemberVO vo, HttpSession session) {
-		boolean result = false;
+	@ResponseBody
+	public int logIN(MemberVO vo, HttpSession session,RedirectAttributes rttr) {
+		int result = 0;
+		vo = dao.logIN(vo);
 		
-		if(dao.logIN(vo) != null) {
-			vo = dao.logIN(vo);
-			session.setAttribute("fitc_id", vo.getFit_userid());
-			session.setAttribute("fitc_pw", vo.getFit_userpwd());
-			session.setAttribute("fitc_nickname", vo.getFit_usernick());
-			session.setAttribute("fitc_email", vo.getFit_usermail());
-			
-			System.out.println("로그인 멤버 확인"+dao.logIN(vo));
-			System.out.println(session.getAttribute("fitc_id"));
-			result = true;
+		System.out.println(vo);
+		if(vo != null) {
+			if(vo.getFit_userkeyvalue().equals("Confirm"))
+			{
+				session.setAttribute("fit_member", vo);
+				session.setAttribute("fitc_id", vo.getFit_userid());
+				session.setAttribute("fitc_pw", vo.getFit_userpwd());
+				session.setAttribute("fitc_nickname", vo.getFit_usernick());
+				session.setAttribute("fitc_email", vo.getFit_usermail());
+				System.out.println("로그인 멤버 확인"+vo);
+				result = 1;
+			} else {
+				result = 2;
+			}
 			
 		}else {
-			System.out.println("로그인 멤버 확인"+dao.logIN(vo));
-			result = false;
-			
+			System.out.println("로그인 멤버 확인"+vo);
+			result = 3;
 		}		
 		
-		return "home";
+		return result;
 	}
 	
 	@RequestMapping(value = "logOUT", method = RequestMethod.GET)
@@ -110,9 +113,11 @@ public class MemberController {
 		return "home";
 	}	
 	
-	@RequestMapping(value = "keycheck", method = RequestMethod.GET)
-	public String keycheck(MemberVO vo,Model model) {
-		System.out.println(vo);
+	@RequestMapping(value = "mailcheck", method = RequestMethod.GET)
+	public String mailcheck(MemberVO vo,Model model) {
+		System.out.println(vo.getFit_userid());
+		System.out.println(vo.getFit_userkeyvalue());
+		dao.mailconfirm(vo);
 		model.addAttribute("fit_userid",vo.getFit_userid());
 		return "test";
 	}	
