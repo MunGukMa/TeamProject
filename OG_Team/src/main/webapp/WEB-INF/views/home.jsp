@@ -173,16 +173,31 @@
 			
 		}	
 		
-		///////////////////////// Add 1002 //////////////////////////////////
+		///////////////////////// Add 1002 update1005 //////////////////////////////////
 		function logIN(){
-			var form = document.getElementById("login");
-			form.submit();
-
-			if(result==false){
-				alert("아이디와 비밀번호를 확인해주세요");
-				return;
-			}
-			
+			$.ajax({
+				url:"/one/logIN",
+				type:"post",
+				data:$('#login').serialize(),
+				dataType:"json",
+				success:function(result)
+				{
+					if(result ==1){
+						location.reload();
+					} else if (result ==2)
+					{
+						alert("메일인증을 완료해주세요");
+					} else 
+					{
+						alert("ID혹은 PASSWORD가 정확하지않습니다");
+					}
+				},
+				error:function()
+				{
+					alert("Error!");
+				}
+				
+			})
 		}	
 		//////////////////////// Add 1005 ////////////////////////////
 		function fitRecommend() {
