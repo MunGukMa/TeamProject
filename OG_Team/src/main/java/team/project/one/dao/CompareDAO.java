@@ -145,4 +145,72 @@ public class CompareDAO {
 		
 		return result;
 	}
+	/////////////////////////////////////////////add 1005////////////////////////////////////////////////
+	public PcVO lowestPrice(PcVO vo){
+		WebDriver driver;
+
+		String WEB_DRIVER_ID = "webdriver.chrome.driver";
+		String WEB_DRIVER_PATH = "D:/ETC/PROJECT/chromedriver.exe";
+
+		//크롤링 할 URL
+		String cpu_url = "http://prod.danawa.com/list/?cate=113973";
+		String gpu_url = "http://prod.danawa.com/list/?cate=112753";
+		String ram_url = "http://prod.danawa.com/list/?cate=1131326";
+		String motherboard_url = "http://prod.danawa.com/list/?cate=112751";
+		String case_url = "http://prod.danawa.com/list/?cate=112775";
+		String power_url = "http://prod.danawa.com/list/?cate=112777";
+
+		PcVO lowest = new PcVO();
+		
+		System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("headless");
+
+		driver = new ChromeDriver(options);
+		
+		String[] parts = {vo.getCpu(), vo.getRam(),vo.getGpu(),vo.getMainboard(), vo.getPower(), vo.getPc_case()};
+		String[] url = {cpu_url, ram_url, gpu_url, motherboard_url,power_url,case_url};
+		ArrayList<String> result = new ArrayList<String>();
+		for(int i = 0; i<3;i++){
+			try {
+
+				System.out.println("=========================================================================");
+				driver.get(url[i]);
+
+				Thread.sleep(750);
+
+				System.out.println(parts[i]);
+				driver.findElement(By.className("search_input")).sendKeys(parts[i]);
+				driver.findElement(By.className("submit_search_list")).click();
+
+				Thread.sleep(750);
+
+				driver.findElement(By.xpath("//*[@id='productListArea']/div[2]/div[1]/ul/li[3]/a")).click();
+
+				Thread.sleep(750);
+				WebElement element  = driver.findElement(By.className("price_sect"));
+
+				String[] price = element.getAttribute("innerHTML").split("strong");
+				
+				System.out.println(price[1].substring(1, price[1].length()-2));
+				result.add(price[1].substring(1, price[1].length()-2));
+
+				System.out.println("=========================================================================");
+
+			} catch (Exception e) {
+
+				e.printStackTrace();
+
+			}
+		}
+		lowest.setCpu(result.get(0));
+		lowest.setRam(result.get(1));
+		lowest.setGpu(result.get(2));
+		/*lowest.setMainboard(result.get(3));
+		lowest.setPower(result.get(4));
+		lowest.setPc_case(result.get(5));*/
+		System.out.println(lowest);
+		driver.close();
+		return lowest;
+	}
 }
