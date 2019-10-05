@@ -7,12 +7,13 @@ public class BoardVO {
 	private String fit_pcsets;
 	private String fit_boardcontent;
 	private String fit_boarddate;
+	private int fit_pcestimatenum;
 	private int fit_boardhit;
 	public BoardVO() {
 		// TODO Auto-generated constructor stub
 	}
 	public BoardVO(int fit_boardnum, String fit_userid, String fit_boardtitle, String fit_pcsets,
-			String fit_boardcontent, String fit_boarddate, int fit_boardhit) {
+			String fit_boardcontent, String fit_boarddate, int fit_pcestimatenum, int fit_boardhit) {
 		super();
 		this.fit_boardnum = fit_boardnum;
 		this.fit_userid = fit_userid;
@@ -20,6 +21,7 @@ public class BoardVO {
 		this.fit_pcsets = fit_pcsets;
 		this.fit_boardcontent = fit_boardcontent;
 		this.fit_boarddate = fit_boarddate;
+		this.fit_pcestimatenum = fit_pcestimatenum;
 		this.fit_boardhit = fit_boardhit;
 	}
 	public int getFit_boardnum() {
@@ -58,6 +60,12 @@ public class BoardVO {
 	public void setFit_boarddate(String fit_boarddate) {
 		this.fit_boarddate = fit_boarddate;
 	}
+	public int getFit_pcestimatenum() {
+		return fit_pcestimatenum;
+	}
+	public void setFit_pcestimatenum(int fit_pcestimatenum) {
+		this.fit_pcestimatenum = fit_pcestimatenum;
+	}
 	public int getFit_boardhit() {
 		return fit_boardhit;
 	}
@@ -68,8 +76,10 @@ public class BoardVO {
 	public String toString() {
 		return "BoardVO [fit_boardnum=" + fit_boardnum + ", fit_userid=" + fit_userid + ", fit_boardtitle="
 				+ fit_boardtitle + ", fit_pcsets=" + fit_pcsets + ", fit_boardcontent=" + fit_boardcontent
-				+ ", fit_boarddate=" + fit_boarddate + ", fit_boardhit=" + fit_boardhit + "]";
+				+ ", fit_boarddate=" + fit_boarddate + ", fit_pcestimatenum=" + fit_pcestimatenum + ", fit_boardhit="
+				+ fit_boardhit + "]";
 	}
+	
 	
 	
 }
