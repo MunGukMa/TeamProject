@@ -164,13 +164,13 @@
 
   		if(estimate == true){
   			$.ajax({
-  	  			url : '/fitc/comRecommend',
+  	  			url : '/fitc/gameSpec',
   	  			type : 'post',
   	  			data : {'cpuname':cpuname,'memory':memory,'gpuname':gpuname},
   	  			dataType : "JSON",
   	  			success : function(result){
   	  				sessionStorage.setItem("vo", JSON.stringify(result));
-  	  				location.href = "/fitc/comRecommend2"
+  	  				location.href = "/fitc/comRecommend"
   	  			},
   	  			error : function(){
   	  				alert("ERROR");

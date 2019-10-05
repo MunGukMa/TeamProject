@@ -34,7 +34,7 @@ public class BoardController {
 	public String comInfo() {
 		return "/comInfo";
 	}
-	@RequestMapping(value = "/comRecommend", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/gameSpec", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public Chart comRecommend(String cpuname, String memory, String gpuname, Model model) {
 		Chart vo = new Chart();
@@ -45,9 +45,9 @@ public class BoardController {
 		return vo;
 	}
 	
-	@RequestMapping(value = "/comRecommend2", method = RequestMethod.GET)
+	@RequestMapping(value = "/comRecommend", method = RequestMethod.GET)
 	public String comRecommend2() {
-		return "/comRecommend2";
+		return "/comRecommend";
 	}
 	@RequestMapping(value = "/lowest", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
@@ -58,7 +58,10 @@ public class BoardController {
 		System.out.println(gpu);
 		System.out.println(ram);
 		vo.setCpu(cpu);
-		vo.setRam("삼성전자 DDR4");
+		if(ram.equalsIgnoreCase("16Gb"))
+			vo.setRam("삼성전자 DDR4 16G");
+		else if(ram.equalsIgnoreCase("8Gb"))
+			vo.setRam("삼성전자 DDR4 8G");
 		vo.setGpu(gpu);
 		result = dao.lowestPrice(vo);
 		return result;
