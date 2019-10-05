@@ -184,7 +184,34 @@
 			}
 			
 		}	
-	
+		//////////////////////// Add 1005 ////////////////////////////
+		function fitRecommend() {
+  		var estimate = confirm("해당 게임의 사양의 견적을 확인하시겠습니까?");
+  		var cpuname = $('#cpuname').html();
+  		var memory = $('#memory').html();
+  		var gpuname = $('#gpuname').html();
+
+  		if(estimate == true){
+  			$.ajax({
+  	  			url : '/fitc/gameSpec',
+  	  			type : 'post',
+  	  			data : {'cpuname':cpuname,'memory':memory,'gpuname':gpuname},
+  	  			dataType : "JSON",
+  	  			success : function(result){
+  	  				sessionStorage.setItem("vo", JSON.stringify(result));
+  	  				location.href = "/fitc/comRecommend"
+  	  			},
+  	  			error : function(){
+  	  				alert("ERROR");
+  	  			}
+  	  	
+  	  		})
+  		
+  		} else {
+  			location.href = "/fitc/";			
+  		}
+  		
+  	}
 						
 	</script>
 	<style>
@@ -451,7 +478,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input id="rebtn" type="button" value="추천견적" onclick="alert('추천견적');">
+					<input id="rebtn" type="button" value="추천견적" onclick="fitRecommend();">
 					<input id="fitbtn" type="button" value="맞춤견적" onclick="fitEstimate();">
 					<input type="button" value="창 닫기" onclick="closediv();">
 				</td>
