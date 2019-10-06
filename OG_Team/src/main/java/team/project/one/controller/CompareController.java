@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import team.project.one.dao.CompareDAO;
 import team.project.one.vo.CpuVO;
 import team.project.one.vo.GpuVO;
 import team.project.one.vo.MainBoardVO;
+import team.project.one.vo.PcVO;
 import team.project.one.vo.RamVO;
 
 @Controller
@@ -114,13 +116,12 @@ public class CompareController {
 	
 	@RequestMapping(value = "/gameSpec", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public Chart comRecommend(String cpuname, String memory, String gpuname, Model model) {
-		Chart vo = new Chart();
-		vo.setCpu(cpuname);
-		vo.setVga(gpuname);
-		vo.setRam(memory);
-
-		return vo;
+	public ArrayList<String> comRecommend(String cpuname, String memory, String gpuname) {
+		ArrayList<String> list = new ArrayList<String>();
+		list.add(cpuname);
+		list.add(memory);
+		list.add(gpuname);
+		return list;
 	}
 	
 	@RequestMapping(value = "/comRecommend", method = RequestMethod.GET)
