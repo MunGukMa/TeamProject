@@ -114,9 +114,9 @@
 
 	function searchId(){
 		$.ajax({
-			url:"/three/searchInfo",
+			url:"/one/searchInfo",
 			type:"post",
-			data:{"fitc_name":$("#fitc_name_id").val(),"fitc_email":$("#fitc_email_id").val()},
+			data:{"fit_usernick":$("#fit_usernick_id").val(),"fit_usermail":$("#fit_usermail_id").val()},
 			success:function(result){
 				if(result != null){
 					alert("찾으신 아이디는 " + result + " 입니다.");
@@ -132,9 +132,9 @@
 
 	function searchPW(){
 		$.ajax({
-			url:"/three/searchPW",
+			url:"/one/searchPW",
 			type:"post",
-			data:{"fitc_id":$("#fitc_id_pw").val(), "fitc_name":$("#fitc_name_pw").val(), "fitc_email":$("#fitc_email_pw").val()},
+			data:{"fit_userid":$("#fit_userid_pw").val(), "fit_usernick":$("#fit_usernick_pw").val(), "fit_usermail":$("#fit_usermail_pw").val()},
 			success:function(result){
 				if(result != null){
 					alert("찾으신 비밀번호는 " + result + " 입니다.");
@@ -172,16 +172,16 @@
 		<div id="test1" style="display:;">
 			<form id="findMember" action="searchInfo" method="post">
 				<div class="find_button">
-					<span><a href="#" class="" onclick="goId()">Password</a></span>
+					<span><a href="javascript:;" class="" onclick="goId()">Password</a></span>
 				</div>
 				<br/>
 				<h4>아이디 찾기</h4>
-				<input type="text" placeholder=" 이름" id="fitc_name_id" name="fitc_name" />
+				<input type="text" placeholder="닉네임" id="fit_usernick_id" name="fit_usernick" />
 				<br/>
-				<input type="email" placeholder=" 이메일주소" id="fitc_email_id" name="fitc_email"  />
+				<input type="email" placeholder="이메일주소" id="fit_usermail_id" name="fit_usermail" />
 				<br/>
 				<div class="register_button">
-					<span><a href="#" id="findId">CHECK</a></span>
+					<span><a href="javascript:;" id="findId">CHECK</a></span>
 				</div>
 			</form>
 		</div>
@@ -189,18 +189,18 @@
 		<div id="test2" style="display: none;">
 			<form id="findpw" action="searchPW" method="post">
 				<div class="find_button">
-					<span><a href="#" class="" onclick="goPassword()">ID</a></span>
+					<span><a href="javascript:;" class="" onclick="goPassword()">ID</a></span>
 				</div>
 				<br/>
 				<h4>비밀번호 찾기</h4>
-				<input type="text" placeholder=" 아이디" id="fitc_id_pw" name="fitc_id"  />
+				<input type="text" placeholder="아이디" id="fit_userid_pw" name="fit_userid" />
 				<br/>
-				<input type="text" placeholder=" 이름" id="fitc_name_pw" name="fitc_name"  />
+				<input type="text" placeholder="닉네임" id="fit_usernick_pw" name="fit_usernick" />
 				<br/>
-				<input type="email" placeholder=" 이메일주소" id="fitc_email_pw" name="fitc_email" />
+				<input type="email" placeholder="이메일주소" id="fit_usermail_pw" name="fit_usermail" />
 				<br/>
 				<div class="register_button">
-					<span><a href="#" id="findPW">CHECK</a></span>
+					<span><a href="javascript:;" id="findPW">CHECK</a></span>
 				</div>
 			</form>
 		</div>
