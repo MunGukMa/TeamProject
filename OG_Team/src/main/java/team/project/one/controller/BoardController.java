@@ -170,16 +170,19 @@ public class BoardController {
 	public String commentDelete(CommentVO vo, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("fit_member");
 		vo.setFit_userid(member.getFit_userid());
-		return "redirect:/board/boardRead?b_num=" + vo.getFit_boardnum();
+		dao.commentDelete(vo);		
+		
+		return "redirect:/board/boardRead?fit_boardnum=" + vo.getFit_boardnum();
 	}
 	
 	//댓글 수정
 	@RequestMapping(value = "commentUpdate", method = RequestMethod.GET)
-	public String commentUpdate(CommentVO vo, HttpSession session, RedirectAttributes rttr) {
-		MemberVO member = (MemberVO)session.getAttribute("fit_member");
-		vo.setFit_userid(member.getFit_userid());		
-	
-		return "redirect:/board/boardRead?b_num=" + vo.getFit_boardnum();
+	public String commentUpdate(CommentVO vo, HttpSession session, MemberVO member) {
+		member = (MemberVO)session.getAttribute("fit_member");
+		vo.setFit_userid(member.getFit_userid());
+		dao.commentUpdate(vo);
+		
+		return "redirect:/board/boardRead?fit_boardnum=" + vo.getFit_boardnum();
 	}
 			
 	
