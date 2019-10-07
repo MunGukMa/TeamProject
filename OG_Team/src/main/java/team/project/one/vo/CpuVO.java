@@ -1,10 +1,8 @@
 package team.project.one.vo;
 
-
-public class CpuVO 
-{
+public class CpuVO {
 	int num;
-	String cpuname;
+	String fit_name;
 	String cpucode;
 	String cores;
 	String clock;
@@ -19,11 +17,11 @@ public class CpuVO
 		// TODO Auto-generated constructor stub
 	}
 
-	public CpuVO(int num, String cpuname, String cpucode, String cores, String clock, String socket, String process,
+	public CpuVO(int num, String fit_name, String cpucode, String cores, String clock, String socket, String process,
 			String l3cache, String tdp, String released, int point) {
 		super();
 		this.num = num;
-		this.cpuname = cpuname;
+		this.fit_name = fit_name;
 		this.cpucode = cpucode;
 		this.cores = cores;
 		this.clock = clock;
@@ -43,12 +41,12 @@ public class CpuVO
 		this.num = num;
 	}
 
-	public String getCpuname() {
-		return cpuname;
+	public String getFit_name() {
+		return fit_name;
 	}
 
-	public void setCpuname(String cpuname) {
-		this.cpuname = cpuname;
+	public void setFit_name(String fit_name) {
+		this.fit_name = fit_name;
 	}
 
 	public String getCpucode() {
@@ -125,11 +123,8 @@ public class CpuVO
 
 	@Override
 	public String toString() {
-		return "CpuVO [num=" + num + ", cpuname=" + cpuname + ", cpucode=" + cpucode + ", cores=" + cores + ", clock="
+		return "CpuVO [num=" + num + ", fit_name=" + fit_name + ", cpucode=" + cpucode + ", cores=" + cores + ", clock="
 				+ clock + ", socket=" + socket + ", process=" + process + ", l3cache=" + l3cache + ", tdp=" + tdp
 				+ ", released=" + released + ", point=" + point + "]";
 	}
-	
-	
-	
 }
