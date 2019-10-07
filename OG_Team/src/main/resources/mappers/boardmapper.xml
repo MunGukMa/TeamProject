@@ -10,6 +10,9 @@
 		SELECT *
 		FROM
 			fit_board
+		WHERE
+			${searchItem}
+			LIKE '%'||#{searchKeyword}||'%'
 		ORDER BY
 			fit_boardnum DESC
 			
