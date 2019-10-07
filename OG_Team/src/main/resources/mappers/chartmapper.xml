@@ -10,17 +10,19 @@
 	select 
 		*
 	from
-		gamelist
+		fit_gamelist
 	
 	</select>
+	
 	<select id="selectOneGame" parameterType="GameVO" resultType="GameVO">
 	
 	select 
 		*
 	from
-		gamelist
+		fit_gamelist
 	where 
-		gamename = #{gamename}
+		fit_name = #{fit_name}
+		
 	</select>
+	
 </mapper>
-
