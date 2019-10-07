@@ -135,7 +135,8 @@ public class BoardController {
 		rttr.addAttribute("u_result", result);		
 		return "redirect:/board/boardRead?fit_boardnum=" + vo.getFit_boardnum();
 	}
-		
+	
+	// 게시판 글 삭제
 	@RequestMapping(value = "boardDelete", method = RequestMethod.GET)
 	public String boardDelete(BoardVO vo, HttpSession session, RedirectAttributes rttr) {
 		MemberVO member = (MemberVO)session.getAttribute("fit_member");
@@ -152,13 +153,17 @@ public class BoardController {
 	
 	//댓글 쓰기
 	@RequestMapping(value = "commentWrite", method = RequestMethod.POST)
-	public String commentWrite(CommentVO vo, HttpSession session, RedirectAttributes rttr) {
-		MemberVO member = (MemberVO)session.getAttribute("fit_member");
-		vo.setFit_userid(member.getFit_userid());
-		rttr.addAttribute("b_num", vo.getFit_boardnum());
-		
-		return "redirect:/board/boardRead";
+	@ResponseBody
+	public ArrayList<CommentVO> commentWrite(CommentVO vo) {
+		dao.commentWrite(vo);
+		ArrayList<CommentVO> commentList = dao.commentList(vo.getFit_boardnum());
+		for(CommentVO tmvo:commentList)
+		{
+			System.out.println(tmvo);
+		}
+		return commentList;
 	}
+	
 	
 	//댓글 삭제
 	@RequestMapping(value = "commentDelete", method = RequestMethod.GET)
