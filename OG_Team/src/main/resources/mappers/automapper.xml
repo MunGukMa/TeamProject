@@ -5,22 +5,109 @@
 
 <mapper namespace="team.project.one.dao.AutoMapper">
 	
-	<select id="getlist" parameterType="hashmap" resultType="String">
+	<select id="getlistcpu" parameterType="java.util.HashMap" resultType="String">
+	select 
+		fit_name
+	from
+		fit_cpu
+	where
+		(upper(fit_name) like upper('%'||
+	<foreach collection="keyvalue" item="item" separator="" open="" close="">
+		#{item}||'%'	 
+	</foreach>
+		))
+	</select>
 	
-	select b.* from
-		(select name from fit_mainboard
+	<select id="getlistgpu" parameterType="java.util.HashMap" resultType="String">
+	select 
+		fit_name
+	from
+		fit_gpu
+	where
+		(upper(fit_name) like upper('%'||
+	<foreach collection="keyvalue" item="item" separator="" open="" close="">
+		#{item}||'%'	 
+	</foreach>
+		))
+	</select>
+	<select id="getlistram" parameterType="java.util.HashMap" resultType="String">
+	select 
+		fit_name
+	from
+		fit_ram
+	where
+		(upper(fit_name) like upper('%'||
+	<foreach collection="keyvalue" item="item" separator="" open="" close="">
+		#{item}||'%'	 
+	</foreach>
+		))
+	</select>
+	<select id="getlistmainboard" parameterType="java.util.HashMap" resultType="String">
+	select 
+		fit_name
+	from
+		fit_cpu
+	where
+		(upper(fit_name) like upper('%'||
+		<foreach collection="keyvalue" item="item" separator="" open="" close="">
+			#{item}||'%'	 
+		</foreach>
+		))
+	</select>
+	<select id="getlistcase" parameterType="java.util.HashMap" resultType="String">
+	select 
+		fit_name
+	from
+		fit_case
+	where
+		(upper(fit_name) like upper('%'||
+		<foreach collection="keyvalue" item="item" separator="" open="" close="">
+			#{item}||'%'	 
+		</foreach>
+		))
+	</select>
+	<select id="getlistpower" parameterType="java.util.HashMap" resultType="String">
+	select 
+		fit_name
+	from
+		fit_power
+	where
+		(upper(fit_name) like upper('%'||
+		<foreach collection="keyvalue" item="item" separator="" open="" close="">
+			#{item}||'%'	 
+		</foreach>
+		))
+	</select>
+	<select id="getliststeam" parameterType="java.util.HashMap" resultType="String">
+	select 
+		fit_name
+	from
+		fit_steam
+	where
+		(upper(fit_name) like upper('%'||
+		<foreach collection="keyvalue" item="item" separator="" open="" close="">
+			#{item}||'%'	 
+		</foreach>
+		))
+	</select>
+	<select id="getlistall" parameterType="java.util.HashMap" resultType="String">
+	select b.* 
+	from
+		(select fit_name from fit_mainboard
 		union all
-		select name from fit_power
+		select fit_name from fit_power
 		union all
-		select cpuname from fit_cpu
+		select fit_name from fit_cpu
 		union all
-		select casename from fit_case
+		select fit_name from fit_case
 		union all
-		select product_name from fit_gpu
+		select fit_name from fit_gpu
 		union all
-		select name from fit_steam) b
+		select fit_name from fit_steam) b
 		WHERE 
-		name like '%'||#{keyvalue}||'%' 
+		<foreach collection="keyvalue" item="item" separator="and" open="(" close=")">
+			upper(fit_name) like upper('%'||#{item}||'%')	 
+		</foreach>
 	</select>
 </mapper>
 
