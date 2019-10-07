@@ -37,6 +37,7 @@
 			fit_boardnum = #{fit_boardnum}		
 	</select>
 	
+	<!-- 게시글 쓰기 -->
 	<insert id="boardWrite" parameterType="BoardVO">
 	
 		insert into
@@ -47,6 +48,7 @@
 	
 	</insert>
 	
+	<!-- 게시글 수정하기 -->
 	<update id="boardUpdate" parameterType="BoardVO">
 	
 		update 
@@ -61,6 +63,7 @@
 	
 	</update>
 	
+	<!-- 게시글 삭제 -->
 	<delete id="boardDelete" parameterType="BoardVO">
 	
 		delete
@@ -81,6 +84,7 @@
 			${searchItem} LIKE '%'||#{searchKeyword}||'%'
 	</select>
 	
+	<!-- 댓글 읽기 -->
 	<select id="commentList" parameterType="int" resultType="CommentVO">
 	
 		select *
@@ -93,6 +97,7 @@
 	
 	</select>
 	
+	<!-- 댓글 쓰기 -->
 	<insert id="commentWrite" parameterType="CommentVO">
 	
 		insert into
@@ -101,6 +106,7 @@
 	
 	</insert>
 	
+	<!-- 댓글 삭제 -->
 	<delete id="commentDelete" parameterType="CommentVO">
 		delete
 			fit_comment
@@ -109,6 +115,7 @@
 			AND fit_userid = #{fit_userid}
 	</delete>
 	
+	<!-- 댓글 수정 -->
 	<update id="commentUpdate" parameterType="CommentVO">
 		
 		update
@@ -121,14 +128,34 @@
 			
 	</update>
 	
+	<!-- 견적 데이터 -->
 	<select id="pcsetList" resultType="PCEstimateVO">
 	
-		select *
+		select 
+			*
 		from 
 			fit_pcestimate
 		where
 			fit_userid = #{fit_userid}
 	
+	</select>
+	
+	<select id="getpc" parameterType="PCEstimateVO" resultType="PCEstimateVO">
+		select 
+			*
+		from
+			fit_pcestimate
+		where
+			fit_pcnum = #{fit_pcnum}
+	</select>
+	
+	<select id="getPcOne" parameterType="PCEstimateVO" resultType="PCEstimateVO">
+		select 
+			*
+		from
+			fit_pcestimate
+		where
+			fit_pcnum = #{fit_pcsets}
 	</select>
 	
 </mapper>
