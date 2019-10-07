@@ -2,7 +2,7 @@ package team.project.one.vo;
 
 public class PowerVO {
 	int num;
-	String name;
+	String fit_name;
 	String price;
 	String power;
 	String output;
@@ -13,16 +13,16 @@ public class PowerVO {
 	String connecter;
 	String etc;
 	String releaseDate;
-
+	
 	public PowerVO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PowerVO(int num, String name, String price, String power, String output, String fanSize, String fanNum,
+	public PowerVO(int num, String fit_name, String price, String power, String output, String fanSize, String fanNum,
 			String atx, String sata, String connecter, String etc, String releaseDate) {
 		super();
 		this.num = num;
-		this.name = name;
+		this.fit_name = fit_name;
 		this.price = price;
 		this.power = power;
 		this.output = output;
@@ -43,12 +43,12 @@ public class PowerVO {
 		this.num = num;
 	}
 
-	public String getName() {
-		return name;
+	public String getFit_name() {
+		return fit_name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFit_name(String fit_name) {
+		this.fit_name = fit_name;
 	}
 
 	public String getPrice() {
@@ -133,12 +133,8 @@ public class PowerVO {
 
 	@Override
 	public String toString() {
-		return "PowerVO [num=" + num + ", name=" + name + ", price=" + price + ", power=" + power + ", output=" + output
-				+ ", fanSize=" + fanSize + ", fanNum=" + fanNum + ", atx=" + atx + ", sata=" + sata + ", connecter="
-				+ connecter + ", etc=" + etc + ", releaseDate=" + releaseDate + "]";
+		return "PowerVO [num=" + num + ", fit_name=" + fit_name + ", price=" + price + ", power=" + power + ", output="
+				+ output + ", fanSize=" + fanSize + ", fanNum=" + fanNum + ", atx=" + atx + ", sata=" + sata
+				+ ", connecter=" + connecter + ", etc=" + etc + ", releaseDate=" + releaseDate + "]";
 	}
-	
-	
-	
-	
 }
