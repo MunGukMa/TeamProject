@@ -185,6 +185,16 @@ public class BoardController {
 		return "redirect:/board/boardRead?fit_boardnum=" + vo.getFit_boardnum();
 	}
 			
-	
+	//PC 견적
+	@RequestMapping(value = "getpc", method = RequestMethod.GET)
+	@ResponseBody
+	public PCEstimateVO getpc(PCEstimateVO vo) {
+		System.out.println("PC정보 가져오기");
+		System.out.println(vo);
+		vo = dao.getpc(vo);
+		System.out.println(vo);
+		System.out.println("PC정보 가져오기 끝");
+		return vo;
+	}
 	
 }
