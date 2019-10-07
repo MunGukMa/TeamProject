@@ -42,5 +42,10 @@ public class MemberDAO {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		mapper.updateInfo(vo);
 	}
-
+	
+	public void mailconfirm(MemberVO vo) {
+		System.out.println(vo);
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		mapper.mailconfirm(vo);
+	}
 }
