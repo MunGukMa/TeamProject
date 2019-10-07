@@ -16,14 +16,14 @@
 		<typeAlias type="team.project.one.vo.BoardVO" alias ="BoardVO" />
 		<typeAlias type="team.project.one.vo.PCEstimateVO" alias ="PCEstimateVO" />
 		<typeAlias type="team.project.one.vo.CommentVO" alias ="CommentVO" />
-
+		<typeAlias type="team.project.one.vo.PcVO" alias ="PcVO" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/chartmapper.xml" />
 		<mapper resource="mappers/parsingmapper.xml" />
 		<mapper resource="mappers/automapper.xml" />
 		<mapper resource="mappers/membermapper.xml" />
-		<mapper resource="mappers/CompareMapper.xml" />
 		<mapper resource="mappers/boardmapper.xml" />
+		<mapper resource="mappers/CompareMapper.xml" />
 	</mappers>
 </configuration>
