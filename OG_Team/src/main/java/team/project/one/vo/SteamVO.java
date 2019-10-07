@@ -3,21 +3,20 @@ package com.test.team;
 public class SteamVO {
 	int num;
 	String appid;
-	String name;
+	String fit_name;
 	
 	public SteamVO() {
-		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public SteamVO(int num, String appid, String name) {
+	public SteamVO(int num, String appid, String fit_name) {
 		super();
 		this.num = num;
 		this.appid = appid;
-		this.name = name;
+		this.fit_name = fit_name;
 	}
-	
-	public String getNum() {
+
+	public int getNum() {
 		return num;
 	}
 
@@ -33,16 +32,16 @@ public class SteamVO {
 		this.appid = appid;
 	}
 
-	public String getName() {
-		return name;
+	public String getFit_name() {
+		return fit_name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFit_name(String fit_name) {
+		this.fit_name = fit_name;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("SteamVO [num=%d, appid=%s, name=%s]", num, appid, name);
+		return "SteamVO [num=" + num + ", appid=" + appid + ", fit_name=" + fit_name + "]";
 	}
 }
