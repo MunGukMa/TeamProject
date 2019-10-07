@@ -11,7 +11,7 @@
 		FROM
 			fit_cpu
 		WHERE
-			UPPER(cpuname)
+			UPPER(fit_name)
 		LIKE
 			UPPER('%'|| #{cpuname} || '%')
 	</select>
@@ -22,7 +22,7 @@
 		FROM
 			fit_mainboard
 		WHERE
-			UPPER(name)
+			UPPER(fit_name)
 		LIKE
 			UPPER('%'|| #{name} || '%')
 	</select>
@@ -33,7 +33,7 @@
 		FROM
 			fit_gpu
 		WHERE
-			UPPER(product_name)
+			UPPER(fit_name)
 		LIKE
 			UPPER('%'|| #{product_name} || '%')
 	</select>
@@ -44,10 +44,9 @@
 		FROM
 			fit_ram
 		WHERE
-			UPPER(name)
+			UPPER(fit_name)
 		LIKE
 			UPPER('%'|| #{name} || '%')
 	</select>
 
 </mapper>
-
