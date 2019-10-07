@@ -4,7 +4,7 @@ public class GpuVO {
 	
 	private int num;
 	private String company;
-	private String product_name;
+	private String fit_name;
 	private String chip;
 	private String released_date;
 	private String bus;
@@ -20,12 +20,12 @@ public class GpuVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public GpuVO(int num, String company, String product_name, String chip, String released_date, String bus,
-			String m_size, String m_ddr, String m_bit, String g_clock, String m_clock, String tdp, int rank) {
+	public GpuVO(int num, String company, String fit_name, String chip, String released_date, String bus, String m_size,
+			String m_ddr, String m_bit, String g_clock, String m_clock, String tdp, int rank) {
 		super();
 		this.num = num;
 		this.company = company;
-		this.product_name = product_name;
+		this.fit_name = fit_name;
 		this.chip = chip;
 		this.released_date = released_date;
 		this.bus = bus;
@@ -54,12 +54,12 @@ public class GpuVO {
 		this.company = company;
 	}
 
-	public String getProduct_name() {
-		return product_name;
+	public String getFit_name() {
+		return fit_name;
 	}
 
-	public void setProduct_name(String product_name) {
-		this.product_name = product_name;
+	public void setFit_name(String fit_name) {
+		this.fit_name = fit_name;
 	}
 
 	public String getChip() {
@@ -144,12 +144,9 @@ public class GpuVO {
 
 	@Override
 	public String toString() {
-		return "GpuVO [num=" + num + ", company=" + company + ", product_name=" + product_name + ", chip=" + chip
+		return "GpuVO [num=" + num + ", company=" + company + ", fit_name=" + fit_name + ", chip=" + chip
 				+ ", released_date=" + released_date + ", bus=" + bus + ", m_size=" + m_size + ", m_ddr=" + m_ddr
 				+ ", m_bit=" + m_bit + ", g_clock=" + g_clock + ", m_clock=" + m_clock + ", tdp=" + tdp + ", rank="
 				+ rank + "]";
 	}
-	
-	
-	
 }
