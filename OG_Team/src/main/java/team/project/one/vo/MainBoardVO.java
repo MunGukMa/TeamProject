@@ -2,7 +2,7 @@ package team.project.one.vo;
 
 public class MainBoardVO {
 	int num;
-	String name;
+	String fit_name;
 	String sockets;
 	String formFactor;
 	String chipSet;
@@ -17,11 +17,11 @@ public class MainBoardVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MainBoardVO(int num, String name, String sockets, String formFactor, String chipSet, String rAM,
+	public MainBoardVO(int num, String fit_name, String sockets, String formFactor, String chipSet, String rAM,
 			String releaseDate, String audioChip, String usb2, String usb3, String sata) {
 		super();
 		this.num = num;
-		this.name = name;
+		this.fit_name = fit_name;
 		this.sockets = sockets;
 		this.formFactor = formFactor;
 		this.chipSet = chipSet;
@@ -41,12 +41,12 @@ public class MainBoardVO {
 		this.num = num;
 	}
 
-	public String getName() {
-		return name;
+	public String getFit_name() {
+		return fit_name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFit_name(String fit_name) {
+		this.fit_name = fit_name;
 	}
 
 	public String getSockets() {
@@ -123,8 +123,8 @@ public class MainBoardVO {
 
 	@Override
 	public String toString() {
-		return "MainBoardVO [num=" + num + ", name=" + name + ", sockets=" + sockets + ", formFactor=" + formFactor
-				+ ", chipSet=" + chipSet + ", RAM=" + RAM + ", releaseDate=" + releaseDate + ", audioChip=" + audioChip
-				+ ", usb2=" + usb2 + ", usb3=" + usb3 + ", sata=" + sata + "]";
+		return "MainBoardVO [num=" + num + ", fit_name=" + fit_name + ", sockets=" + sockets + ", formFactor="
+				+ formFactor + ", chipSet=" + chipSet + ", RAM=" + RAM + ", releaseDate=" + releaseDate + ", audioChip="
+				+ audioChip + ", usb2=" + usb2 + ", usb3=" + usb3 + ", sata=" + sata + "]";
 	}
 }
