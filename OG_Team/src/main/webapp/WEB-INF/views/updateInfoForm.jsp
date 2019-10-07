@@ -21,26 +21,26 @@
 	}
 
 	function updateInfo(){
-		var fitc_pw = document.getElementById("fitc_pw");
+		var fit_userpwd = document.getElementById("fit_userpwd");
 		var check_pw = document.getElementById("check_pw");
-		var fitc_nickname = document.getElementById("fitc_nickname");
+		var fit_usernick = document.getElementById("fit_usernick");
 
-		if(fitc_pw.value.length<4 || fitc_pw.value.length>10){
+		if(fit_userpwd.value.length<4 || fit_userpwd.value.length>10){
 			alert('비밀번호는 4~10글자로 입력해주세요');
 			fitc_id.focus();
 			return;
 		}
 
-		if(fitc_nickname.value.length>10 || fitc_nickname.value.length == 0){
+		if(fit_usernick.value.length>10 || fit_usernick.value.length == 0){
 			alert('닉네임은 10글자 이하로 입력해주세요');
-			fitc_nickname.focus();
+			fit_usernick.focus();
 			return;
 		}
 		
 
-		if(fitc_pw.value != check_pw.value){
+		if(fit_userpwd.value != check_pw.value){
 			alert("비밀번호가 일치하지 않습니다.");
-			fitc_pw.focus();
+			fit_userpwd.focus();
 			return;
 		}
 
@@ -127,25 +127,21 @@
 	<div class="registration">
 		<form id="update" action="updateInfo" method="post">
 			<table>
-				<caption>${sessionScope.fitc_id }님의 회원정보 수정</caption>
+				<caption>${sessionScope.fit_member.fit_userid}님의 회원정보 수정</caption>
 				<tr>
-					<td><input type="hidden" name="fitc_id" id="fitc_id" value="${sessionScope.fitc_id }"></td>
+					<td><input type="hidden" name="fit_userid" id="fit_userid" value="${sessionScope.fit_member.fit_userid}"></td>
 				</tr>
 				<tr>
 					<td>비밀번호</td>
-					<td><input type="password" name="fitc_pw" id="fitc_pw" /></td>
+					<td><input type="password" name="fit_userpwd" id="fit_userpwd" /></td>
 				</tr>
 				<tr>
 					<td>비밀번호 확인</td>
 					<td><input type="password" name="check_pw" id="check_pw" /></td>
 				</tr>
 				<tr>
-					<td>이름</td>
-					<td><input type="text" name="fitc_name" id="fitc_name" value="${sessionScope.fitc_name}" readonly="readonly" /></td>
-				</tr>
-				<tr>
 					<td>닉네임</td>
-					<td><input type="text" name="fitc_nickname" id="fitc_nickname" value="${sessionScope.fitc_nickname}" /></td>
+					<td><input type="text" name="fit_usernick" id="fit_usernick" value="${sessionScope.fit_member.fit_usernick}" /></td>
 				</tr>
 				<tr>
 					<td>이메일</td>
