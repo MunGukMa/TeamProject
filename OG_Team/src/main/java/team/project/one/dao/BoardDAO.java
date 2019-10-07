@@ -12,11 +12,11 @@ import team.project.one.vo.BoardVO;
 import team.project.one.vo.CommentVO;
 import team.project.one.vo.PCEstimateVO;
 
+
 @Repository
 public class BoardDAO {
-
 	@Autowired
-	public SqlSession sqlSession;
+	private SqlSession sqlSession;
 	
 	public ArrayList<BoardVO> boardList(HashMap<String, String> map, int startRecord, int countPerPage){
 		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
@@ -24,15 +24,15 @@ public class BoardDAO {
 		return mapper.boardList(map, rb);
 	}
 	
-	public BoardVO boardRead(int b_num) {
+	public BoardVO boardRead(int fit_boardnum) {
 		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
-		mapper.hitCount(b_num);
-		return mapper.boardRead(b_num);
+		mapper.hitCount(fit_boardnum);
+		return mapper.boardRead(fit_boardnum);
 	}
 	
-	public void hitCount(int b_num) {
+	public void hitCount(int fit_boardnum) {
 		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
-		mapper.hitCount(b_num);
+		mapper.hitCount(fit_boardnum);
 	}
 	
 	public int boardWrite(BoardVO vo) {
@@ -55,9 +55,9 @@ public class BoardDAO {
 		return mapper.getTotal(map);
 	}
 	
-	public ArrayList<CommentVO> commentList(int b_num){
+	public ArrayList<CommentVO> commentList(int fit_boardnum){
 		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
-		return mapper.commentList(b_num);
+		return mapper.commentList(fit_boardnum);
 	}
 	
 	public void commentWrite(CommentVO vo) {
@@ -70,6 +70,11 @@ public class BoardDAO {
 		mapper.commentUpdate(vo);
 	}
 	
+	public void commentDelete(CommentVO vo) {
+		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+		mapper.commentDelete(vo);
+	}
+	
 	public ArrayList<PCEstimateVO> pcsetList(String fitc_id){
 		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
 		return mapper.pcsetList(fitc_id);
@@ -79,6 +84,10 @@ public class BoardDAO {
 		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
 		return mapper.getpc(vo);
 	}
-	
-	
+
+	public PCEstimateVO getPcOne(BoardVO vo) {
+		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+		return mapper.getPcOne(vo);
+	}
+
 }
