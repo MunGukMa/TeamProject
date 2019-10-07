@@ -84,10 +84,10 @@ public class BoardController {
 	
 	//게시판 글읽기
 	@RequestMapping(value = "boardRead", method = RequestMethod.GET)
-	public String boardRead(Model model, int b_num,
+	public String boardRead(Model model, int fit_boardnum,
 			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
-			@RequestParam(value="searchItem", defaultValue="title") String searchItem,
-			@RequestParam(value="searchKeyword", defaultValue="") String searchKeyword) {
+			@RequestParam(value="searchItem", defaultValue="fit_boardtitle") String searchItem,
+			@RequestParam(value="searchKeyword", defaultValue="") String searchKeyword) throws Exception {
 		HashMap<String, String> map = new HashMap<>();
 		map.put("searchItem", searchItem);
 		map.put("searchKeyword", searchKeyword);
@@ -95,10 +95,17 @@ public class BoardController {
 		PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, currentPage, totalRecordsCount);
 		ArrayList<BoardVO> list = dao.boardList(map, navi.getStartRecord(), navi.getCountPerPage());
 		
-		BoardVO vo = dao.boardRead(b_num);
-		ArrayList<CommentVO> commentList = dao.commentList(b_num);
+		BoardVO vo = dao.boardRead(fit_boardnum);
+		ArrayList<CommentVO> commentList = dao.commentList(fit_boardnum);
+		PCEstimateVO pcvo = dao.getPcOne(vo);
+		System.out.println("게시글데이터"+vo);
+		System.out.println("견적데이터"+pcvo);
 		model.addAttribute("list", list);
+		model.addAttribute("navi", navi);
+		model.addAttribute("searchItem", searchItem);
+		model.addAttribute("searchKeyword", searchKeyword);
 		model.addAttribute("vo", vo);
+		model.addAttribute("pcvo",pcvo);
 		model.addAttribute("commentList", commentList);
 		return "/board/boardRead";
 	}
