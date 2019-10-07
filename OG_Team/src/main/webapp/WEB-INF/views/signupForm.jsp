@@ -77,57 +77,96 @@
 	function cancel() {
 		location.href = "/one/"
 	}
+	
+	function check(){
+		window.open('checkidForm', 'pop', 'resizable=no, scrollbars=no, status=no, toolbar=no, top=50, left=250, width=500, height=250');
+	}
+	
 </script>
+<style>
+	
+	header {
+		text-align: center;
+	}
+	
+	.registration form {
+		width: 280px;
+		height: 520px;
+		background-color: black;
+		padding: 10px 0px 0px 4px;
+		border-radius: 15px;
+		color: white;
+		text-transform: uppercase;
+		font-size: 14px;
+		font-weight: bold;
+		font-family: "Century Gothic";
+		margin: 0 auto;
+	}
+	
+	.registration input, .registration select {
+		width: 250px;
+		height: 25px;
+		margin: 3px 0px 0px 10px;
+		border: 0px;
+		font-weight: bold;
+	}
+	
+	.registration input:focus {
+		background-color: crimson;
+	}
+	
+	.registration form label {
+		margin: 5px 0px 0px 15px;
+	}
+	
+	a {
+		outline: none;
+	}
+
+</style>
 </head>
 <body>
-	<h1>회원가입</h1>
-	<div>
-		<form name="signupForm" id="signupForm" action="signUP" method="post">
-			<table>
-				<tr>
-					<td>아이디 :</td>
-					<td><input type="text" placeholder="아이디" name="fit_userid"
-						id="fitc_id" /> <input type="button" id="checkID" value="중복확인"
-						onclick="window.open('checkidForm','pop', 'resizable=no scrollbars=yes top=300 left=500 width=400 height=200');return false">
-					</td>
-				</tr>
-				<tr>
-					<td>비밀번호 :</td>
-					<td><input type="password" placeholder="비밀번호"
-						name="fit_userpwd" id="fit_userpwd" /></td>
-				</tr>
-				<tr>
-					<td>비밀번호 확인 :</td>
-					<td><input type="password" placeholder="비밀번호 확인"
-						 id="check_pw"></td>
-				</tr>
-				<tr>
-					<td>닉네임 :</td>
-					<td><input type="text" placeholder="닉네임" name="fit_usernick"
-						id="fitc_nickname" /></td>
-				</tr>
-				<tr>
-					<td>이메일 :</td>
-					<td><input type="text" name="fitc_email_01"
-						class="selectEmail" id="fitc_email_01" /> @ <input type="text"
-						name="fitc_email_02" class="selectEmail" id="fitc_email_02"
-						style="width: 100px" /> <select style="width: 110px"
-						class="selectEmail" name="selectEmail" id="selectEmail"
-						onChange="changeEmail()">
-							<option value="1" selected>직접입력</option>
-							<option value="naver.com">naver.com</option>
-							<option value="google.com">google.com</option>
-							<option value="hanmail.net">hanmail.net</option>
-							<option value="nate.com">nate.com</option>
-					</select></td>
-				</tr>
-				<tr>
-					<td><input type="button" value="회원가입" onclick="signUP()" /></td>
-					<td><input type="button" value="취소" onclick="cancel()" /></td>
-				</tr>
-			</table>
-		</form>
-
-	</div>
+	<header>
+		<div>
+			<h1>
+				<a href="/one/">Fit-c</a>
+			</h1>
+			<h5>Fit your game</h5>
+		</div>
+	</header>	
+	<section>
+		<div class="registration">
+			<form name="signupForm" id="signupForm" action="signUP" method="post">
+				<label>회원가입</label>
+				<br/><br/>
+				<label>아이디</label>
+					<input type="text" placeholder=" 아이디" name="fit_userid" id="fitc_id" readonly="readonly" style="background-color: lightgray;" />
+					<input type="button" id="checkID" value="중복확인" onclick="check();">
+				<br/><br/>
+				<label>비밀번호</label>
+					<input type="password" placeholder=" 비밀번호" name="fit_userpwd" id="fit_userpwd" />
+				<br/><br/>
+				<label>비밀번호 확인</label>
+					<input	type="password" placeholder=" 비밀번호 확인" id="check_pw">
+				<br/><br/>
+				<label>닉네임</label>
+					<input type="text" placeholder=" 닉네임" name="fit_usernick" id="fitc_nickname" />
+				<br/><br/>
+				<label>이메일</label>
+					<input type="text" name="fitc_email_01" class="selectEmail" id="fitc_email_01" /><br/>
+					&nbsp;&nbsp;&nbsp;@ <input type="text" name="fitc_email_02" class="selectEmail" id="fitc_email_02" style="width: 100px" />
+					<select style="width: 110px" class="selectEmail" name="selectEmail" id="selectEmail" onChange="changeEmail()">
+						<option value="1" selected>직접입력</option>
+						<option value="naver.com">naver.com</option>
+						<option value="google.com">google.com</option>
+						<option value="hanmail.net">hanmail.net</option>
+						<option value="nate.com">nate.com</option>
+					</select>
+				<br/><br/>
+				<input type="button" value="회원가입" onclick="signUP()" />
+				<input type="button" value="취소" onclick="cancel()" />
+			</form>
+		</div>
+	</section>
 </body>
 </html>
