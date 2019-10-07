@@ -125,22 +125,15 @@ public class BoardController {
 	// 게시판 글 수정
 	@RequestMapping(value = "boardUpdate", method = RequestMethod.POST)
 	public String boardUpdate(BoardVO vo, HttpSession session, RedirectAttributes rttr) {
-		MemberVO member = (MemberVO)session.getAttribute("fit_member");
-		vo.setFit_userid(member.getFit_userid());
-		boolean result;
-		if(dao.boardUpdate(vo) !=1) {
-			result = false;
-		}else {
+		boolean result = false;
+		int temp = 0;
+		temp = dao.boardUpdate(vo);
+		if(temp==1)	{
 			result = true;
 		}
 		
-		ArrayList<PCEstimateVO> pcsetList = dao.pcsetList(member.getFit_userid());
-		
-		rttr.addAttribute("u_result", result);
-		rttr.addAttribute("pcsetList", pcsetList);
-		
-		System.out.println(vo);
-		return "redirect:/board/boardRead?b_num=" + vo.getFit_boardnum();
+		rttr.addAttribute("u_result", result);		
+		return "redirect:/board/boardRead?fit_boardnum=" + vo.getFit_boardnum();
 	}
 		
 	@RequestMapping(value = "boardDelete", method = RequestMethod.GET)
