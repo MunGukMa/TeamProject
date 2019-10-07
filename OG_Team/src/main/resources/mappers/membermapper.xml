@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="team.project.one.dao.MemberMapper">
+
 	<insert id="signUP" parameterType="MemberVO">
 	
 		insert into
@@ -27,6 +28,7 @@
 			fit_member
 		where
 			fit_userid = #{fit_userid}	
+			
 	</select>
 	
 	<select id="logIN" parameterType="MemberVO" resultType="MemberVO">
@@ -74,8 +76,20 @@
 	 		fit_usermail = #{fit_usermail}
 	 	where
 	 		fit_userid = #{fit_userid}
+	 		
+	</update>
 	
+	<update id="mailconfirm" parameterType="MemberVO">
+	
+		update
+			fit_member
+		set
+			fit_userkeyvalue = 'Confirm'
+		where
+			fit_userid = #{fit_userid}
+			and
+			fit_userkeyvalue = #{fit_userkeyvalue}
+			
 	</update>
 	
 </mapper>
-
