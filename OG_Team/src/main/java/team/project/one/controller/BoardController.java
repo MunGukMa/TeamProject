@@ -78,7 +78,6 @@ public class BoardController {
 		model.addAttribute("navi", navi);
 		model.addAttribute("searchItem", searchItem);
 		model.addAttribute("searchKeyword", searchKeyword);
-		System.out.println(list);
 		return "/board/boardList";
 	}
 	
@@ -98,8 +97,6 @@ public class BoardController {
 		BoardVO vo = dao.boardRead(fit_boardnum);
 		ArrayList<CommentVO> commentList = dao.commentList(fit_boardnum);
 		PCEstimateVO pcvo = dao.getPcOne(vo);
-		System.out.println("게시글데이터"+vo);
-		System.out.println("견적데이터"+pcvo);
 		model.addAttribute("list", list);
 		model.addAttribute("navi", navi);
 		model.addAttribute("searchItem", searchItem);
@@ -113,21 +110,15 @@ public class BoardController {
 	//게시판 글 쓰기
 	@RequestMapping(value = "boardWrite", method = RequestMethod.POST)
 	public String boardWrite(BoardVO vo, HttpSession session, RedirectAttributes rttr) {
-		MemberVO member = (MemberVO)session.getAttribute("fit_member");
-		vo.setFit_userid(member.getFit_userid());
-		boolean result;
-		if(dao.boardWrite(vo) != 1) {
-			result = false;
-		}else {
+		System.out.println("글쓰기" + vo);
+		boolean result = false;
+		int temp = 0;
+		temp = dao.boardWrite(vo);
+		if(temp==1)
+		{
 			result = true;
-		}
-		
-		ArrayList<PCEstimateVO> pcsetList = dao.pcsetList(member.getFit_userid());
-		
+		} 
 		rttr.addAttribute("w_result", result);
-		rttr.addAttribute("pcsetList", pcsetList);
-		
-		System.out.println(pcsetList);
 		return "redirect:/board/boardList";
 	}
 	
