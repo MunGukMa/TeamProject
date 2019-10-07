@@ -98,15 +98,17 @@
 			cmttext.focus();
 			cmttext.placeholder="수정할 댓글을 입력하세요";
 			document.getElementById("rpybtn").style.display="none";
-			cmtupdate.style.display="block";			
-
-			if(cmttext.value == ''){
-				alert("댓글을 입력해주세요");
-			}
+			cmtupdate.style.display="block";				
 			
 			cmtupdate.onclick = function(){
 				if(confirm("댓글을 수정하시겠습니까?")){
 					var updatecomments = document.getElementById("fit_comments").value;
+
+					if(updatecomments == ''){
+						alert("댓글을 입력해주세요");
+						return;
+					}
+										
 					location.href="/one/board/commentUpdate?fit_commentnum=" + fit_commentnum + "&fit_boardnum="+${vo.fit_boardnum}+"&fit_comments="+updatecomments
 				}
 			}
