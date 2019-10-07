@@ -2,7 +2,7 @@ package team.project.one.vo;
 
 public class RamVO {
 	private int num;
-	private String name;
+	private String fit_name;
 	private String spec;
 	private String src_link;
 	
@@ -10,10 +10,10 @@ public class RamVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RamVO(int num, String name, String spec, String src_link) {
+	public RamVO(int num, String fit_name, String spec, String src_link) {
 		super();
 		this.num = num;
-		this.name = name;
+		this.fit_name = fit_name;
 		this.spec = spec;
 		this.src_link = src_link;
 	}
@@ -26,12 +26,12 @@ public class RamVO {
 		this.num = num;
 	}
 
-	public String getName() {
-		return name;
+	public String getFit_name() {
+		return fit_name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFit_name(String fit_name) {
+		this.fit_name = fit_name;
 	}
 
 	public String getSpec() {
@@ -52,12 +52,6 @@ public class RamVO {
 
 	@Override
 	public String toString() {
-		return "RamVO [num=" + num + ", name=" + name + ", spec=" + spec + ", src_link=" + src_link + ", getNum()="
-				+ getNum() + ", getName()=" + getName() + ", getSpec()=" + getSpec() + ", getSrc_link()="
-				+ getSrc_link() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+		return "RamVO [num=" + num + ", fit_name=" + fit_name + ", spec=" + spec + ", src_link=" + src_link + "]";
 	}
-
-	
-	
 }
