@@ -57,9 +57,7 @@
 		}
 	}
 	
-		
-		
-	</script>
+</script>
 <style>
 a {
 	text-decoration: none;
@@ -199,9 +197,9 @@ h1, h5 {
 	<aside>
 		<div class="box3">
 			<nav id="topMenu">
-				<c:if test="${sessionScope.fitc_id != null }">
+				<c:if test="${sessionScope.fit_member.fit_userid != null }">
 					<ul>
-						<li class="topMenuLi" value="banner"><a class="menuLink">${sessionScope.fitc_nickname}님
+						<li class="topMenuLi" value="banner"><a class="menuLink">${sessionScope.fit_member.fit_usernick}님
 								Welcome</a>
 							<ul class="submenu">
 								<li><a href="#" class="submenuLink longLink">메뉴1</a></li>
@@ -214,7 +212,7 @@ h1, h5 {
 							</ul></li>
 					</ul>
 				</c:if>
-				<c:if test="${sessionScope.fitc_id == null }">
+				<c:if test="${sessionScope.fit_member.fit_userid == null }">
 					<form id="login" action="logIN" method="post">
 						<table style="border: 1px solid #ccc; width: 140%">
 							<tr>
