@@ -9,5 +9,5 @@ public interface MemberMapper {
 	public MemberVO searchInfo(MemberVO vo);
 	public MemberVO searchPW(MemberVO vo);
 	public void updateInfo(MemberVO vo);
-
+	public void mailconfirm(MemberVO vo);
 }
