@@ -98,14 +98,32 @@
 					animationScale:true
 				},
 				responsive: false,
-				scales:{
-					yAxes:[
-						{
-							ticks:{
-								beginAtZero : true
-							}
-						}
-					]
+				scales: {
+					xAxes: [{
+					    gridLines: {
+						display:false    //x축 그래프 내부 눈금선 지우기
+					    },
+					    ticks: {    //x축 최소값 최대값 기준치 설정
+						min: 0,
+						max: 10
+						},
+						scaleLabel: {   //x축  데이터 라벨 추가
+						    display: true,
+						    labelString: "PC LEVEL",
+						    fontColor: "black",
+						    fontSize: "15",
+						    rotation: "90"
+						}   
+					}],
+					yAxes: [{
+					    gridLines: {
+						display:false    //y축 그래프 내부 눈금선 지우기
+					    },
+					    ticks: {      //y축 최소값 최대값 기준치 설정
+						min: 0,
+						max: 10
+						}   
+					}]
 				},
 				legend:{
 					display: false
