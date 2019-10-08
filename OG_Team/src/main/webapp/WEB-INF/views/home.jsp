@@ -398,6 +398,15 @@
 	    	border:10px solid lightblue;
 	    	border-radius:25px;
 	    }
+	    /* y축 라벨 스타일 추가*/
+	    #yScaleLabel{
+	    	line-height:90%;
+	    	position:absolute;
+	    	left:19%;
+	    	top:34%;
+	    	user-select:none;
+	    }	
+	
 	</style>
 </head>
 <body>
@@ -521,10 +530,14 @@
 	     
     		</div>
         </div>	
-     <div id="detail">
-    		
-    </div>
+    <!--<div id="detail">
+    </div> -->
     
+    <!-- y축 라벨 추가 div -->
+    <div id="yScaleLabel" class="yScaleLabel">
+     	<span>G<br>A<br>M<br>E<br><br>L<br>E<br>V<br>E<br>L</span>	
+    </div>
+		
     </section>
 	<footer>
         <div class="footer">
