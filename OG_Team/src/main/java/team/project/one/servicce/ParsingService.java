@@ -286,79 +286,89 @@ public class ParsingService
 	public void cpuParsing() 
 	{
 		cpucnt = 1;
-		ArrayList<CpuVO> cpulist = new ArrayList<CpuVO>();
-
 		for(int i= 2011; i<2020;i++){
+			cpuParsingsecond(i, "Intel");
 			try {
-				System.out.println(i+"년도 CPU Parsing");
-				String url="https://www.techpowerup.com/cpudb/?released="+i+"&mobile=No&server=No&sort=name";
-				org.jsoup.nodes.Document doc =Jsoup.connect(url).get();
-				Iterator<Element> test = doc.select("td").iterator();
-				int count =0;
-				CpuVO vo = new CpuVO();
-				while(test.hasNext()) 
-				{
-					
-					switch (count) {
-					case 0: 
-						vo.setCpuname(test.next().text());
-						count++;
-						break;
-					case 1: 
-						vo.setCpucode(test.next().text());
-						count++;
-						break;
-					case 2: 
-						vo.setCores(test.next().text());
-						count++;
-						break;
-					case 3: 
-						vo.setClock(test.next().text());
-						count++;
-						break;
-					case 4: 
-						vo.setSocket(test.next().text());
-						count++;
-						break;
-					case 5: 
-						vo.setProcess(test.next().text());
-						count++;
-						break;
-					case 6: 
-						vo.setL3cache(test.next().text());
-						count++;
-						break;
-					case 7: 
-						vo.setTdp(test.next().text());
-						count++;
-						break;
-					case 8:
-						vo.setReleased(test.next().text());
-						vo.setNum(cpucnt);
-						cpucnt++;
-						count = 0;
-						if(cpulist.size()>0){
-						if(cpulist.get(cpulist.size()-1).getNum()==vo.getNum())
-						{
-							System.out.println("Error!!!!!!!!");
-							System.out.println(vo);
-							break;
-						}}
-						cpulist.add(vo);
-						vo=new CpuVO();
-						break;
-					default:
-						break;
-					}	
-				}
-
-			} catch (IOException e) {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			cpuParsingsecond(i, "AMD");
 		}
-		dao.insertCpu(cpulist);
 		System.out.println(cpucnt-1+"개의 CPU정보를 Fit_cpu 테이블에 저장하였습니다");
+	}
+	
+	public void cpuParsingsecond(int year,String brand)
+	{
+		ArrayList<CpuVO> cpulist = new ArrayList<CpuVO>();
+		try {
+			System.out.println(year+"년도 CPU Parsing");
+			String url="https://www.techpowerup.com/cpudb/?mfgr="+brand+"&released="+year+"&sort=name";
+			Document doc =Jsoup.connect(url).get();
+			Iterator<Element> test = doc.select("td").iterator();
+			int count =0;
+			CpuVO vo = new CpuVO();
+			while(test.hasNext()) 
+			{
+				switch (count) {
+				case 0: 
+					vo.setFit_name(brand+" "+test.next().text());
+					count++;
+					break;
+				case 1: 
+					vo.setCpucode(test.next().text());
+					count++;
+					break;
+				case 2: 
+					vo.setCores(test.next().text());
+					count++;
+					break;
+				case 3: 
+					vo.setClock(test.next().text());
+					count++;
+					break;
+				case 4: 
+					vo.setSocket(test.next().text());
+					count++;
+					break;
+				case 5: 
+					vo.setProcess(test.next().text());
+					count++;
+					break;
+				case 6: 
+					vo.setL3cache(test.next().text());
+					count++;
+					break;
+				case 7: 
+					vo.setTdp(test.next().text());
+					count++;
+					break;
+				case 8:
+					vo.setReleased(test.next().text());
+					vo.setNum(cpucnt);
+					cpucnt++;
+					count = 0;
+					if(cpulist.size()>0){
+					if(cpulist.get(cpulist.size()-1).getNum()==vo.getNum())
+					{
+						System.out.println("Error!!!!!!!!");
+						System.out.println(vo);
+						break;
+					}}
+					System.out.println(vo);
+					cpulist.add(vo);
+					vo=new CpuVO();
+					break;
+				default:
+					break;
+				}	
+			}
+			dao.insertCpu(cpulist);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void Caseparsing() 
@@ -373,17 +383,24 @@ public class ParsingService
 			while(element.hasNext()) 
 			{
 				String temp = element.next().text();
-				if(!temp.contains("광고")) 
+				if(!(temp.contains("광고")) && temp.length()>100) 
 				{
 					CaseVO tempvo = new CaseVO();
 					String[] tempname = null;
 					tempname= temp.split("최저");
 					String casename = tempname[0];
-					String[] temprowprice = tempname[1].split("원 ");
+					String[] temprowprice = null;
+					if(tempname.length>1) 
+					{
+						temprowprice = tempname[1].split("원 ");
+					} else 
+					{
+						break;
+					}
 					String rowprice = temprowprice[0];
 					String[] addop = temprowprice[1].split("PC케이스 ");
 					String[] plusop = addop[1].split("\\|");
-					tempvo.setCasename(casename);
+					tempvo.setFit_name(casename);
 					tempvo.setRowprice(rowprice);
 					String casesize = null;
 					String tempcasesize = null;
@@ -428,12 +445,31 @@ public class ParsingService
 					if(!plusop[plusop.length-1].contains(" : ")) 
 					{
 						String[] tmlist =  plusop[plusop.length-1].split(" 리");
+						String[] tmmlist = null;
+						String tempstr = "";
 						if(tmlist[0].contains(", ")) 
 						{
 							tmlist[0] = tmlist[0].replaceAll(" ", "");
 							tmlist[0] = tmlist[0].replaceAll(",", "/");
 						}
-						tempvo.setMainboardsize(tempvo.getMainboardsize()+"/"+tmlist[0]);
+						if(tmlist[0].contains("TX")) 
+						{
+							tmmlist = tmlist[0].split("/");
+						}
+						if(tmmlist!=null) 
+						{
+							for(String str : tmmlist) 
+							{
+								if(str.contains("TX")) 
+								{
+									tempstr = tempstr +str;
+								}
+							}
+						}
+						if(!tempstr.equals("")) 
+						{
+							tempvo.setMainboardsize(tempvo.getMainboardsize()+"/"+tempstr);
+						}
 					}
 					if(tempcasesize!=null) 
 					{
