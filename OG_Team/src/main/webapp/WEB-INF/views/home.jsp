@@ -41,18 +41,19 @@
 				error:function(){alert("error");}
 			})			
 			
+			//chart 데이터값 파트
 			var data ={
 		        datasets: [{
-			        name: ['0,0', '10,10', gameary[0], gameary[1], gameary[2], gameary[3], gameary[4], gameary[5]],
+			        name: [gameary[0], gameary[1], gameary[2], gameary[3], gameary[4], gameary[5]],
 			        pointRadius: 10,
 			        pointHoverRadius: 10,
 			        pointClickRadius: 15,
-			        pointStyle:['circle','circle', gameicon[0], gameicon[1], gameicon[2], gameicon[3], gameicon[4], gameicon[5]],			
-		            data: [{x:0, y:0}, {x:10, y:10}, {x:gameary[0].pclevel, y:gameary[0].gamelevel}, {x:gameary[1].pclevel, y:gameary[1].gamelevel}, {x:gameary[2].pclevel, y:gameary[2].gamelevel}, 
-		            	{x:gameary[3].pclevel, y:gameary[3].gamelevel}, {x:gameary[4].pclevel, y:gameary[4].gamelevel}] //컨트롤러에서 모델로 받아온다.
+			        pointStyle:[gameicon[0], gameicon[1], gameicon[2], gameicon[3], gameicon[4], gameicon[5]],			
+		           	data: [{x:gameary[0].pclevel, y:gameary[0].gamelevel}, {x:gameary[1].pclevel, y:gameary[1].gamelevel}, {x:gameary[2].pclevel, y:gameary[2].gamelevel}, 
+		            	{x:gameary[3].pclevel, y:gameary[3].gamelevel}, {x:gameary[4].pclevel, y:gameary[4].gamelevel}]
 		            
-		        }]
-		    }
+		        	}]
+		   	}
 				
 			//chart 옵션 파트
 			var option = {
