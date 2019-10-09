@@ -265,7 +265,7 @@
 						
 	</script>
 	<style>
-		a
+	     a
 		{
 			text-decoration:none;
 		}
@@ -278,37 +278,53 @@
 	        font-family: 'NanumGothic';
 	    }
 	    
+	    /*타이틀 높이 설정*/
+	    .title{
+	    	height:10%;	    	
+	    }
+	    /*로그인 메뉴바 공간 설정*/
+	    .loginMenuBar{
+	    	width:80%;
+	    	height: 5%;
+	    	margin-left: 10%;
+	    	margin-top: 1.25%;	    	
+	    }
+	    /*로그인 메뉴 테이블 설정*/
+	    .loginMenu{
+	    	margin-left: auto;
+	    	margin-right: auto;
+	    	align:center;
+	    	border-spacing:10px;
+	    }
+	    /* box1~3  각 구역 크기 재설정  */
 	    .box1{
-	        margin-top: 30px;
-	        margin-left: 20%;
-	        width: 60%;
+	        margin-left: 10%;
+	        width: 75%;
 	        height: 60%;
-	        margin-bottom: 5%; 
 	        align-content: center
 	    }
 	
 	    .box2{
 	        float: right;
-	        width: 10%;
+	        width: 8%;
 	        margin-top: 30px;
-	        margin-left: 5%;
-	        margin-right: 5%;        
-	        height: 50px;
+	        margin-left: 1%;
+	        margin-right: 1%;        
+	        
 	    }
 	    .box3{
 	        float: left;
-	        width: 10%;
+	        width: 8%;
 	        margin-top: 30px;
-	        margin-left: 5%;
-	        margin-right: 5%;
-	        height: 50px;
-	        align-text:center;
+	        margin-left: 1%;
+	        margin-right: 1%;
+	       
 	    }
 	    .footer{
+	    	margin-top:1.25%;
 	        text-align: center;
 	        clear: both;
-	    }
-	    
+	    }	    
 	    
 	    #topMenu{
 	    	height : 30px;
@@ -418,20 +434,21 @@
 	</style>
 </head>
 <body>
-	<header>
-        <div>
+    <!-- title 클래스 이름 선언 --!>
+    <header>
+        <div class = "title">
             <h1>
                 <a href="#" >Fit-c</a>
             </h1>
-			<h5>
-				Fit your game
-			</h5>            
+	    <h5>
+		Fit your game
+	    </h5>
         </div>
     </header>
     <aside>
         <div class="box2">
-	            사이드1<br>
-	            광고가 들어갈 자리
+		사이드1<br>
+		광고가 들어갈 자리
         </div>
     </aside>
     <aside>
@@ -451,27 +468,31 @@
 	        	</li>
 	        </ul>
 	    </c:if>
-	    <c:if test="${sessionScope.fitc_id == null }">
-	    	<form id="login" action="logIN" method="post">
-				<table style="border:1px solid #ccc; width:140%">
-					<tr>
-						<td width="250px"><input type="text" name="fit_userid" id="fitc_id" placeholder="ID" style="width:90%" /></td>
-					</tr>
-					<tr>
-						<td width="250px"><input type="password" name="fit_userpwd" id="fitc_pw" placeholder="PASSWORD" style="width:90%" /></td>
-					</tr>
-					<tr>
-						<td width="250px"><input type="button" value="로그인" onclick="logIN()" style="width:100%" /></td>
-					</tr>
-				</table>		
-			</form>
-			<a href="signupForm" style="font-size:10px" >아직 회원이 아니신가요?</a><br>
-			<a href="#" onclick="window.open('searchInfoForm','pop','resizeable=no scrollbars=yes width=600 height=400');return false" style="font-size:10px" > 아이디 / 비밀번호 찾기 </a>
-	    </c:if> ///add 1002
-	     </nav>
+	    <!-- 로그인메뉴 왼쪽 메뉴바에서 삭제 --!>
+	    </nav>
         </div>
     </aside>
-	<section>
+    <!-- 로그인메뉴 차트위 상단으로 이동 --!>
+    <nav>
+    	<div class="loginMenuBar">
+    		<c:if test="${sessionScope.fit_member== null }">
+    		<form id="login" action="logIN" method="post">
+	    		<table class="loginMenu">
+	    			<tr>
+	    				<td>로그인 : </td>
+	    				<td><input type="text" name="fit_userid" id="fitc_id" placeholder="ID" placeholder="ID"></td>
+	    				<td>비밀번호 : </td>
+	    				<td><input type="password" name="fit_userpwd" id="fitc_pw" placeholder="PASSWORD"></td>
+	    				<td><input type="button" value="로그인" onclick="logIN()" style="width:100%" /></td>
+	    				<td><a href="signupForm" style="font-size:10px" >아직 회원이 아니신가요?</a></td>
+	    				<td><a href="javascript:;" onclick="window.open('searchInfoForm','pop','resizeable=no scrollbars=yes width=600 height=400');return false" style="font-size:10px" > 아이디 / 비밀번호 찾기 </a></td>
+	    			</tr>
+	    		</table>
+    		</form>
+    		</c:if>
+    	</div>
+    </nav>
+    <section>
         <div class="box1" id="chart_div" >
 	     <canvas id="mainchart" ></canvas>
 	     <div id="nondiv" style="display:none;">
