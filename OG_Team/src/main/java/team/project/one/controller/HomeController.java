@@ -80,13 +80,38 @@ public class HomeController {
 	@ResponseBody
 	public ArrayList<GameVO> gamelist()
 	{
-		ArrayList<GameVO> gameList = chartdao.getGameList();
-		for(GameVO gmvo : gameList)
-		{
-			System.out.println(gmvo);
-		};
-		return gameList;
-		
+		boolean steamflag = parser.getCnt("fit_gamelist");
+		if(steamflag==true) {
+			ArrayList<GameVO> gameList = chartdao.getGameList();
+			for(GameVO gmvo : gameList)
+			{
+				System.out.println(gmvo);
+			};
+			return gameList;
+		} else {
+			ArrayList<SteamVO> appidList = chartdao.steamParsing();
+			ArrayList<GameVO> gameList = new ArrayList<>();
+			int cnt1 = 1;
+			int cnt2 = 5;
+			for(SteamVO vo : appidList) {
+
+				GameVO game = chartdao.gameParsing(vo);
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println(game.getGamename());
+				System.out.println(game.getImagelink());
+				game.setGamelevel(cnt1++);
+				game.setPclevel(cnt2);
+				gameList.add(game);
+
+			}
+			System.out.println(gameList.size()+"====================================");
+			return gameList;
+		}
 	}
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
