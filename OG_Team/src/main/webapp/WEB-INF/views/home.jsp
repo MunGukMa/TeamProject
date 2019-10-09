@@ -101,28 +101,44 @@
 				scales: {
 					xAxes: [{
 					    gridLines: {
-						display:false    //x축 그래프 내부 눈금선 지우기
+						display:false,    //x축 그래프 내부 눈금선 지우기
+						color:"red",      //x축의 선 색상
+						lineWidth:3       //x축의 선 굵기
 					    },
 					    ticks: {    //x축 최소값 최대값 기준치 설정
 						min: 0,
-						max: 10
-						},
-						scaleLabel: {   //x축  데이터 라벨 추가
-						    display: true,
-						    labelString: "PC LEVEL",
-						    fontColor: "black",
-						    fontSize: "15",
-						    rotation: "90"
-						}   
+						max: 10,
+						stepSize:1,	//x축 눈금 간격 1로 설정
+			            		fontSize:15,	//x축 눈금자 숫자 크기 설정
+			            		fontColor:"red"	//x축 눈금자 숫자 색상 설정
+					    },
+					    scaleLabel: {	//x축 데이터 라벨 추가
+						display: true,
+						labelString: "GAME LEVEL",
+						fontColor: "black",
+						fontSize: "15",
+						fontFamily:"'Lobster', cursive",	//x축 라벨 폰트 설정
+					    }   
 					}],
 					yAxes: [{
-					    gridLines: {
-						display:false    //y축 그래프 내부 눈금선 지우기
+					    gridLines: { 
+						display:false,	//y축 그래프 내부 눈금선 지우기
+						color:"red",	//y축의 선 색상
+						lineWidth:3	//y축의 선 굵기
 					    },
-					    ticks: {      //y축 최소값 최대값 기준치 설정
+					    ticks: {
 						min: 0,
-						max: 10
-						}   
+						max: 10,
+						fontSize:15,	//y축 눈금자 숫자 크기 설정
+						fontColor:"red"	//y축 눈금자 숫자 색상 설정
+					    },
+					    scaleLabel: {	//y축 데이터 라벨 추가
+						display: true,
+						labelString: "PC LEVEL",
+						fontColor: "black",
+						fontSize: "15",
+						fontFamily:"'Lobster', cursive",	//y축 라벨 폰트 설정
+					    }   
 					}]
 				},
 				legend:{
@@ -398,15 +414,7 @@
 	    	border:10px solid lightblue;
 	    	border-radius:25px;
 	    }
-	    /* y축 라벨 스타일 추가*/
-	    #yScaleLabel{
-	    	line-height:90%;
-	    	position:absolute;
-	    	left:19%;
-	    	top:34%;
-	    	user-select:none;
-	    }	
-	
+	    
 	</style>
 </head>
 <body>
@@ -531,12 +539,7 @@
     		</div>
         </div>	
     <!--<div id="detail">
-    </div> -->
-    
-    <!-- y축 라벨 추가 div -->
-    <div id="yScaleLabel" class="yScaleLabel">
-     	<span>G<br>A<br>M<br>E<br><br>L<br>E<br>V<br>E<br>L</span>	
-    </div>
+    </div> -->    
 		
     </section>
 	<footer>
