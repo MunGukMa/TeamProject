@@ -14,81 +14,149 @@
 <script>
 	$(function(){
 		var r = JSON.parse(sessionStorage.getItem("vo"));
-		$('#cpuname').append(r.cpu);
-		$('#gpuname').append(r.vga);
-		$('#memory').append(r.ram);
-		document.getElementById('check1').style.display = '';
+
+		$('#cpuname').append(r[0]);
+		$('#gpuname').append(r[2]);
+		$('#memory').append(r[1]);
+		document.getElementById('loading').style.display = '';
+		document.getElementById('check1').style.display = 'none';
 		document.getElementById('check2').style.display = 'none';
 		
-		$.ajax({
-	  			url : '/fitc/lowest',
+	  	$.ajax({
+	  			url : '/one/compare/recommend',
 	  			type : 'post',
 	  			data : {'cpu': $('#cpuname').html() ,'ram': $('#memory').html(), 'gpu': $('#gpuname').html()},
 	  			dataType : "JSON",
 	  			success : function(result){
-  	  			$('#lowestCpu2').append(result.cpu);
-  	  			$('#lowestGpu2').append(result.gpu);
-  	  			$('#lowestRam2').append(result.ram);
+	  	  			$('#recommended_cpu').append(result.cpu);
+	  	  			$('#recommended_cpu_amd').append(result.cpu_amd);
+	  	  			$('#recommended_gpu').append(result.gpu);
+	  	  			$('#recommended_ram').append(result.ram);
+	  	  			$('#recommended_mainboard').append(result.mainboard);
+	  	  			$('#recommended_mainboard_amd').append(result.mainboard_amd);
+	  			  	$('#recommended_power').append(result.power);
+	  				$('#recommended_case').append(result.pc_case);
+	  				var cpu				= $('#recommended_cpu').html();	
+	  		  		var ram 			= $('#recommended_ram').html();
+	  		  		var gpu 			= $('#recommended_gpu').html();
+	  		  		var mainboard		= $('#recommended_mainboard').html();
+	  		  		var power 			= $('#recommended_power').html();
+	  		  		var pc_case 		= $('#recommended_case').html();
+	  		  		
+	  		  		
+	  		  		var cpu_amd			= $('#recommended_cpu_amd').html();
+	  		  		var mainboard_amd 	= $('#recommended_mainboard_amd').html();
+
+	  		  		$.ajax({
+	  			  			url : '/one/compare/lowest',
+	  			  			type : 'post',
+	  			  			data : {'cpu': cpu ,'ram': ram, 'gpu': gpu, 'mainboard': mainboard, 'power': power, 'pc_case': pc_case,'cpu_amd': cpu_amd,'mainboard_amd': mainboard_amd},
+	  			  			dataType : "JSON",
+	  			  			success : function(r){
+	  		  	  			$('#lowestCpu1').append(r.cpu);
+	  		  	  			$('#lowestGpu1').append(r.gpu);
+	  		  	  			$('#lowestRam1').append(r.ram);
+	  		  	  			$('#lowestMainboard1').append(r.mainboard);
+	  		  	  			$('#lowestPower1').append(r.power);
+	  		  	  			$('#lowestCase1').append(r.pc_case);
+	  		  	  			
+	  		  	  			$('#lowestCpu1_amd').append(r.cpu_amd);
+	  		  	 		 	$('#lowestMainboard1_amd').append(r.mainboard_amd);
+	  		  	 			document.getElementById('loading').style.display = 'none';
+	  		  	 			document.getElementById('check1').style.display = '';
+	  			  			},
+	  			  			error : function(){
+	  			  				alert("ERROR!!!!!");
+	  			  			}
+	  			  	
+	  			  		}) 
+  			
 	  			},
 	  			error : function(){
 	  				alert("빙시나");
 	  			}
 	  	
-	  		})
-		
+	  	})
+	  	
 	})
-	/* $(function(){
-		var r = JSON.parse(sessionStorage.getItem("lowest"));
-		$('#lowestCpu').append(r.cpu);
-		$('#lowestGpu').append(r.gpu);
-		$('#lowestRam').append(r.ram);
-	}) */
 	
 	function lowerprice(){
-		var cpu = $('#cpuname').html();
-  		var ram = $('#memory').html();
-  		var gpu = $('#gpuname').html();
-  		
-  		var estimate = confirm("최저가를 확인하시겠습니까?");
-  		
-  		if(estimate == true){
-  			/* $.ajax({
-  	  			url : '/fitc/lowest',
-  	  			type : 'post',
-  	  			data : {'cpu': cpu ,'ram': ram, 'gpu': gpu},
-  	  			dataType : "JSON",
-  	  			success : function(r){
-	  	  			$('#lowestCpu').append(r.cpu);
-	  	  			$('#lowestGpu').append(r.gpu);
-	  	  			$('#lowestRam').append(r.ram);
-	  	  			document.getElementById('check1').style.display = 'none';
-	  	  			document.getElementById('check2').style.display = '';
-  	  			},
-  	  			error : function(){
-  	  				alert("빙시나");
-  	  			}
-  	  	
-  	  		}) */
-  			document.getElementById('check1').style.display = 'none';
+  	 	 	document.getElementById('check1').style.display = 'none';
 	  		document.getElementById('check2').style.display = '';
-	  		document.getElementById('lowestCpu1').style.display = 'none';
-	  		document.getElementById('lowestCpu2').style.display = '';
-	  		document.getElementById('lowestGpu1').style.display = 'none';
-	  		document.getElementById('lowestGpu2').style.display = '';
-	  		document.getElementById('lowestRam1').style.display = 'none';
-	  		document.getElementById('lowestRam2').style.display = '';
-  		} else {
-  			//location.href = "/fitc/comRecommend2";			
+	  		document.getElementById('check3').style.display = '';
+	  		
+  	  		if(document.getElementById('intel_check').style.display == 'none') {
+  				document.getElementById('lowestCpu1').style.display = '';
+  				document.getElementById('lowestCpu1_amd').style.display = 'none';
+  				document.getElementById('lowestCpu2').style.display = 'none';
+  	  		} else {
+  	  			document.getElementById('lowestCpu1').style.display = 'none';
+				document.getElementById('lowestCpu1_amd').style.display = '';
+				document.getElementById('lowestCpu2').style.display = 'none';
+  	  		}
+  			
+	  		document.getElementById('lowestGpu1').style.display = '';
+	  		document.getElementById('lowestGpu2').style.display = 'none';
+	  		document.getElementById('lowestRam1').style.display = '';
+	  		document.getElementById('lowestRam2').style.display = 'none';
+	  		
+	  		if(document.getElementById('intel_check').style.display == 'none') {
+  				document.getElementById('lowestMainboard1').style.display = '';
+  				document.getElementById('lowestMainboard1_amd').style.display = 'none';
+  				document.getElementById('lowestMainboard2').style.display = 'none';
+  	  		} else {
+  	  			document.getElementById('lowestMainboard1').style.display = 'none';
+				document.getElementById('lowestMainboard1_amd').style.display = '';
+				document.getElementById('lowestMainboard2').style.display = 'none';
+  	  		}
+	  		
+	  		document.getElementById('lowestPower1').style.display = '';
+	  		document.getElementById('lowestPower2').style.display = 'none';
+	  		document.getElementById('lowestCase1').style.display = '';
+	  		document.getElementById('lowestCase2').style.display = 'none';
+
+	}
+	function amd(){
+  			
+	  	  	document.getElementById('intel_check').style.display = '';
+	  	  	document.getElementById('amd_check').style.display = 'none';
+	  	  	document.getElementById('recommended_cpu').style.display = 'none';
+	  		document.getElementById('recommended_mainboard').style.display = 'none';
+	  		document.getElementById('recommended_cpu_amd').style.display = '';
+	  		document.getElementById('recommended_mainboard_amd').style.display = '';
+	  		
+	  		if(document.getElementById('check1').style.display == 'none'&&document.getElementById('loading').style.display == 'none') {
+	  			document.getElementById('lowestCpu1_amd').style.display = '';
+	  			document.getElementById('lowestCpu1').style.display = 'none';
+	  			document.getElementById('lowestMainboard1_amd').style.display = '';
+	  			document.getElementById('lowestMainboard1').style.display = 'none';
+	  		}
+
+	}
+	function intel(){
+		
+  		document.getElementById('intel_check').style.display = 'none';
+  		document.getElementById('amd_check').style.display = '';
+		document.getElementById('recommended_cpu').style.display = '';
+		document.getElementById('recommended_mainboard').style.display = '';
+		document.getElementById('recommended_cpu_amd').style.display = 'none';
+		document.getElementById('recommended_mainboard_amd').style.display = 'none';
+		
+		
+		if(document.getElementById('check1').style.display == 'none'&&document.getElementById('loading').style.display == 'none') {
+  			document.getElementById('lowestCpu1_amd').style.display = 'none';
+  			document.getElementById('lowestCpu1').style.display = '';
+  			document.getElementById('lowestMainboard1_amd').style.display = 'none';
+  			document.getElementById('lowestMainboard1').style.display = '';
   		}
+ 
 	}
 </script>
 <style>
 a {
 	text-decoration: none;
 }
-/*div{
-	        border: 1px solid #ccc;
-	    }*/
+
 h1, h5 {
 	text-align: center;
 	font-family: 'NanumGothic';
@@ -234,39 +302,90 @@ canvas {
 	border-radius: 25px;
 }
 
-table {
+/* table {
 	border-collapse: separate;
-	border-spacing: 1px;
+	border-spacing: 1px; 
 	text-align: center;
 	line-height: 1.5;
-	border-top: 1px solid #ccc;
+ 	border-top: 1px solid #ccc;
 	margin: 20px 10px;
 	margin-left: auto;
-	margin-right: auto;
+	margin-right: auto; 
 }
 
 th {
 	width: 150px;
 	padding: 10px;
 	font-weight: bold;
-	vertical-align: top;
+	vertical-align: top; 
 	border-bottom: 1px solid #ccc;
 }
 
 td {
 	width: 350px;
 	padding: 10px;
-	vertical-align: top;
+	vertical-align: top; 
 	border-bottom: 1px solid #ccc;
+}  */
+html, body {
+	height: 100%;
 }
 
-#td3 {
-	width: 350px;
-	padding: 10px;
-	vertical-align: top;
-	border-bottom: 1px solid #ccc;
-	text-align: left;
+body {
+	margin: 0;
+	/* background: linear-gradient(45deg, #49a09d, #5f2c82); */
+	/* background: linear-gradient(45deg, #49a09d, #5f2c82); */
+	/* background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,41,1) 35%, rgba(0,212,255,1) 100%); */
+	
+	font-family: sans-serif;
+	font-weight: 100;
 }
+
+/* .recommended {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+} */
+
+table {
+background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+	width: 800px;
+	border-collapse: separate;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+	border-spacing: 1px; 
+	text-align: center;
+	line-height: 1.5;
+	margin: 20px 10px;
+	margin-left: auto;
+	margin-right: auto; 
+}
+
+th,
+td {
+	padding: 15px;
+	background-color: rgba(255,255,255,0.2);
+	color: #fff;
+}
+
+th {
+	text-align: left;
+	background-color: #55608f;
+}
+
+
+tr:hover {
+			background-color: rgba(255,255,255,0.2);
+}
+td:hover {
+			background-color: rgba(255,255,255,0.4);
+}
+/* .row1:hover {
+	background-color: rgba(255,255,255,0.2);
+} */
+
+
 </style>
 </head>
 <body>
@@ -307,12 +426,13 @@ td {
 	</aside>
 
 	<section>
-		<div>
+		<div class = "recommended">
 			<table>
 				<thead>
 					<tr>
 						<th></th>
-						<th>recommended</th>
+						<th>game_spec</th>
+						<th>recommended_spec</th>
 						<th>The lowest price</th>
 					</tr>
 				</thead>
@@ -320,44 +440,63 @@ td {
 					<tr>
 						<td>CPU</td>
 						<td id='cpuname'></td>
-						<td id='lowestCpu1' style = 'display:;'></td>
-						<td id='lowestCpu2' style = 'display:none;'></td>
+						<td id='recommended_cpu'></td>
+						<td id='recommended_cpu_amd' style = 'display:none;'></td>
+						<td id='lowestCpu1' style = 'display:none;'></td>
+						<td id='lowestCpu1_amd' style = 'display:none;'></td>
+						<td id='lowestCpu2' style = 'display:;'></td>
 					</tr>
 					<tr>
 						<td>GPU</td>
 						<td id='gpuname'></td>
-						<td id='lowestGpu1' style = 'display:;'></td>
-						<td id='lowestGpu2' style = 'display:none;'></td>
+						<td id='recommended_gpu'></td>
+						<td id='lowestGpu1' style = 'display:none;'></td>
+						<td id='lowestGpu2' style = 'display:;'></td>
 					</tr>
 					<tr>
 						<td>RAM</td>
 						<td id='memory'></td>
-						<td id='lowestRam1' style = 'display:;'></td>
-						<td id='lowestRam2' style = 'display:none;'></td>
+						<td id='recommended_ram'></td>
+						<td id='lowestRam1' style = 'display:none;'></td>
+						<td id='lowestRam2' style = 'display:;'></td>
 					</tr>
 					<tr>
 						<td>MAINBOARD</td>
-						<td id='mainboard'></td>
 						<td></td>
+						<td id='recommended_mainboard'></td>
+						<td id='recommended_mainboard_amd' style = 'display:none;'></td>
+						<td id='lowestMainboard1' style = 'display:none;'></td>
+						<td id='lowestMainboard1_amd' style = 'display:none;'></td>
+						<td id='lowestMainboard2' style = 'display:;'></td>
 					</tr>
 					<tr>
 						<td>POWER</td>
-						<td id='power'></td>
 						<td></td>
+						<td id='recommended_power'></td>
+						<td id='lowestPower1' style = 'display:none;'></td>
+						<td id='lowestPower2' style = 'display:;'></td>
 					</tr>
 					<tr>
 						<td>CASE</td>
-						<td id='cas2'></td>
 						<td></td>
+						<td id='recommended_case'></td>
+						<td id='lowestCase1' style = 'display:none;'></td>
+						<td id='lowestCase2' style = 'display:;'></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td></td>
 						<td>
-							<button id = 'check1' style = 'display:;' onclick="lowerprice()">최저가 확인</button>
-							<button id = 'check2' style = 'display: none;' >당신의 마음속에 저장</button>
+							<button id = 'intel_check' style = 'display:none;' onclick="intel()">Intel추천</button>
+							<button id = 'amd_check' style = 'display: ;' onclick="amd()" >AMD추천</button>
 						</td>
-					
+						<!-- <td id='loading'>최저가 가져오는 중</td> -->
+						<td id='result'>
+							<a href = "#" id='loading'>최저가 가져오는 중</a>
+							<button id = 'check1' style = 'display: none;' onclick="lowerprice()">최저가 확인</button>
+							<button id = 'check2' style = 'display: none;' >저장하기</button>
+							<button id = 'check3' style = 'display: none;' >직접견적</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
