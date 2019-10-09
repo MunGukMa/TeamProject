@@ -129,21 +129,83 @@ public class CompareController {
 		return "/comRecommend";
 	}
 	
+	////////////////////////////////////update 1009//////////////////////////////////
 	@RequestMapping(value = "/lowest", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public PcVO lowest(String cpu, String ram, String gpu, Model model) {
+	public PcVO lowest(String cpu, String ram, String gpu, String mainboard, String power, String pc_case, String cpu_amd, String mainboard_amd) {
 		PcVO vo = new PcVO();
-		PcVO result = new PcVO();
-		System.out.println(cpu);
-		System.out.println(gpu);
-		System.out.println(ram);
 		vo.setCpu(cpu);
-		if(ram.equalsIgnoreCase("16Gb"))
-			vo.setRam("삼성전자 DDR4 16G");
-		else if(ram.equalsIgnoreCase("8Gb"))
-			vo.setRam("삼성전자 DDR4 8G");
+		vo.setRam(ram);
 		vo.setGpu(gpu);
-		result = dao.lowestPrice(vo);
+		vo.setMainboard(mainboard);
+		vo.setPower(power);
+		vo.setPc_case(pc_case);
+		vo.setCpu_amd(cpu_amd);
+		vo.setMainboard_amd(mainboard_amd);
+		System.out.println(vo);
+		PcVO result = dao.lowestPrice(vo);
 		return result;
 	}
+	@RequestMapping(value = "/recommend", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public PcVO recommend(String cpu, String ram, String gpu) {
+		PcVO vo = new PcVO();
+		String recommend_cpu = null;
+		String recommend_gpu = null;
+		String cpu_amd = null;
+		
+		String Power = "";
+		if(cpu.contains("i7")||cpu.contains("I7")){
+			recommend_cpu="인텔 코어i5-9세대 9400F";
+			cpu_amd = "AMD 라이젠 5 3600";
+		} else 
+			recommend_cpu="인텔 코어i3-9세대 9100F";
+			cpu_amd = "AMD 라이젠 5 3400G";
+		if(gpu.contains("GTX")){
+			String[] temp = gpu.split("GTX");
+			int num = 0 ;
+			try {
+				num = Integer.parseInt(temp[1].substring(1,5).trim());
+			} catch (Exception e) {
+				num = Integer.parseInt(temp[1].substring(1,4).trim());
+			}
+			if(num < 780){
+				recommend_gpu = "GTX 1650";
+			} else if(num < 980){
+				recommend_gpu = "GTX 1660";
+			} else 
+				recommend_gpu = "GTX 1660 Ti";
+		} else 
+			recommend_gpu = "GTX 1650";
+		
+		String Mainboard = "Asus TUF B360-Pro Gaming";
+		String mainboard_amd = "Asus Prime B450-Plus";
+		String Case = "ABKO NCORE 새턴 풀 아크릴 슬렌더";
+		
+		if(recommend_gpu.equals("GTX 1650"))
+			Power = "잘만 Wattbit 400W 83+";
+		else
+			Power = "COOLMAX ELITE 500W +12V Single Rail 84+";
+		
+		
+		String Ram = null;
+		if(ram.equalsIgnoreCase("16Gb"))
+			Ram = "삼성전자 DDR4 16G";
+		else if(ram.equalsIgnoreCase("8Gb"))
+			Ram = "삼성전자 DDR4 8G";
+		else 
+			Ram = "삼성전자 DDR4 8G";
+		
+		vo.setCpu(recommend_cpu);
+		vo.setRam(Ram);
+		vo.setGpu(recommend_gpu);
+		vo.setMainboard(Mainboard);
+		vo.setPc_case(Case);
+		vo.setPower(Power);
+		vo.setCpu_amd(cpu_amd);
+		vo.setMainboard_amd(mainboard_amd);
+		System.out.println(cpu_amd);
+		return vo;
+	}
+	
 }
