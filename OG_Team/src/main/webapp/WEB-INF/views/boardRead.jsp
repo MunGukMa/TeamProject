@@ -424,12 +424,10 @@
 						<td class="commentdate">
 							<span>${comment.fit_commentdate}</span>
 						</td>
-						<c:if test="${sessionScope.fit_member.fit_userid == comment.fit_userid}">
 						<td class="commentbtn">
 							<input type="button" value="삭제" onclick="commentDelete('${comment.fit_commentnum}')" />
 							<input type="button" value="수정" onclick="commentModify('${comment.fit_commentnum}', '${comment.fit_comments}')" />
 						</td>
-						</c:if>
 					</tr>
 				</c:forEach>
 			</table>
@@ -484,7 +482,6 @@
 						</select>
 						<input type="text" name="searchKeyword">
 						<input type="submit" value="검색" >
-						<button type="button" class="btn" >버튼</button>
 					</form>
 					</td>
 				</tr>				
